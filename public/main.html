@@ -7,8 +7,9 @@
       height: 100%;
       display: flex;
       overflow-x: scroll;
-      gap: 20px;
-      padding-left: 10px;
+      gap: 10px;
+      padding-left: 0px;
+      margin: 0px;
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
     }
@@ -36,9 +37,8 @@
     .column img {
       width: 100%;
       height: auto;
-      margin-bottom: 30px;
-      filter: grayscale(100%) opacity(50%);
-      outline: 1px solid black;
+      margin-bottom: 5%;
+      outline: 0px solid black;
     }
 
     .text {
@@ -47,6 +47,7 @@
     }
 
     .arrow-button-l, .arrow-button-r {
+  width: 5%;
   background-color: transparent;
   border: none;
   padding: 0;
@@ -76,15 +77,73 @@
     
   </style>
 
+<script>
+  var scrollInterval;
+  var scrollSpeed = 0;
+  var acceleration = 0.2;
+  var maxScrollSpeed = 10;
+
+  function startScrollLeft() {
+    scrollSpeed = 0;
+    scrollInterval = setInterval(function() {
+      scrollSpeed = Math.min(scrollSpeed + acceleration, maxScrollSpeed);
+      document.querySelector(".container").scrollLeft -= scrollSpeed;
+    }, 10);
+  }
+
+  function stopScrollLeft() {
+    clearInterval(scrollInterval);
+    scrollSpeed = 0;
+  }
+
+  function startScrollRight() {
+    scrollSpeed = 0;
+    scrollInterval = setInterval(function() {
+      scrollSpeed = Math.min(scrollSpeed + acceleration, maxScrollSpeed);
+      document.querySelector(".container").scrollLeft += scrollSpeed;
+    }, 10);
+  }
+
+  function stopScrollRight() {
+    clearInterval(scrollInterval);
+    scrollSpeed = 0;
+  }
+</script>
+
 </head>
 <body>
-  <button id="slideBack" type="button" class="arrow-button-l"></button>
+  <button id="slideBack" type="button" class="arrow-button-l" onmousedown="startScrollLeft()" onmouseup="stopScrollLeft()" onmouseleave="stopScrollLeft()"></button>
   <div class="container">
     <div class="column">
       <h3>manuel mensa</h3>
       <p>lorem ipsum dolor</p>
       <!-- Add more content here if needed -->
     </div>
+    <div class="column" >
+      <h3>arquitectura sin estado</h3>
+      <p>lorem ipsum dolor</p>
+      <br>
+      <img src="/assets/img/01_arquitectura sin estado/01.jpg" alt="Image 1">
+      <img src="/assets/img/01_arquitectura sin estado/02.JPG" alt="Image 2">
+      <img src="/assets/img/01_arquitectura sin estado/03.jpg" alt="Image 3">
+      <img src="/assets/img/01_arquitectura sin estado/04.JPG" alt="Image 4">
+      <img src="/assets/img/01_arquitectura sin estado/05.jpg" alt="Image 5">
+      <img src="/assets/img/01_arquitectura sin estado/06.JPG" alt="Image 6">
+      <img src="/assets/img/01_arquitectura sin estado/07.jpg" alt="Image 7">
+      <img src="/assets/img/01_arquitectura sin estado/08.jpg" alt="Image 8">
+      <img src="/assets/img/01_arquitectura sin estado/09.jpg" alt="Image 9">
+      <img src="/assets/img/01_arquitectura sin estado/10.jpg" alt="Image 10">
+      <img src="/assets/img/01_arquitectura sin estado/11.jpg" alt="Image 11">
+      <img src="/assets/img/01_arquitectura sin estado/12.jpg" alt="Image 12">
+      <img src="/assets/img/01_arquitectura sin estado/13.jpg" alt="Image 13">
+      <img src="/assets/img/01_arquitectura sin estado/14.jpg" alt="Image 14">
+      <img src="/assets/img/01_arquitectura sin estado/15.jpg" alt="Image 15">
+      <img src="/assets/img/01_arquitectura sin estado/16.jpg" alt="Image 16">
+      <img src="/assets/img/01_arquitectura sin estado/17.jpg" alt="Image 17">
+      <img src="/assets/img/01_arquitectura sin estado/18.jpg" alt="Image 18">
+      <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum, felis sit amet sollicitudin rutrum, est quam lobortis mi, ut facilisis ex diam sit amet massa.</p>
+      <!-- Add more content here if needed -->
+  </div>
     <div class="column" >
       <h3>casa freesbee</h3>
       <p>lorem ipsum dolor</p>
@@ -216,39 +275,10 @@
   </div>
   
 
-  <button id="slide" type="button" class="arrow-button-r"></button>
-
+  <button id="slideForward" type="button" class="arrow-button-r" onmousedown="startScrollRight()" onmouseup="stopScrollRight()" onmouseleave="stopScrollRight()"></button>
 </body>
-<script>
-  var button = document.getElementById('slide');
-button.onclick = function () {
-  var container = document.getElementById('container');
-  sideScroll(container,'right',25,100,10);
-};
 
-var back = document.getElementById('slideBack');
-back.onclick = function () {
-  var container = document.getElementById('container');
-  sideScroll(container,'left',25,100,10);
-};
-
-function sideScroll(element,direction,speed,distance,step){
-  scrollAmount = 0;
-  var slideTimer = setInterval(function(){
-      if(direction == 'left'){
-          element.scrollLeft -= step;
-      } else {
-          element.scrollLeft += step;
-      }
-      scrollAmount += step;
-      if(scrollAmount >= distance){
-          window.clearInterval(slideTimer);
-      }
-  }, speed);
-}
-</script>
-
-<script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+<!-- <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
 <script>
   var container = document.querySelector('.container');
   var hammer = new Hammer(container);
@@ -260,5 +290,10 @@ function sideScroll(element,direction,speed,distance,step){
   hammer.on('swiperight', function() {
     container.scrollLeft -= container.offsetWidth;
   });
+</script> -->
+
+<script>
+  window.history.replaceState('','','/');
 </script>
+
 </html>
