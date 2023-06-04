@@ -1,81 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
 
-    .container, html, body {
-      height: 100%;
-      display: flex;
-      overflow-x: scroll;
-      gap: 10px;
-      padding-left: 0px;
-      margin: 0px;
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
-    }
-
-    .container::-webkit-scrollbar {
-      display: none;  /* Chrome, Safari, and Opera */
-    }
-
-    .column {
-      flex: 0 0 auto;
-      width: 300px;
-      padding: 5px;
-      font-size: 10px;
-      font-family: Helvetica;
-      text-align: left;
-      overflow-y: scroll;
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
-    }
-
-    .column::-webkit-scrollbar {
-      display: none;  /* Chrome, Safari, and Opera */
-    }
-
-    .column img {
-      width: 100%;
-      height: auto;
-      margin-bottom: 5%;
-      outline: 0px solid black;
-    }
-
-    .text {
-      font-size: 8px;
-      text-align: justify;
-    }
-
-    .arrow-button-l, .arrow-button-r {
-  width: 5%;
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  font-size: 16px;
-}
-
-.arrow-button-l::before {
-  content: "\2190"; /* Unicode for left arrow */
-}
-
-.arrow-button-r::before {
-  content: "\2192"; /* Unicode for left arrow */
-}
-    /* Media query for mobile devices */
-    @media (max-width: 767px) {
-    .container {
-      display: block;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
-    .column {
-      width: 100%;
-      overflow-y: auto;
-    }
-  }
-    
-  </style>
+<link href="/assets/css/global.css" rel="stylesheet">
 
 <script>
   var scrollInterval;
@@ -114,12 +41,12 @@
 <body>
   <button id="slideBack" type="button" class="arrow-button-l" onmousedown="startScrollLeft()" onmouseup="stopScrollLeft()" onmouseleave="stopScrollLeft()"></button>
   <div class="container">
-    <div class="column">
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>manuel mensa</h3>
       <p>lorem ipsum dolor</p>
       <!-- Add more content here if needed -->
     </div>
-    <div class="column" >
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>arquitectura sin estado</h3>
       <p>lorem ipsum dolor</p>
       <br>
@@ -144,7 +71,7 @@
       <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum, felis sit amet sollicitudin rutrum, est quam lobortis mi, ut facilisis ex diam sit amet massa.</p>
       <!-- Add more content here if needed -->
   </div>
-    <div class="column" >
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>casa freesbee</h3>
       <p>lorem ipsum dolor</p>
       <br>
@@ -158,7 +85,7 @@
       <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum, felis sit amet sollicitudin rutrum, est quam lobortis mi, ut facilisis ex diam sit amet massa.</p>
       <!-- Add more content here if needed -->
   </div>
-    <div class="column">
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>casa freesbee</h3>
       <p>lorem ipsum dolor</p>
       <br>
@@ -168,7 +95,7 @@
       <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum, felis sit amet sollicitudin rutrum, est quam lobortis mi, ut facilisis ex diam sit amet massa.</p>
       <!-- Add more content here if needed -->
   </div>
-    <div class="column">
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>casa freesbee</h3>
       <p>casa freesbee x Santiago Giusto</p>
       <br>
@@ -181,7 +108,7 @@
       <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum, felis sit amet sollicitudin rutrum, est quam lobortis mi, ut facilisis ex diam sit amet massa.</p>
       <!-- Add more content here if needed -->
     </div>
-    <div class="column">
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>never even</h3>
       <p>lorem ipsum dolor</p>
       <br>
@@ -190,14 +117,14 @@
       <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum, felis sit amet sollicitudin rutrum, est quam lobortis mi, ut facilisis ex diam sit amet massa.</p>
       <!-- Add more content here if needed -->
     </div>
-    <div class="column">
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>matters of fact</h3>
       <p>el inevitable sufrimiento de la arquitectura</p>
       <br>
       <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque inventore libero, error, eius rerum necessitatibus esse nesciunt eaque tempore nulla eos incidunt, voluptate minima totam cupiditate consectetur! Dolore, vero doloribus?Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, voluptatibus cumque! Ipsum, sed aspernatur minus maiores consectetur debitis eos earum atque ea fuga. Quam, eligendi! Rerum temporibus cum aut dolores?Lorem, ipsum dolor sit amet consectetur adipisicing elit. A velit voluptatum, quidem deserunt obcaecati deleniti, porro eum quia voluptate nemo aspernatur placeat sequi nulla, voluptas laboriosam minima pariatur veritatis impedit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto similique culpa explicabo omnis iure nam voluptatem cum nisi laboriosam a, laudantium temporibus sint, esse, earum repellat facere ratione vel dolores?Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa corporis error pariatur distinctio quod, illum ipsum, dolorem vero laborum vitae neque placeat rem suscipit corrupti ea voluptatem, totam ratione. Amet.Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque inventore libero, error, eius rerum necessitatibus esse nesciunt eaque tempore nulla eos incidunt, voluptate minima totam cupiditate consectetur! Dolore, vero doloribus?Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, voluptatibus cumque! Ipsum, sed aspernatur minus maiores consectetur debitis eos earum atque ea fuga. Quam, eligendi! Rerum temporibus cum aut dolores?Lorem, ipsum dolor sit amet consectetur adipisicing elit. A velit voluptatum, quidem deserunt obcaecati deleniti, porro eum quia voluptate nemo aspernatur placeat sequi nulla, voluptas laboriosam minima pariatur veritatis impedit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto similique culpa explicabo omnis iure nam voluptatem cum nisi laboriosam a, laudantium temporibus sint, esse, earum repellat facere ratione vel dolores?Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa corporis error pariatur distinctio quod, illum ipsum, dolorem vero laborum vitae neque placeat rem suscipit corrupti ea voluptatem, totam ratione. Amet.Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque inventore libero, error, eius rerum necessitatibus esse nesciunt eaque tempore nulla eos incidunt, voluptate minima totam cupiditate consectetur! Dolore, vero doloribus?Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, voluptatibus cumque! Ipsum, sed aspernatur minus maiores consectetur debitis eos earum atque ea fuga. Quam, eligendi! Rerum temporibus cum aut dolores?Lorem, ipsum dolor sit amet consectetur adipisicing elit. A velit voluptatum, quidem deserunt obcaecati deleniti, porro eum quia voluptate nemo aspernatur placeat sequi nulla, voluptas laboriosam minima pariatur veritatis impedit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto similique culpa explicabo omnis iure nam voluptatem cum nisi laboriosam a, laudantium temporibus sint, esse, earum repellat facere ratione vel dolores?Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa corporis error pariatur distinctio quod, illum ipsum, dolorem vero laborum vitae neque placeat rem suscipit corrupti ea voluptatem, totam ratione. Amet.Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque inventore libero, error, eius rerum necessitatibus esse nesciunt eaque tempore nulla eos incidunt, voluptate minima totam cupiditate consectetur! Dolore, vero doloribus?Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, voluptatibus cumque! Ipsum, sed aspernatur minus maiores consectetur debitis eos earum atque ea fuga. Quam, eligendi! Rerum temporibus cum aut dolores?Lorem, ipsum dolor sit amet consectetur adipisicing elit. A velit voluptatum, quidem deserunt obcaecati deleniti, porro eum quia voluptate nemo aspernatur placeat sequi nulla, voluptas laboriosam minima pariatur veritatis impedit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto similique culpa explicabo omnis iure nam voluptatem cum nisi laboriosam a, laudantium temporibus sint, esse, earum repellat facere ratione vel dolores?Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa corporis error pariatur distinctio quod, illum ipsum, dolorem vero laborum vitae neque placeat rem suscipit corrupti ea voluptatem, totam ratione. Amet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum quam dolores neque, inventore velit laboriosam nesciunt cum laborum ut eaque fuga voluptatibus molestias assumenda perferendis nam quod hic id quia.</p>
       <!-- Add more content here if needed -->
     </div>
-    <div class="column">
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>avalos</h3>
       <p>lorem ipsum dolor</p>
       <br>
@@ -205,7 +132,7 @@
       <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum, felis sit amet sollicitudin rutrum, est quam lobortis mi, ut facilisis ex diam sit amet massa.</p>
       <!-- Add more content here if needed -->
     </div>
-    <div class="column">
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>geometrías invisibles</h3>
       <p>lorem ipsum dolor</p>
       <br>
@@ -216,7 +143,7 @@
       <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum, felis sit amet sollicitudin rutrum, est quam lobortis mi, ut facilisis ex diam sit amet massa.</p>
       <!-- Add more content here if needed -->
     </div>
-    <div class="column">
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>estados de la arquitectura</h3>
       <p>lorem ipsum dolor</p>
       <br>
@@ -238,7 +165,7 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/White_square_50%25_transparency.svg/1024px-White_square_50%25_transparency.svg.png" alt="Image 1">
       <!-- Add more content here if needed -->
     </div>
-    <div class="column">
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>mothershiptheatre</h3>
       <p>lorem ipsum dolor</p>
       <br>
@@ -260,37 +187,22 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/White_square_50%25_transparency.svg/1024px-White_square_50%25_transparency.svg.png" alt="Image 1">
       <!-- Add more content here if needed -->
     </div>
-    <div class="column">
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <h3>mothershiptheatre</h3>
       <p>lorem ipsum dolor</p>
       <br>
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/White_square_50%25_transparency.svg/1024px-White_square_50%25_transparency.svg.png" alt="Image 1">
       <!-- Add more content here if needed -->
     </div>
-    <div class="column">
+    <div class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
 
     </div>
     </div>
 
   </div>
   
-
   <button id="slideForward" type="button" class="arrow-button-r" onmousedown="startScrollRight()" onmouseup="stopScrollRight()" onmouseleave="stopScrollRight()"></button>
 </body>
-
-<!-- <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
-<script>
-  var container = document.querySelector('.container');
-  var hammer = new Hammer(container);
-
-  hammer.on('swipeleft', function() {
-    container.scrollLeft += container.offsetWidth;
-  });
-
-  hammer.on('swiperight', function() {
-    container.scrollLeft -= container.offsetWidth;
-  });
-</script> -->
 
 <script>
   window.history.replaceState('','','/');

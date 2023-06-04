@@ -1,0 +1,81 @@
+
+.container, html, body {
+    height: 100%;
+    display: flex;
+    overflow-x: scroll;
+    gap: 10px;
+    padding-left: 0px;
+    margin: 0px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .container::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, and Opera */
+  }
+
+  .column {
+    flex: 0 0 auto;
+    width: 300px;
+    padding: 5px;
+    font-size: 10px;
+    font-family: Helvetica;
+    text-align: left;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .column::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, and Opera */
+  }
+
+  .column img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 5%;
+    outline: 0px solid black;
+  }
+
+  .text {
+    font-size: 8px;
+    text-align: justify;
+  }
+
+  .arrow-button-l, .arrow-button-r {
+width: 5%;
+background-color: transparent;
+border: none;
+padding: 0;
+font-size: 16px;
+}
+
+.arrow-button-l::before {
+content: "\2190"; /* Unicode for left arrow */
+}
+
+.arrow-button-r::before {
+content: "\2192"; /* Unicode for left arrow */
+}
+  /* Media query for mobile devices */
+  @media (max-width: 768px) {
+  .container {
+    display: flex;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  }
+
+  .column {
+    flex: 0 0 100%;
+  scroll-snap-align: start;
+  white-space: nowrap;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  }
+
+  .arrow-button-l, .arrow-button-r {
+    display: none;
+    }
+}
+  
