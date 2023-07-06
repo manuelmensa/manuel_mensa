@@ -2,6 +2,10 @@
   font-family: PitagonSerif;
   src: url(PitagonSerif-Light-BF641cfdc5ea4a2.ttf);
 }
+@font-face {
+  font-family: PitagonSerif-Italic;
+  src: url(PitagonSerif-Italic-BF641cfdc5f20b9.ttf);
+}
 
 .container, html, body {
     height: 100%;
@@ -28,6 +32,10 @@
     overflow-y: scroll;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+  }
+
+  .column i{
+    font-family: PitagonSerif-Italic;
   }
 
   .column::-webkit-scrollbar {
