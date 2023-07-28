@@ -49,6 +49,13 @@
     outline: 0px solid black;
   }
 
+  .column video {
+    width: 100%;
+    height: auto;
+    margin-bottom: 5%;
+    outline: 0px solid black;
+  }
+
   .text {
     font-size: 8px;
     text-align: justify;
