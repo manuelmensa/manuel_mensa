@@ -38,6 +38,10 @@
     font-family: PitagonSerif-Italic;
   }
 
+  .column a{
+    color: grey;
+  }
+
   .column::-webkit-scrollbar {
     display: none;  /* Chrome, Safari, and Opera */
   }
