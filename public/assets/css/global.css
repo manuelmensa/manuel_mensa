@@ -83,14 +83,25 @@ content: "\2192"; /* Unicode for left arrow */
   /* Media query for mobile devices */
   @media (max-width: 768px) {
   .container {
-    display: flex;
+  display: flex;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
   }
 
   .column {
-    flex: 0 0 100%;
+  flex: 0 0 100%;
+  width: 25%;
+  scroll-snap-align: start;
+  white-space: nowrap;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  }
+
+  .column1 {
+  position: sticky;
+  flex: 0 0 100%;
+  width: 25%;
   scroll-snap-align: start;
   white-space: nowrap;
   overflow-x: scroll;
