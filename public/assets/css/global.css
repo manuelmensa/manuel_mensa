@@ -9,6 +9,7 @@
 
 .container, html, body {
     background-color: black;
+    color: white;
     height: 100%;
     display: flex;
     overflow-x: scroll;
@@ -24,6 +25,7 @@
   }
 
   .column {
+    color: white;
     flex: 0 0 auto;
     width: 17%;
     padding: 5px;
@@ -68,6 +70,7 @@
   }
 
   .arrow-button-l, .arrow-button-r {
+color: white;
 width: 5%;
 background-color: transparent;
 border: none;
