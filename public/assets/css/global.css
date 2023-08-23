@@ -8,6 +8,7 @@
 }
 
 .container, html, body {
+    background-color: black;
     height: 100%;
     display: flex;
     overflow-x: scroll;
@@ -61,6 +62,7 @@
   }
 
   .text {
+    color: white;
     font-size: 8px;
     text-align: justify;
   }
