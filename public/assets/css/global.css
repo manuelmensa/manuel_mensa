@@ -48,6 +48,7 @@
 
   .column a{
     color: grey;
+    text-decoration: none;
   }
 
   .column::-webkit-scrollbar {
