@@ -99,7 +99,7 @@ content: "\2192"; /* Unicode for left arrow */
 
   .column {
   flex: 0 0 100%;
-  width: 300px;
+  width: 25% !important;
   scroll-snap-align: start;
   white-space: nowrap;
   overflow-x: scroll;
@@ -109,7 +109,7 @@ content: "\2192"; /* Unicode for left arrow */
   .column1 {
   position: sticky;
   flex: 0 0 100%;
-  width: 300px;
+  width: 25% !important;
   scroll-snap-align: start;
   white-space: nowrap;
   overflow-x: scroll;
