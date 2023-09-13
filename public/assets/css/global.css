@@ -91,10 +91,8 @@ content: "\2192"; /* Unicode for left arrow */
 }
 
 .anchor{
-  display: block;
-  height: 115px; /*same height as header*/
-  margin-top: -115px; /*same height as header*/
-  visibility: hidden;
+  position: absolute;
+  transform: translateX(-50vw);
 }
   /* Media query for mobile devices */
   @media (max-width: 768px) {
