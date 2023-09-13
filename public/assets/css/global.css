@@ -92,8 +92,8 @@ content: "\2192"; /* Unicode for left arrow */
 
 .anchor{
   display: block;
-  position:relative; 
-  left:50vw; 
+  position: relative; 
+  left: 40vw; 
   visibility: hidden;
 }
   /* Media query for mobile devices */
