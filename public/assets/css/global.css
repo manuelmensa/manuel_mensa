@@ -92,8 +92,8 @@ content: "\2192"; /* Unicode for left arrow */
 
 .anchor{
   display: block;
-  width: 115px; /*same height as header*/
-  margin-left: -115px; /*same height as header*/
+  width: 50vw; /*same height as header*/
+  margin-right: -50vw; /*same height as header*/
   visibility: hidden;
 }
   /* Media query for mobile devices */
