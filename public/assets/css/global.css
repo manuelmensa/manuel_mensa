@@ -39,11 +39,11 @@
   }
 
   .column i{
-    font-family: PitagonSerif-Italic;
+    font-family: sans-serif;;
   }
 
   .column h3{
-    font-family: PitagonSerif-Black;
+    font-family: sans-serif;
   }
 
   .column a{
@@ -80,6 +80,7 @@
   .arrow-button-l, .arrow-button-r {
 width: 5%;
 height: 5%;
+color: white;
 background-color: #191970;
 border: none;
 padding: 0;
