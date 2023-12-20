@@ -37,7 +37,14 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
-
+  .column2 {
+    flex: 0 0 auto;
+    width: 5%;
+    padding: 5px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
   .column i{
   } 
 
