@@ -56,11 +56,12 @@
   .column a{
     color: black;
     text-decoration:none;
-    text-indent: 10px;
+    text-indent: 30%;
   }
 
   .column a:hover {
     color: #191970;
+    text-decoration: underline overline #191970;
   }
 
   .column::-webkit-scrollbar {
