@@ -30,8 +30,8 @@
     flex: 0 0 auto;
     width: 17%;
     padding: 5px;
-    font-size: 14px;
-    /* line-height: 1.75; */
+    font-size: 15px; /* antes 14px */
+    line-height: 1.50; /* antes nada */
     font-family: PitagonSerif;
     text-align: left;
     overflow-y: scroll;
