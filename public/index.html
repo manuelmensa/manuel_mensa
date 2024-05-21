@@ -40,6 +40,25 @@
     clearInterval(scrollInterval);
     scrollSpeed = 0;
   }
+
+// Smooth scrolling function
+function scrollToElement(targetElement) {
+  window.scrollTo({
+    top: targetElement.offsetTop,
+    behavior: 'smooth' // Smooth scrolling behavior
+  });
+}
+
+// Add smooth scrolling behavior to all links with href pointing to an ID
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent default behavior of anchor tag
+    const targetElement = document.querySelector(this.getAttribute('href')); // Get the target element
+    if (targetElement) {
+      scrollToElement(targetElement); // Scroll to the target element
+    }
+  });
+});
 </script>
 
 </head>
