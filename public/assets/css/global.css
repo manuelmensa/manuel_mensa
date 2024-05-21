@@ -108,10 +108,17 @@
   margin-bottom: 10px;
 }
 
-#slideBackBottom, #slideForwardBottom {
+#slideBackBottom {
   position: fixed;
   bottom: 0;
   left: 0;
+  width: 30px;
+}
+
+#slideForwardBottom {
+  position: fixed;
+  bottom: 0;
+  right: 0;
   width: 30px;
 }
 
