@@ -125,7 +125,7 @@ content: "\02C2";  Unicode for left arrow
   content: "\02C2";
 }
 #slideBackBottom::before {
-  content: "U+226A";
+  content: "&#x226A";
 }
 
 .arrow-button-r::before {
