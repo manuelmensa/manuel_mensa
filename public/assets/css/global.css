@@ -87,13 +87,26 @@
     text-align: justify;
   }
 
-  .arrow-button-l, .arrow-button-r {
-width: 100px;
-height: 30px;
-color: white;
-background-color: #191970;
-border: none;
-font-size: 16px;
+.button-container {
+  position: fixed;
+  top: 0; /* Adjust top position as needed */
+  left: 0; /* Adjust left position as needed */
+  width: 100%; /* Full width */
+  display: flex;
+  flex-direction: column;
+}
+
+#slideBackTop {
+  margin-bottom: 10px; /* Adjust spacing between buttons */
+}
+
+.arrow-button-l, .arrow-button-r {
+  width: 100px;
+  height: 30px;
+  color: white;
+  background-color: #191970;
+  border: none;
+  font-size: 16px;
 }
 
 .arrow-button-l::before {
