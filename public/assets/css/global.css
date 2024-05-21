@@ -11,6 +11,10 @@
   src: url(PitagonSerif-Medium-BF641cfdc6b9cd5.ttf);
 }
 
+html {
+  scroll-behavior: smooth; /* Smooth scrolling behavior for the entire page */
+}
+
 .container, html, body {
     height: 100%;
     display: flex;
