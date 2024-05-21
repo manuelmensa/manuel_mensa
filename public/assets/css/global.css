@@ -121,6 +121,13 @@
 content: "\02C2";  Unicode for left arrow 
 } */
 
+#slideBackTop::before {
+  content: "\02C2";
+}
+#slideBackBottom::before {
+  content: "U+226A";
+}
+
 .arrow-button-r::before {
 content: "\02C3"; /* Unicode for left arrow */
 }
