@@ -62,7 +62,6 @@
 
   .column a:hover {
     color: #191970;
-    text-decoration: underline overline #191970;
   }
 
   .column::-webkit-scrollbar {
