@@ -131,19 +131,11 @@
   font-size: 16px;
 }
 
-/*
-.arrow-button-l::before {
-content: "\02C2";  Unicode for left arrow 
-} */
-
 #slideBackTop::before {
   content: "\02C2";
 }
-#slideBackBottom::before {
-  content: "&#x226A";
-}
 
-.arrow-button-r::before {
+#slideForwardTop::before {
 content: "\02C3"; /* Unicode for left arrow */
 }
 
