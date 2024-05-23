@@ -41,31 +41,15 @@
     scrollSpeed = 0;
   }
 
-// Smooth horizontal scrolling function
-function scrollToElement(targetElement) {
-  targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-}
-
-// Add smooth horizontal scrolling behavior to all links with href pointing to an ID
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent default behavior of anchor tag
-    const targetElement = document.querySelector(this.getAttribute('href')); // Get the target element
-    if (targetElement) {
-      scrollToElement(targetElement); // Scroll to the target element
-    }
-  });
-});
-
 </script>
 
 </head>
 <body>
   
 <div class="button-container-l">
-  <button id="slideBackTop" type="button" class="arrow-button-l" onmousedown="startScrollLeft()" onmouseup="stopScrollLeft()" onmouseleave="stopScrollLeft()"></button>
+  <button id="slideBackTop" type="button" class="arrow-button-l" onclick="window.location.href = '/';">&#x226A;&#xFE0E;</button>
 </div>
-<button id="slideBackBottom" type="button" class="arrow-button-l" onclick="window.location.href = '/';">&#x226A;&#xFE0E;</button>
+<button id="slideBackBottom" type="button" class="arrow-button-l" onmousedown="startScrollLeft()" onmouseup="stopScrollLeft()" onmouseleave="stopScrollLeft()"></button>
 
   
   <div class="container">
@@ -1943,9 +1927,9 @@ Práctica de lo Irreductible (Archivos de Arquitectura, 2022) y Atlas de Arquite
   </div>
   
   <div class="button-container-r">
-  <button id="slideForwardTop" type="button" class="arrow-button-r" onmousedown="startScrollRight()" onmouseup="stopScrollRight()" onmouseleave="stopScrollRight()"></button>
+  <button id="slideForwardTop" type="button" class="arrow-button-r" onclick="window.location.href = '#web';">&#x226B;&#xFE0E;</button>
 </div>
-<button id="slideForwardBottom" type="button" class="arrow-button-r" onclick="window.location.href = '#web';">&#x226B;&#xFE0E;</button>
+<button id="slideForwardBottom" type="button" class="arrow-button-r" onmousedown="startScrollRight()" onmouseup="stopScrollRight()" onmouseleave="stopScrollRight()"></button>
   
 </body>
 
@@ -1956,6 +1940,22 @@ Práctica de lo Irreductible (Archivos de Arquitectura, 2022) y Atlas de Arquite
     element.muted = "muted";
 }
   window.addEventListener("hashchange", () => window.history.pushState({}, "", '/'), {});
+
+// Smooth horizontal scrolling function
+function scrollToElement(targetElement) {
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+}
+
+// Add smooth horizontal scrolling behavior to all links with href pointing to an ID
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent default behavior of anchor tag
+    const targetElement = document.querySelector(this.getAttribute('href')); // Get the target element
+    if (targetElement) {
+      scrollToElement(targetElement); // Scroll to the target element
+    }
+  });
+});
 </script>
 
 </html>
