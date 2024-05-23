@@ -169,7 +169,6 @@ content: "\02C3"; /* Unicode for left arrow */
     
   .container {
   display: flex;
-  position: absolute !important; 
   /*overflow-x: scroll;*/
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
