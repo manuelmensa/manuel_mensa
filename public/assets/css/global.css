@@ -50,6 +50,15 @@ html {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+
+  #gapB {
+    width: 2.5% !important;
+  }
+
+  #gap2B {
+    width: 5% !important;
+  }
+
   .column i{
   } 
 
