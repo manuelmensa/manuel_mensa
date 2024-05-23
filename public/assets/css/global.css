@@ -12,7 +12,7 @@
 }
 
 html {
-  scroll-behavior: smooth; /* Smooth scrolling behavior for the entire page */
+  scroll-behavior: smooth !important; /* Smooth scrolling behavior for the entire page */
 }
 
 .container, html, body {
@@ -135,11 +135,11 @@ html {
   font-size: 16px;
 }
 
-#slideBackTop::before {
+#slideBackBottom::before {
   content: "\02C2";
 }
 
-#slideForwardTop::before {
+#slideForwardBottom::before {
 content: "\02C3"; /* Unicode for left arrow */
 }
 
