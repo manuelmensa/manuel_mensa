@@ -167,7 +167,7 @@ content: "\02C3"; /* Unicode for left arrow */
 
   .column {
   flex: 0 0 100%;
-  width: 10% !important;  /* antes 50% */
+  width: 50px% !important;  /* antes 50% */
   scroll-snap-align: start;
   white-space: nowrap;
   overflow-x: scroll;
@@ -177,7 +177,7 @@ content: "\02C3"; /* Unicode for left arrow */
   .column1 {
   position: sticky;
   flex: 0 0 100%;
-  width: 5% !important; /* antes 15% */
+  width: 15px% !important; /* antes 15% */
   scroll-snap-align: start;
   white-space: nowrap;
   overflow-x: scroll;
