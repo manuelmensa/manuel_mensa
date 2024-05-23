@@ -41,12 +41,14 @@ html {
     overflow-y: scroll;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    position: relative; /* Position relative for positioning the arrow */
+
   }
 
     .column:hover::after {
         content: ''; /* Add content to the pseudo-element */
         position: absolute; /* Position the arrow absolutely */
-        bottom: -10px; /* Adjust the distance from the bottom of the column */
+        bottom: 20px; /* Adjust the distance from the bottom of the column */
         left: 50%; /* Center the arrow horizontally */
         transform: translateX(-50%); /* Center the arrow horizontally */
         width: 0; 
