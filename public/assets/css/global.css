@@ -153,7 +153,7 @@ content: "\02C3"; /* Unicode for left arrow */
   @media (max-width: 768px) {
 
   body {
- transform: scale(0.8);  /* Adjust the scale value as needed */
+  /* transform: scale(0.8);   Adjust the scale value as needed */
   /* transform-origin: top left; Maintain the top left corner as the scaling origin */
   /* width: 125%;  Compensate for the scaling to prevent horizontal scrolling */
   }
