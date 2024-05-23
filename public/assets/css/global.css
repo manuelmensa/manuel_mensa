@@ -187,6 +187,9 @@ content: "\02C3"; /* Unicode for left arrow */
         float: none; /* Remove any floating behavior */
         margin-left: 0; /* Reset left margin */
         margin-right: 0; /* Reset right margin */
+
+    word-wrap: break-word; /* For legacy browsers */
+    overflow-wrap: break-word; /* For modern browsers */
   }
 
   .column1 {
