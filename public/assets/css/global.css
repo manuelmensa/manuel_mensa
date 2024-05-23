@@ -183,7 +183,7 @@ content: "\02C3"; /* Unicode for left arrow */
   /*overflow-x: scroll; */
   -webkit-overflow-scrolling: touch;
 
-        width: 50% !important; /* Set column width to 100% to make them stack vertically */
+        width: 100% !important; /* Set column width to 100% to make them stack vertically */
         float: none; /* Remove any floating behavior */
         margin-left: 0; /* Reset left margin */
         margin-right: 0; /* Reset right margin */
