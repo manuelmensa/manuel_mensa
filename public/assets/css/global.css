@@ -168,7 +168,8 @@ content: "\02C3"; /* Unicode for left arrow */
   }
     
   .container {
-  display: flex;
+  display: flex !important;
+  position: absolute !important; 
   /*overflow-x: scroll;*/
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
