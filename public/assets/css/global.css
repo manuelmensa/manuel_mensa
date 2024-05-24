@@ -47,7 +47,7 @@ html {
 
     .column:hover::after {
         content: ''; /* Add content to the pseudo-element */
-        position: absolute; /* Position the arrow absolutely */
+        position: fixed; /* Position the arrow absolutely */
         bottom: 20px; /* Adjust the distance from the bottom of the column */
         left: 50%; /* Center the arrow horizontally */
         transform: translateX(-50%); /* Center the arrow horizontally */
