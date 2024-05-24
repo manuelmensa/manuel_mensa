@@ -66,6 +66,12 @@ html {
     width: 5% !important;
   }
 
+  #gapB, #gap2B:hover::after {
+        border-left: 0px solid transparent; /* Size and shape of the arrow */
+        border-right: 0px solid transparent; /* Size and shape of the arrow */
+        border-top: 0px solid #000; /* Size, shape, and color of the arrow */
+  }
+
   .column i{
   } 
 
