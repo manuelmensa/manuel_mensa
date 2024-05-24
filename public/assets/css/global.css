@@ -80,7 +80,7 @@ html {
   } 
 
   .column h3{
-    font-family: PitagonSerif-Black;
+    font-family: PitagonSerif !important;
   }
 
   .column a{
