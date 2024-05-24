@@ -86,7 +86,7 @@ html {
   .column a{
     color: black;
     text-decoration:none;
-    left: 20px;
+    /*left: 20px; */
     position: relative;
   }
 
