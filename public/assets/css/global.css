@@ -63,7 +63,7 @@ html {
   }
 
   #gap2B {
-    width: 5% !important;
+    width: 15% !important; /* Antes 5% */
   }
 
   #gapB:hover::after, #gap2B:hover::after {
