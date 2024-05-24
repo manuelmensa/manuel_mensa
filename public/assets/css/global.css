@@ -96,7 +96,7 @@ html {
 
   .column a:hover {
     color: #191970;
-    text-stroke: 1px #191970;
+    font-weight: bold;
   }
 
   .column::-webkit-scrollbar {
