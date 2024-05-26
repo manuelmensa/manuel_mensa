@@ -39,6 +39,7 @@ html {
     font-family: PitagonSerif;
     text-align: left;
     overflow-y: scroll;
+    overflow-x: none;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
     position: relative; /* Position relative for positioning the arrow */
@@ -104,7 +105,7 @@ html {
   }
 
   .column img {
-    width: 90%;
+    width: 100%;
     height: auto;
     margin-bottom: 5%;
     outline: 0px solid black;
