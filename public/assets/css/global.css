@@ -217,20 +217,10 @@ html {
   }
 
   .column {
-  flex: 0 0 25%; /* antes nada */
-  /* width: 25% !important;    antes nada */
+  flex: 0 0 25%;
   scroll-snap-align: start;
-  white-space: nowrap;
-  /*overflow-x: scroll; */
-  /*-webkit-overflow-scrolling: touch; */
-
-       /* width: 100% !important;  Set column width to 100% to make them stack vertically */
-        float: none; /* Remove any floating behavior */
-        margin-left: 0; /* Reset left margin */
-        margin-right: 0; /* Reset right margin */
-
-    word-wrap: break-word; /* For legacy browsers */
-    overflow-wrap: break-word; /* For modern browsers */
+  white-space: nowrap !important; /* Remove wrapping for wider screens */
+  overflow-wrap: break-word !important; /* Wrap long words for narrower screens */
   }
 
   .column1 {
