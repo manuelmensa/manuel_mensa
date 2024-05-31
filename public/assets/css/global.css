@@ -167,11 +167,31 @@ html {
 }
 
 #slideBackBottom::before {
-  content: "\02C2";
+ /* content: "\02C2";*/
+  content: ''; 
+  bottom: 10px; /* Adjust the distance from the bottom of the column */
+  left: 50%; /* Center the arrow horizontally */
+  transform: translateX(-50%) rotate(135deg); /* Center and rotate the arrow */
+  width: 0; 
+  height: 0; 
+  border: solid #191970;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 }
 
 #slideForwardBottom::before {
-content: "\02C3"; /* Unicode for left arrow */
+/* content: "\02C3";  Unicode for left arrow */
+  content: ''; 
+  bottom: 10px; /* Adjust the distance from the bottom of the column */
+  left: 50%; /* Center the arrow horizontally */
+  transform: translateX(-50%) rotate(315deg); /* Center and rotate the arrow */
+  width: 0; 
+  height: 0; 
+  border: solid #191970;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 }
 
 .anchor{
@@ -198,7 +218,7 @@ content: "\02C3"; /* Unicode for left arrow */
 
   .column {
   flex: 0 0 100%;
-  /* width: 50px !important;   antes 50% */
+  width: 25% !important;   /* antes nada */
   scroll-snap-align: start;
   white-space: nowrap;
   /*overflow-x: scroll; */
