@@ -32,7 +32,7 @@ html {
 
   .column {
     flex: 0 0 auto;
-    width: 12%; /* antes 17% */
+    width: 14%; /* antes 17% */
     padding: 5px;
     font-size: 15px; /* antes 14px */
     line-height: 1.25; /* antes 1.5*/
@@ -47,17 +47,20 @@ html {
   }
 
   #ensanche {
-  width: 18%;
+  width: 28%;
   }
 
-    .column:hover::after {
-      content: "\f078"; /* Unicode for the fa-chevron-down icon */
-      font-family: 'Font Awesome 6 Free';
-      position: absolute;
-      bottom: 10px; /* Adjust the distance from the bottom of the column */
-      left: 50%; /* Center the arrow horizontally */
-      transform: translateX(-50%); /* Center the arrow horizontally */
-      font-size: 16px; /* Adjust the size of the icon */
+  .column:hover::after {
+  content: ''; 
+  position: sticky;
+  bottom: 10px; /* Adjust the distance from the bottom of the column */
+  left: 50%; /* Center the arrow horizontally */
+  transform: translateX(-50%) rotate(45deg); /* Center and rotate the arrow */
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent; /* Size and shape of the arrow */
+  border-right: 5px solid transparent; /* Size and shape of the arrow */
+  border-top: 5px solid #191970; /* Size, shape, and color of the arrow */
     }
 
   #gap2B {
@@ -65,11 +68,13 @@ html {
   }
 
   #gapB {
-    width: 3% !important; /* Antes 2.5% */
+    width: 4% !important; /* Antes 2.5% */
   }
 
   #gapB:hover::after, #gap2B:hover::after {
-  font-size: 0px; /* Adjust the size of the icon */
+  border-left: 0px solid transparent; /* Size and shape of the arrow */
+  border-right: 0px solid transparent; /* Size and shape of the arrow */
+  border-top: 0px solid #191970; /* Size, shape, and color of the arrow */
   }
 
   .column h3{
