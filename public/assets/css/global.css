@@ -219,9 +219,9 @@ html {
   .column {
   flex: 0 0 auto;
   width: 25%; 
-  scroll-snap-align: start;
-  white-space: nowrap !important; /* Remove wrapping for wider screens */
-  overflow-wrap: break-word !important; /* Wrap long words for narrower screens */
+  /*scroll-snap-align: start;
+  white-space: nowrap !important;  Remove wrapping for wider screens 
+  overflow-wrap: break-word !important; Wrap long words for narrower screens */
   }
 
   .column1 {
