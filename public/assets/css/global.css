@@ -60,13 +60,13 @@ html {
   width: 0; 
   height: 0; 
   border: solid #191970;
-  border-width: 0 3px 3px 0;
+  border-width: 0 1px 1px 0;
   display: inline-block;
   padding: 3px;
     }
 
   #gap2B {
-    width: 3% !important; /* Antes 5% */
+    width: 0% !important; /* Antes 5% */
   }
 
   #gapB {
