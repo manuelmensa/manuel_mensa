@@ -22,6 +22,7 @@ html {
     gap: 10px;
     padding-left: 0px;
     margin: 0px;
+    margin-top: 10px; /* antes nada */
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
@@ -73,9 +74,7 @@ html {
   }
 
   #gapB:hover::after, #gap2B:hover::after {
-  border-left: 0px solid transparent; /* Size and shape of the arrow */
-  border-right: 0px solid transparent; /* Size and shape of the arrow */
-  border-top: 0px solid #191970; /* Size, shape, and color of the arrow */
+  display: none;
   }
 
   .column h3{
@@ -161,8 +160,8 @@ html {
 .arrow-button-l, .arrow-button-r {
   width: 30px;
   height: 30px;
-  color: white;
-  background-color: #191970;
+  color: #191970;
+  background-color: transparent;
   border: none;
   font-size: 16px;
 }
