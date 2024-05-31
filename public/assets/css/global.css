@@ -33,7 +33,7 @@ html {
   .column {
     margin-top: 10px; /* antes nada */
     flex: 0 0 auto;
-    width: 14%; /* antes 17% */
+    width: 12%; /* antes 17% */
     padding: 5px;
     font-size: 15px; /* antes 14px */
     line-height: 1.25; /* antes 1.5*/
@@ -48,13 +48,13 @@ html {
   }
 
   #ensanche {
-  width: 14%;
+  width: 18%;
   }
 
   .column:hover::after {
   content: ''; 
   position: sticky;
-  bottom: 30px; /* Adjust the distance from the bottom of the column */
+  bottom: 20px; /* Adjust the distance from the bottom of the column */
   left: 50%; /* Center the arrow horizontally */
   transform: translateX(-50%) rotate(45deg); /* Center and rotate the arrow */
   width: 0; 
@@ -66,11 +66,11 @@ html {
     }
 
   #gap2B {
-    width: 5% !important; /* Antes 5% */
+    width: 3% !important; /* Antes 5% */
   }
 
   #gapB {
-    width: 4% !important; /* Antes 2.5% */
+    width: 3% !important; /* Antes 2.5% */
   }
 
   #gapB:hover::after, #gap2B:hover::after {
