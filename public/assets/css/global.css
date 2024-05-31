@@ -144,9 +144,10 @@ html {
 
 #slideBackTop {
   content: ''; 
+  margin-bottom: 10px;
   bottom: 10px; /* Adjust the distance from the bottom of the column */
   left: 50%; /* Center the arrow horizontally */
-  transform: translateX(-50%) rotate(135deg); /* Center and rotate the arrow */
+  transform: translateX(100%) translateY(50%) rotate(135deg); /* Center and rotate the arrow */
   width: 0; 
   height: 0; 
   border: solid #191970;
@@ -157,9 +158,10 @@ html {
 
 #slideForwardTop {
   content: ''; 
+  margin-bottom: 10px;
   bottom: 10px; /* Adjust the distance from the bottom of the column */
   left: 50%; /* Center the arrow horizontally */
-  transform: translateX(-50%) rotate(315deg); /* Center and rotate the arrow */
+  transform: translateX(-100%) translateY(50%) rotate(315deg); /* Center and rotate the arrow */
   width: 0; 
   height: 0; 
   border: solid #191970;
@@ -170,7 +172,7 @@ html {
 
 #slideBackTop::before {
   content: ''; 
-  transform: translateY(-90%) translateX(-10%);
+  transform: translateY(-95%) translateX(-10%);
   border: solid #191970;
   border-width: 0 3px 0px 0;
   display: inline-block;
