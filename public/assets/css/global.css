@@ -47,7 +47,7 @@ html {
   }
 
   #ensanche {
-  width: 28%;
+  width: 21%;
   }
 
   .column:hover::after {
@@ -58,9 +58,10 @@ html {
   transform: translateX(-50%) rotate(45deg); /* Center and rotate the arrow */
   width: 0; 
   height: 0; 
-  border-left: 5px solid transparent; /* Size and shape of the arrow */
-  border-right: 5px solid transparent; /* Size and shape of the arrow */
-  border-top: 5px solid #191970; /* Size, shape, and color of the arrow */
+  border: solid #191970;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
     }
 
   #gap2B {
