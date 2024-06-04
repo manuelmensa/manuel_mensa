@@ -31,7 +31,7 @@ html {
   }
 
   .column {
-    margin-top: 5%; /* antes nada */
+    margin-top: 7.5%; /* antes nada */
     flex: 0 0 auto;
     width: 14%; /* antes 12% */
     padding: 5px;
