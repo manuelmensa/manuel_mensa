@@ -48,11 +48,6 @@ html {
 
  .column p {
     margin-top: 0em !important;
-    text-indent: 10%;
- }
-
- .column p b {
-    text-indent: 0% !important;
  }
 
   #indice {
