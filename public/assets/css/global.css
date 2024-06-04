@@ -47,8 +47,16 @@ html {
     position: relative; /* Position relative for positioning the arrow */    
   }
 
+ .column p {
+    margin-top: -1em !important;
+ }
+
   #indice {
     margin-top: 1%; /* antes nada */
+  }
+
+  #indice p {
+    margin-top: 1em !important;
   }
 
   #ensanche {
