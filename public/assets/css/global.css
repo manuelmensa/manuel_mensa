@@ -31,7 +31,7 @@ html {
   }
 
   .column {
-    margin-top: 10px; /* antes nada */
+    margin-top: 25%; /* antes nada */
     flex: 0 0 auto;
     width: 14%; /* antes 12% */
     padding: 5px;
@@ -44,7 +44,10 @@ html {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
     position: relative; /* Position relative for positioning the arrow */
+  }
 
+  #indice {
+    margin-top: 0%; /* antes nada */
   }
 
   #ensanche {
@@ -81,7 +84,7 @@ html {
     font-family: PitagonSerif !important;
   }
 
-  h3{
+  h3 {
     font-family: Roboto;
   }
 
