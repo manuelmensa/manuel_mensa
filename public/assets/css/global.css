@@ -84,10 +84,6 @@ html {
     font-family: PitagonSerif !important;
   }
 
-  h3 {
-    font-family: Roboto;
-  }
-
   .column a{
     color: black;
     text-decoration:none;
@@ -121,6 +117,7 @@ html {
   .text {
     font-size: 8px;
     text-align: justify;
+    text-indent: 10%;
   }
 
 .button-container-l {
