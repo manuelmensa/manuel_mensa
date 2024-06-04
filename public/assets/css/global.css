@@ -31,7 +31,7 @@ html {
   }
 
   .column {
-    margin-top: 7.5%; /* antes nada */
+    margin-top: 10.6%; /* antes nada */
     flex: 0 0 auto;
     width: 14%; /* antes 12% */
     padding: 5px;
@@ -73,7 +73,7 @@ html {
   }
 
   #gapB {
-    width: 2% !important; /* Antes 2.5% */
+    width: 1.5% !important; /* Antes 2.5% */
   }
 
   #gapB:hover::after, #gap2B:hover::after {
