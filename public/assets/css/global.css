@@ -47,7 +47,7 @@ html {
   }
 
   #indice {
-    margin-top: 0%; /* antes nada */
+    margin-top: 1%; /* antes nada */
   }
 
   #ensanche {
@@ -73,7 +73,7 @@ html {
   }
 
   #gapB {
-    width: 3% !important; /* Antes 2.5% */
+    width: 2% !important; /* Antes 2.5% */
   }
 
   #gapB:hover::after, #gap2B:hover::after {
