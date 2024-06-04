@@ -36,6 +36,7 @@ html {
     width: 14%; /* antes 12% */
     padding: 5px;
     font-size: 15px; /* antes 14px */
+    text-indent: 1%;
     line-height: 1.25; /* antes 1.5*/
     font-family: PitagonSerif;
     text-align: left;
@@ -43,7 +44,7 @@ html {
     overflow-x: hidden;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
-    position: relative; /* Position relative for positioning the arrow */
+    position: relative; /* Position relative for positioning the arrow */    
   }
 
   #indice {
@@ -117,7 +118,6 @@ html {
   .text {
     font-size: 8px;
     text-align: justify;
-    text-indent: 10%;
   }
 
 .button-container-l {
