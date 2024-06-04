@@ -1986,21 +1986,7 @@ Práctica de lo Irreductible (Archivos de Arquitectura, 2022) y Atlas de Arquite
   window.addEventListener("hashchange", () => window.history.pushState({}, "", '/'), {});
 
 function scrollToElement(targetElement) {
-  // Calculate the correct position to scroll to, with a 25% offset
-  const scrollContainer = targetElement.closest('.scroll-container') || document.documentElement;
-  const containerRect = scrollContainer.getBoundingClientRect();
-  const targetRect = targetElement.getBoundingClientRect();
-  
-  const containerLeft = scrollContainer.scrollLeft;
-  const targetLeft = targetRect.left - containerRect.left + containerLeft;
-  
-  // Calculate the adjusted target position with 25% less distance
-  const adjustedTargetLeft = containerLeft + (targetLeft - containerLeft) * 0.75;
-
-  scrollContainer.scrollTo({
-    left: adjustedTargetLeft,
-    behavior: 'smooth'
-  });
+  targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
 }
 
 // Add smooth horizontal scrolling behavior to all links with href pointing to an ID
@@ -2013,7 +1999,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
-
 
 </script>
 
