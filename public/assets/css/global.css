@@ -175,20 +175,20 @@ html {
 
 #slideBackTop::before {
   content: ''; 
-  transform: translateY(-95%) translateX(-10%);
+  transform: translateY(-150%) translateX(-10%);
   border: solid #191970;
   border-width: 0 1px 0px 0;
   display: inline-block;
-  padding: 4.5px;
+  padding: 3.5px;
 }
 
 #slideForwardTop::before {
   content: ''; 
-  transform: translateY(-30%) translateX(-30%);
+  transform: translateY(-80%) translateX(-40%);
   border: solid #191970;
   border-width: 0 0px 1px 0;
   display: inline-block;
-  padding: 4.5px;
+  padding: 4px;
 }
 
 #slideBackBottom {
