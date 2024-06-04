@@ -12,7 +12,7 @@
   
 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
 
-<script>
+<!--<script>
   var scrollInterval;
   var scrollSpeed = 0;
   var acceleration = 0.2;
@@ -44,7 +44,68 @@
     scrollSpeed = 0;
   }
 
-</script> 
+</script> -->
+  
+<script>
+var scrollInterval;
+var scrollSpeed = 0;
+var acceleration = 0.2;
+var maxScrollSpeed = 10;
+
+// Continuous scrolling functions for desktop
+function startScrollLeft() {
+  scrollSpeed = 0;
+  scrollInterval = setInterval(function() {
+    scrollSpeed = Math.min(scrollSpeed + acceleration, maxScrollSpeed);
+    document.querySelector(".container").scrollLeft -= scrollSpeed;
+  }, 10);
+}
+
+function stopScrollLeft() {
+  clearInterval(scrollInterval);
+  scrollSpeed = 0;
+}
+
+function startScrollRight() {
+  scrollSpeed = 0;
+  scrollInterval = setInterval(function() {
+    scrollSpeed = Math.min(scrollSpeed + acceleration, maxScrollSpeed);
+    document.querySelector(".container").scrollLeft += scrollSpeed;
+  }, 10);
+}
+
+function stopScrollRight() {
+  clearInterval(scrollInterval);
+  scrollSpeed = 0;
+}
+
+// Function to scroll to the next element with a specific ID on mobile
+function scrollToNextId(event) {
+  event.preventDefault();
+  
+  var currentScroll = document.querySelector(".container").scrollLeft;
+  var nextElement = null;
+  var elements = document.querySelectorAll('.container > *[id]');
+
+  for (var i = 0; i < elements.length; i++) {
+    var element = elements[i];
+    if (element.offsetLeft > currentScroll) {
+      nextElement = element;
+      break;
+    }
+  }
+
+  if (nextElement) {
+    nextElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  }
+}
+
+// Event listeners for touch events to support mobile devices
+document.getElementById('slideForwardBottom').addEventListener('touchstart', scrollToNextId);
+document.getElementById('slideForwardBottom').addEventListener('mousedown', startScrollRight);
+document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
+document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
+</script>
   
 </head>
 <body>
@@ -1901,11 +1962,11 @@ Práctica de lo Irreductible (Archivos de Arquitectura, 2022) y Atlas de Arquite
   <div class="button-container-r">
   <button id="slideForwardTop" type="button" class="arrow-button-r" onclick="window.location.href = '#web';"></button> <!--&#x226B;&#xFE0E;-->
 </div>
- <button id="slideForwardBottom" type="button" class="arrow-button-r" onmousedown="startScrollRight()" onmouseup="stopScrollRight()" onmouseleave="stopScrollRight()"></button>
-<!--<button id="slideForwardBottom" type="button" class="arrow-button-r" 
+ <!-- <button id="slideForwardBottom" type="button" class="arrow-button-r" onmousedown="startScrollRight()" onmouseup="stopScrollRight()" onmouseleave="stopScrollRight()"></button>-->
+<button id="slideForwardBottom" type="button" class="arrow-button-r" 
         onmousedown="startScrollRight()" onmouseup="stopScrollRight()" 
-        onmouseleave="stopScrollRight()" ontouchstart="startScrollRight()" 
-        ontouchend="stopScrollRight()"></button>-->
+        onmouseleave="stopScrollRight()" ontouchstart="scrollToNextId(event)">
+</button>
 
 </body>
 
