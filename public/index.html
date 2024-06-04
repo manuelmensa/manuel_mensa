@@ -50,7 +50,7 @@
 <body>
   
 <div class="button-container-l">
-  <button id="slideBackTop" type="button" class="arrow-button-l" href='#gapB'></button> <!--&#x226A;&#xFE0E;-->
+  <button id="slideBackTop" type="button" class="arrow-button-l" onclick="window.location.href = '#gapB';"></button> <!--&#x226A;&#xFE0E;-->
 </div>
 <button id="slideBackBottom" type="button" class="arrow-button-l" onmousedown="startScrollLeft()" onmouseup="stopScrollLeft()" onmouseleave="stopScrollLeft()"></button>
   
@@ -1986,7 +1986,21 @@ Práctica de lo Irreductible (Archivos de Arquitectura, 2022) y Atlas de Arquite
   window.addEventListener("hashchange", () => window.history.pushState({}, "", '/'), {});
 
 function scrollToElement(targetElement) {
-  targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  // Ensure the target element is within a scrollable container
+  const scrollContainer = targetElement.closest('.scroll-container') || document.documentElement;
+  
+  // Get the bounding rectangles
+  const containerRect = scrollContainer.getBoundingClientRect();
+  const targetRect = targetElement.getBoundingClientRect();
+
+  // Calculate the correct scroll position
+  const targetLeft = targetRect.left - containerRect.left + scrollContainer.scrollLeft;
+
+  // Scroll to the target position smoothly
+  scrollContainer.scrollTo({
+    left: targetLeft,
+    behavior: 'smooth'
+  });
 }
 
 // Add smooth horizontal scrolling behavior to all links with href pointing to an ID
@@ -1999,6 +2013,22 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+// Add smooth horizontal scrolling behavior to all elements with onclick pointing to a URL containing an ID
+document.querySelectorAll('[onclick^="window.location.href"]').forEach(element => {
+  element.addEventListener('click', function(e) {
+    const url = this.getAttribute('onclick').match(/window\.location\.href=['"]([^'"]+)['"]/);
+    if (url && url[1].startsWith('#')) {
+      e.preventDefault(); // Prevent default behavior
+      const targetElement = document.querySelector(url[1]); // Get the target element
+      if (targetElement) {
+        scrollToElement(targetElement); // Scroll to the target element
+      }
+    }
+  });
+});
+
+
 
 </script>
 
