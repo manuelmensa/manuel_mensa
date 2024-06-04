@@ -258,9 +258,7 @@ html {
   @media (max-width: 768px) {
 
   body {
-  /* transform: scale(0.8);   Adjust the scale value as needed */
-  /* transform-origin: top left; Maintain the top left corner as the scaling origin */
-  /* width: 125%;  Compensate for the scaling to prevent horizontal scrolling */
+  padding: 20px;
   }
     
   .container {
@@ -286,10 +284,6 @@ html {
    /*overflow-x: scroll;*/
   /*-webkit-overflow-scrolling: touch;*/
   }
-
-  .arrow-button-l, .arrow-button-r {
-    display: none;
-    }
 
   #gapB, #gap2B {
   display: none;
