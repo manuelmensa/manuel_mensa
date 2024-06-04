@@ -36,7 +36,6 @@ html {
     width: 14%; /* antes 12% */
     padding: 5px;
     font-size: 15px; /* antes 14px */
-    text-indent: 10%;
     line-height: 1.25; /* antes 1.5*/
     font-family: PitagonSerif;
     text-align: left;
@@ -49,6 +48,7 @@ html {
 
  .column p {
     margin-top: 0em !important;
+    text-indent: 10%;
  }
 
   #indice {
@@ -57,6 +57,7 @@ html {
 
   #indice p {
     margin-top: 1em !important;
+    text-indent: 0%;
   }
 
   #ensanche {
