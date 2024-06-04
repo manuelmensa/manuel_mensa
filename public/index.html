@@ -12,7 +12,7 @@
   
 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
 
-<script>
+<!-- <script>
   var scrollInterval;
   var scrollSpeed = 0;
   var acceleration = 0.2;
@@ -44,8 +44,28 @@
     scrollSpeed = 0;
   }
 
-</script>
+</script> -->
+<script>
+  
+  let scrollInterval;
 
+function startScrollRight() {
+  const scrollContainer = document.querySelector('.scroll-container');
+  scrollInterval = setInterval(() => {
+    scrollContainer.scrollLeft += 10; // Adjust scroll speed as needed
+  }, 10); // Adjust interval timing as needed
+}
+
+function stopScrollRight() {
+  clearInterval(scrollInterval);
+}
+
+// Add event listeners for touch events to support mobile devices
+document.getElementById('slideForwardBottom').addEventListener('touchstart', startScrollRight);
+document.getElementById('slideForwardBottom').addEventListener('touchend', stopScrollRight);
+document.getElementById('slideForwardBottom').addEventListener('touchcancel', stopScrollRight);
+</script>
+  
 </head>
 <body>
   
@@ -1901,8 +1921,12 @@ Práctica de lo Irreductible (Archivos de Arquitectura, 2022) y Atlas de Arquite
   <div class="button-container-r">
   <button id="slideForwardTop" type="button" class="arrow-button-r" onclick="window.location.href = '#web';"></button> <!--&#x226B;&#xFE0E;-->
 </div>
-<button id="slideForwardBottom" type="button" class="arrow-button-r" onmousedown="startScrollRight()" onmouseup="stopScrollRight()" onmouseleave="stopScrollRight()"></button>
-  
+<!-- <button id="slideForwardBottom" type="button" class="arrow-button-r" onmousedown="startScrollRight()" onmouseup="stopScrollRight()" onmouseleave="stopScrollRight()"></button>-->
+<button id="slideForwardBottom" type="button" class="arrow-button-r" 
+        onmousedown="startScrollRight()" onmouseup="stopScrollRight()" 
+        onmouseleave="stopScrollRight()" ontouchstart="startScrollRight()" 
+        ontouchend="stopScrollRight()"></button>
+
 </body>
 
 <script>
