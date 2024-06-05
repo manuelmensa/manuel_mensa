@@ -63,6 +63,9 @@ html {
   width: 18%;
   }
 
+  hr {
+  width: 110%
+  }
   .column:hover::after {
   content: ''; 
   position: sticky;
