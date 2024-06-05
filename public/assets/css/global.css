@@ -19,7 +19,7 @@ html {
     height: 100%;
     display: flex;
     overflow-x: scroll;
-    /*gap: 10px;*/
+    gap: 10px;
     padding-left: 0px;
     margin: 0px;
     -ms-overflow-style: none;  /* IE and Edge */
@@ -33,7 +33,7 @@ html {
   .column {
     margin-top: 8.4%; /* antes nada */
     flex: 0 0 auto;
-    width: 14%; /* antes 12% */
+    width: 17%; /* antes 14% */
     padding: 5px;
     font-size: 15px; /* antes 14px */
     line-height: 1.25; /* antes 1.5*/
