@@ -64,8 +64,9 @@ html {
   }
 
   hr {
-  width: 200%
+  width: 200%;
   margin-top: -10px;
+  margin-left: -10px;
   height: 0.5px;
   background-color: black; 
   }
