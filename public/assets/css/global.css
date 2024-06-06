@@ -33,7 +33,7 @@ html {
   .column {
     margin-top: 0%; /* antes 8.4% */
     flex: 0 0 auto;
-    width: 16%; /* antes 14% */
+    width: 16.5%; /* antes 14% */
     padding: 5px;
     font-size: 15px; /* antes 14px */
     line-height: 1.25; /* antes 1.5*/
@@ -266,7 +266,6 @@ html {
   @media (max-width: 768px) {
 
   body {
-  padding: 50px;
   }
     
   .container {
@@ -281,6 +280,7 @@ html {
   width: 100%; 
   scroll-snap-align: start;
   overflow-wrap: break-word !important;
+  padding: 15px;
   }
 
   .column1 {
