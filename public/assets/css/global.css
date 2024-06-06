@@ -293,7 +293,7 @@ html {
   }
 
   #gapB, #gap2B {
-  display: none;
+  width: 5%;
   }
 
 #slideBackTop {
