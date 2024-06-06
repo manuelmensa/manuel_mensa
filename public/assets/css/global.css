@@ -277,7 +277,7 @@ html {
 
   .column {
   flex: 0 0 auto;
-  width: 90%; 
+  width: 86%; 
   scroll-snap-align: start;
   overflow-wrap: break-word !important;
   }
@@ -293,7 +293,7 @@ html {
   }
 
   #gapB, #gap2B {
-  width: 5%;
+  width: 7%;
   }
 
 #slideBackTop {
