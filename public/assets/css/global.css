@@ -280,6 +280,7 @@ html {
   width: 86%; 
   scroll-snap-align: start;
   overflow-wrap: break-word !important;
+  padding: 10px;
   }
 
   .column1 {
@@ -293,7 +294,7 @@ html {
   }
 
   #gapB, #gap2B {
-  width: 7%;
+  display: none;
   }
 
 #slideBackTop {
