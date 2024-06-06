@@ -286,7 +286,7 @@ html {
   .column1 {
   position: sticky;
   flex: 0 0 100%;
-  width: 15px !important; /* antes 15% */
+  width: 10% !important; /* antes 15% */
   scroll-snap-align: start;
   white-space: nowrap;
    /*overflow-x: scroll;*/
