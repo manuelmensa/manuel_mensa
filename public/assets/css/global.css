@@ -281,7 +281,7 @@ html {
   width: 86%; 
   scroll-snap-align: start;
   overflow-wrap: break-word !important;
-  /*padding: 30px;*/
+  padding: 30px;
   }
 
   .column1 {
