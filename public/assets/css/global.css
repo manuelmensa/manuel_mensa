@@ -309,10 +309,12 @@ html {
 
 #slideBackTop::before {
   padding: 10px;
+  transform: translateY(-50%) translateX(-30%);
 }
 
 #slideForwardTop::before {
   padding: 10px;
+  transform: translateY(-32%) translateX(-50%);
 }
 
 #slideBackBottom::before {
