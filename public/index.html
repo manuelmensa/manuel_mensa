@@ -2176,7 +2176,12 @@ document.querySelectorAll('[onclick^="window.location.href"]').forEach(element =
   });
 });
 
-
+$(function() {
+  var screenWidth = $(window).width();
+  if (screenWidth >= 800) {
+    $('video').attr('autoplay', 'autoplay');
+  }
+});
 </script>
 
 </html>
