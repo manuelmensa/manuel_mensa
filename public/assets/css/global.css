@@ -63,6 +63,10 @@ html {
   width: 18%;
   }
 
+  img {
+  image-resolution: 300dpi;
+  }
+
   hr {
   width: 200%;
   margin-top: -10px;
