@@ -266,7 +266,8 @@ html {
   /* Media query for mobile devices */
   @media (max-width: 768px) {
 
-  body {
+  img {
+  image-resolution: 150dpi;
   }
     
   .container {
@@ -299,19 +300,19 @@ html {
   }
 
 #slideBackTop {
-  padding: 4px;
+  padding: 10px;
 }
 
 #slideForwardTop {
-  padding: 4px;
+  padding: 10px;
 }
 
 #slideBackBottom::before {
-  padding: 4px;
+  padding: 10px;
 }
 
 #slideForwardBottom::before {
-  padding: 4px;
+  padding: 10px;
 }
 }
 
