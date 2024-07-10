@@ -271,7 +271,7 @@ html {
   @media (max-width: 768px) {
 
   img {
-  image-resolution: 150dpi;
+  image-resolution: 50dpi;
   }
     
   .container {
