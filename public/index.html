@@ -675,7 +675,7 @@ Maecenas nec lobortis nunc. </p>
   <img loading="lazy" src="assets/img/34_avenida de mayo/02.jpg" alt="Image 1">
       <!-- Add more content here if needed -->
     </div>
-    <div id="casaFKL3" class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
+    <div id="casaFKL3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -2187,10 +2187,10 @@ let scrolling;
 function startScrolling(column) {
     scrolling = setInterval(() => {
         column.scrollBy({
-            top: 1,
+            top: 10,
             behavior: 'smooth'
         });
-    }, 5); // Adjust the interval for smoother or faster scrolling
+    }, 10); // Adjust the interval for smoother or faster scrolling
 }
 
 function stopScrolling() {
