@@ -132,14 +132,6 @@ document.getElementById('slideForwardBottom').addEventListener('mousedown', star
 document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
 document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
 
-function scrollColumn(column) {
-    const scrollAmount = 100; // Adjust this value as needed
-    column.scrollBy({
-        top: scrollAmount,
-        behavior: 'smooth'
-    })
-};
-
 $(function() {
   var screenWidth = $(window).width();
   if (screenWidth >= 800) {
@@ -216,7 +208,7 @@ $(function() {
       <p style="color:white;">.</p>
     </div>
     
-    <div id="matters" class="column" onclick="scrollColumn(this)" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
+    <div id="matters" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Matters of Fact</h3>
@@ -2189,6 +2181,21 @@ document.querySelectorAll('[onclick^="window.location.href"]').forEach(element =
     }
   });
 });
+
+let scrolling;
+
+function startScrolling(column) {
+    scrolling = setInterval(() => {
+        column.scrollBy({
+            top: 1,
+            behavior: 'smooth'
+        });
+    }, 10); // Adjust the interval for smoother or faster scrolling
+}
+
+function stopScrolling() {
+    clearInterval(scrolling);
+}
 
 </script>
 
