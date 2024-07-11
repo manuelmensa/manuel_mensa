@@ -132,12 +132,25 @@ document.getElementById('slideForwardBottom').addEventListener('mousedown', star
 document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
 document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
 
-$(function() {
-  var screenWidth = $(window).width();
-  if (screenWidth >= 800) {
-    $('video').attr('autoplay', 'autoplay');
-  }
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to detect if the device is mobile
+    function isMobileDevice() {
+        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    // Get all video elements
+    const videos = document.querySelectorAll('video');
+
+    // If it's a mobile device, remove the autoplay attribute
+    if (isMobileDevice()) {
+        videos.forEach(video => {
+            video.removeAttribute('autoplay');
+            // Optionally, pause the video if it started playing before removing the attribute
+            video.pause();
+        });
+    }
 });
+
 </script>
   
 </head>
