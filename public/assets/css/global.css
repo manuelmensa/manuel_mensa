@@ -267,9 +267,16 @@ html {
   left: 40vw; 
   visibility: hidden;
 }
+
+.guia {
+  display: none;
+}
   /* Media query for mobile devices */
   @media (max-width: 768px) {
 
+  .guia {
+  display: block;
+  }
   img {
   image-resolution: 50dpi;
   }
