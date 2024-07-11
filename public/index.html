@@ -131,6 +131,21 @@ document.getElementById('slideForwardBottom').addEventListener('touchstart', scr
 document.getElementById('slideForwardBottom').addEventListener('mousedown', startScrollRight);
 document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
 document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
+
+function scrollColumn(column) {
+    const scrollAmount = 100; // Adjust this value as needed
+    column.scrollBy({
+        top: scrollAmount,
+        behavior: 'smooth'
+    })
+};
+
+$(function() {
+  var screenWidth = $(window).width();
+  if (screenWidth >= 800) {
+    $('video').attr('autoplay', 'autoplay');
+  }
+});
 </script>
   
 </head>
@@ -201,7 +216,7 @@ document.getElementById('slideForwardBottom').addEventListener('mouseleave', sto
       <p style="color:white;">.</p>
     </div>
     
-    <div id="matters" class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
+    <div id="matters" class="column" onclick="scrollColumn(this)" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Matters of Fact</h3>
@@ -2175,12 +2190,6 @@ document.querySelectorAll('[onclick^="window.location.href"]').forEach(element =
   });
 });
 
-$(function() {
-  var screenWidth = $(window).width();
-  if (screenWidth >= 800) {
-    $('video').attr('autoplay', 'autoplay');
-  }
-});
 </script>
 
 </html>
