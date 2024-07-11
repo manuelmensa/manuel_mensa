@@ -275,8 +275,13 @@ html {
   @media (max-width: 768px) {
 
   .guia {
-  display: block;
+  display: flex;
   }
+
+  .guia p {
+  margin-right: 10px;
+  }
+
   img {
   image-resolution: 50dpi;
   }
