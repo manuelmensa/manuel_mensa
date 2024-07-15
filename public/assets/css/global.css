@@ -316,29 +316,29 @@ html {
   }
 
 #slideBackTop {
-  padding: 10px;
+  padding: 6px;
 }
 
 #slideForwardTop {
-  padding: 10px;
+  padding: 6px;
 }
 
 #slideBackTop::before {
-  padding: 10px;
+  padding: 6px;
   transform: translateY(-50%) translateX(-30%);
 }
 
 #slideForwardTop::before {
-  padding: 10px;
+  padding: 6px;
   transform: translateY(-32%) translateX(-50%);
 }
 
 #slideBackBottom::before {
-  padding: 10px;
+  padding: 6px;
 }
 
 #slideForwardBottom::before {
-  padding: 10px;
+  padding: 6px;
 }
 }
 
