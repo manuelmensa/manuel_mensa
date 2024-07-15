@@ -325,7 +325,7 @@ html {
 
 #slideBackTop::before {
   padding: 6px;
-  transform: translateY(-50%) translateX(-30%);
+  transform: translateY(-62%) translateX(-20%);
 }
 
 #slideForwardTop::before {
@@ -340,5 +340,8 @@ html {
 #slideForwardBottom::before {
   padding: 6px;
 }
+  .column:hover::after {
+  border-width: 0 0px 0px 0;
+    }
 }
 
