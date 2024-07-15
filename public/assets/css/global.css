@@ -325,12 +325,12 @@ html {
 
 #slideBackTop::before {
   padding: 6px;
-  transform: translateY(-62%) translateX(-20%);
+  transform: translateY(-65%) translateX(-20%);
 }
 
 #slideForwardTop::before {
   padding: 6px;
-  transform: translateY(-32%) translateX(-50%);
+  transform: translateY(-40%) translateX(-50%);
 }
 
 #slideBackBottom::before {
