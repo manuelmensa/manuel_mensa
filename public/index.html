@@ -104,12 +104,18 @@ function scrollToNextId(event) {
 function scrollToPreviousId(event) {
   event.preventDefault();
   
-  var currentScroll = document.querySelector(".container").scrollLeft;
+  console.log("scrollToPreviousId triggered");
+
+  var container = document.querySelector(".container");
+  var currentScroll = container.scrollLeft;
+  console.log("Current scroll position:", currentScroll);
+
   var previousElement = null;
   var elements = document.querySelectorAll('.container > *[id]');
 
   for (var i = elements.length - 1; i >= 0; i--) {
     var element = elements[i];
+    console.log("Element ID:", element.id, "Offset left:", element.offsetLeft);
     if (element.offsetLeft < currentScroll) {
       previousElement = element;
       break;
@@ -117,7 +123,10 @@ function scrollToPreviousId(event) {
   }
 
   if (previousElement) {
+    console.log("Previous element ID:", previousElement.id);
     previousElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  } else {
+    console.log("No previous element found");
   }
 }
 
