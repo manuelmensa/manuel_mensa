@@ -79,27 +79,6 @@ function stopScrollRight() {
   scrollSpeed = 0;
 }
 
-// Function to scroll to the next element with a specific ID on mobile
-function scrollToNextId(event) {
-  event.preventDefault();
-  
-  var currentScroll = document.querySelector(".container").scrollLeft;
-  var nextElement = null;
-  var elements = document.querySelectorAll('.container > *[id]');
-
-  for (var i = 0; i < elements.length; i++) {
-    var element = elements[i];
-    if (element.offsetLeft > currentScroll) {
-      nextElement = element;
-      break;
-    }
-  }
-
-  if (nextElement) {
-    nextElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-  }
-}
-
 // Function to scroll to the previous element with a specific ID on mobile
 function scrollToPreviousId(event) {
   event.preventDefault();
@@ -120,6 +99,27 @@ function scrollToPreviousId(event) {
     previousElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
   }
 }
+
+// Function to scroll to the next element with a specific ID on mobile
+function scrollToNextId(event) {
+  event.preventDefault();
+  
+  var currentScroll = document.querySelector(".container").scrollLeft;
+  var nextElement = null;
+  var elements = document.querySelectorAll('.container > *[id]');
+
+  for (var i = 0; i < elements.length; i++) {
+    var element = elements[i];
+    if (element.offsetLeft > currentScroll) {
+      nextElement = element;
+      break;
+    }
+  }
+
+  if (nextElement) {
+    nextElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  }
+} 
 
 document.addEventListener("DOMContentLoaded", function() {
     // Function to detect if the device is mobile
