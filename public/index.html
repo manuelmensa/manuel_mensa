@@ -83,8 +83,7 @@ function stopScrollRight() {
 function scrollToNextId(event) {
   event.preventDefault();
   
-  var container = document.querySelector(".container");
-  var currentScroll = container.scrollLeft;
+  var currentScroll = document.querySelector(".container").scrollLeft;
   var nextElement = null;
   var elements = document.querySelectorAll('.container > *[id]');
 
@@ -99,20 +98,18 @@ function scrollToNextId(event) {
   if (nextElement) {
     nextElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
   }
-}
+} 
 
 // Function to scroll to the previous element with a specific ID on mobile
 function scrollToPreviousId(event) {
   event.preventDefault();
   
-  var container = document.querySelector(".container");
-  var currentScroll = container.scrollLeft;
+  var currentScroll = document.querySelector(".container").scrollLeft;
   var previousElement = null;
   var elements = document.querySelectorAll('.container > *[id]');
 
   for (var i = elements.length - 1; i >= 0; i--) {
     var element = elements[i];
-    // Check if the element's offsetLeft is strictly less than the currentScroll
     if (element.offsetLeft < currentScroll) {
       previousElement = element;
       break;
@@ -121,23 +118,19 @@ function scrollToPreviousId(event) {
 
   if (previousElement) {
     previousElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-  } else {
-    console.log("No previous element found");
   }
 }
 
 // Event listeners for touch events to support mobile devices
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('slideBackBottom').addEventListener('touchstart', scrollToPreviousId);
-  document.getElementById('slideBackBottom').addEventListener('mousedown', startScrollLeft);
-  document.getElementById('slideBackBottom').addEventListener('mouseup', stopScrollLeft);
-  document.getElementById('slideBackBottom').addEventListener('mouseleave', stopScrollLeft);
+document.getElementById('slideBackBottom').addEventListener('touchstart', scrollToPreviousId);
+document.getElementById('slideBackBottom').addEventListener('mousedown', startScrollLeft);
+document.getElementById('slideBackBottom').addEventListener('mouseup', stopScrollLeft);
+document.getElementById('slideBackBottom').addEventListener('mouseleave', stopScrollLeft);
 
-  document.getElementById('slideForwardBottom').addEventListener('touchstart', scrollToNextId);
-  document.getElementById('slideForwardBottom').addEventListener('mousedown', startScrollRight);
-  document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
-  document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
-});
+//document.getElementById('slideForwardBottom').addEventListener('touchstart', scrollToNextId);
+document.getElementById('slideForwardBottom').addEventListener('mousedown', startScrollRight);
+document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
+document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
 
 
 document.addEventListener("DOMContentLoaded", function() {
