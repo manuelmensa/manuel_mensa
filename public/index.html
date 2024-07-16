@@ -112,8 +112,8 @@ function scrollToPreviousId(event) {
 
   for (var i = elements.length - 1; i >= 0; i--) {
     var element = elements[i];
-    // Add a small buffer to the comparison to account for precision issues
-    if (element.offsetLeft + element.offsetWidth < currentScroll) {
+    // Check if the element's offsetLeft is strictly less than the currentScroll
+    if (element.offsetLeft < currentScroll) {
       previousElement = element;
       break;
     }
@@ -138,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
   document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
 });
+
 
 document.addEventListener("DOMContentLoaded", function() {
     // Function to detect if the device is mobile
