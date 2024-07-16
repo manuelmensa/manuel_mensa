@@ -79,6 +79,27 @@ function stopScrollRight() {
   scrollSpeed = 0;
 }
 
+// Function to scroll to the next element with a specific ID on mobile
+function scrollToNextId(event) {
+  event.preventDefault();
+  
+  var currentScroll = document.querySelector(".container").scrollLeft;
+  var nextElement = null;
+  var elements = document.querySelectorAll('.container > *[id]');
+
+  for (var i = 0; i < elements.length; i++) {
+    var element = elements[i];
+    if (element.offsetLeft > currentScroll) {
+      nextElement = element;
+      break;
+    }
+  }
+
+  if (nextElement) {
+    nextElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  }
+} 
+
 // Function to scroll to the previous element with a specific ID on mobile
 function scrollToPreviousId(event) {
   event.preventDefault();
@@ -100,26 +121,16 @@ function scrollToPreviousId(event) {
   }
 }
 
-// Function to scroll to the next element with a specific ID on mobile
-function scrollToNextId(event) {
-  event.preventDefault();
-  
-  var currentScroll = document.querySelector(".container").scrollLeft;
-  var nextElement = null;
-  var elements = document.querySelectorAll('.container > *[id]');
+// Event listeners for touch events to support mobile devices
+document.getElementById('slideBackBottom').addEventListener('touchstart', scrollToPreviousId);
+document.getElementById('slideBackBottom').addEventListener('mousedown', startScrollLeft);
+document.getElementById('slideBackBottom').addEventListener('mouseup', stopScrollLeft);
+document.getElementById('slideBackBottom').addEventListener('mouseleave', stopScrollLeft);
 
-  for (var i = 0; i < elements.length; i++) {
-    var element = elements[i];
-    if (element.offsetLeft > currentScroll) {
-      nextElement = element;
-      break;
-    }
-  }
-
-  if (nextElement) {
-    nextElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-  }
-} 
+document.getElementById('slideForwardBottom').addEventListener('touchstart', scrollToNextId);
+document.getElementById('slideForwardBottom').addEventListener('mousedown', startScrollRight);
+document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
+document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
 
 document.addEventListener("DOMContentLoaded", function() {
     // Function to detect if the device is mobile
@@ -150,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <!--<button id="slideBackBottom" type="button" class="arrow-button-l" onmousedown="startScrollLeft()" onmouseup="stopScrollLeft()" onmouseleave="stopScrollLeft()"></button>-->
   <button id="slideBackBottom" type="button" class="arrow-button-l"
         onmousedown="startScrollLeft()" onmouseup="stopScrollLeft()" 
-        onmouseleave="stopScrollLeft()" ontouchstart="scrollToNextId(event)">
+        onmouseleave="stopScrollLeft()" ontouchstart="scrollToPreviousId(event)">
 </button>
   <div class="container">
 
@@ -2115,7 +2126,7 @@ Práctica de lo Irreductible (Archivos de Arquitectura, 2022) y Atlas de Arquite
  <!-- <button id="slideForwardBottom" type="button" class="arrow-button-r" onmousedown="startScrollRight()" onmouseup="stopScrollRight()" onmouseleave="stopScrollRight()"></button>-->
 <button id="slideForwardBottom" type="button" class="arrow-button-r" 
         onmousedown="startScrollRight()" onmouseup="stopScrollRight()" 
-        onmouseleave="stopScrollRight()" ontouchstart="scrollToPreviousId(event)">
+        onmouseleave="stopScrollRight()" ontouchstart="scrollToNextId(event)">
 </button>
 
 </body>
@@ -2198,16 +2209,6 @@ function stopScrolling() {
     clearInterval(scrolling);
 }
 
-// Event listeners for touch events to support mobile devices
-document.getElementById('slideBackBottom').addEventListener('touchstart', scrollToPreviousId);
-document.getElementById('slideBackBottom').addEventListener('mousedown', startScrollLeft);
-document.getElementById('slideBackBottom').addEventListener('mouseup', stopScrollLeft);
-document.getElementById('slideBackBottom').addEventListener('mouseleave', stopScrollLeft);
-
-document.getElementById('slideForwardBottom').addEventListener('touchstart', scrollToNextId);
-document.getElementById('slideForwardBottom').addEventListener('mousedown', startScrollRight);
-document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
-document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
 </script>
 
 </html>
