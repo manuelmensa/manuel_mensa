@@ -103,23 +103,14 @@ function scrollToNextId(event) {
 // Function to scroll to the previous element with a specific ID on mobile
 function scrollToPreviousId(event) {
   event.preventDefault();
-
-  var container = document.querySelector(".container");
-  var currentScroll = container.scrollLeft;
   
-  // Get the bounding rectangle of the container
-  var containerRect = container.getBoundingClientRect();
-
-  // Get all child elements with IDs
-  var elements = document.querySelectorAll('.container > *[id]');
+  var currentScroll = document.querySelector(".container").scrollLeft;
   var previousElement = null;
+  var elements = document.querySelectorAll('.container > *[id]');
 
   for (var i = elements.length - 1; i >= 0; i--) {
     var element = elements[i];
-    var elementRect = element.getBoundingClientRect();
-    
-    // Check if the element is to the left of the current scroll position
-    if (elementRect.left < containerRect.left + currentScroll) {
+    if (element.offsetLeft < currentScroll) {
       previousElement = element;
       break;
     }
@@ -129,17 +120,6 @@ function scrollToPreviousId(event) {
     previousElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
   }
 }
-
-// Event listeners for touch events to support mobile devices
-document.getElementById('slideBackBottom').addEventListener('touchstart', scrollToPreviousId);
-document.getElementById('slideBackBottom').addEventListener('mousedown', startScrollLeft);
-document.getElementById('slideBackBottom').addEventListener('mouseup', stopScrollLeft);
-document.getElementById('slideBackBottom').addEventListener('mouseleave', stopScrollLeft);
-
-document.getElementById('slideForwardBottom').addEventListener('touchstart', scrollToNextId);
-document.getElementById('slideForwardBottom').addEventListener('mousedown', startScrollRight);
-document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
-document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
 
 document.addEventListener("DOMContentLoaded", function() {
     // Function to detect if the device is mobile
@@ -2218,6 +2198,16 @@ function stopScrolling() {
     clearInterval(scrolling);
 }
 
+// Event listeners for touch events to support mobile devices
+document.getElementById('slideBackBottom').addEventListener('touchstart', scrollToPreviousId);
+document.getElementById('slideBackBottom').addEventListener('mousedown', startScrollLeft);
+document.getElementById('slideBackBottom').addEventListener('mouseup', stopScrollLeft);
+document.getElementById('slideBackBottom').addEventListener('mouseleave', stopScrollLeft);
+
+document.getElementById('slideForwardBottom').addEventListener('touchstart', scrollToNextId);
+document.getElementById('slideForwardBottom').addEventListener('mousedown', startScrollRight);
+document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
+document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
 </script>
 
 </html>
