@@ -103,30 +103,30 @@ function scrollToNextId(event) {
 // Function to scroll to the previous element with a specific ID on mobile
 function scrollToPreviousId(event) {
   event.preventDefault();
-  
-  console.log("scrollToPreviousId triggered");
 
   var container = document.querySelector(".container");
   var currentScroll = container.scrollLeft;
-  console.log("Current scroll position:", currentScroll);
+  
+  // Get the bounding rectangle of the container
+  var containerRect = container.getBoundingClientRect();
 
-  var previousElement = null;
+  // Get all child elements with IDs
   var elements = document.querySelectorAll('.container > *[id]');
+  var previousElement = null;
 
   for (var i = elements.length - 1; i >= 0; i--) {
     var element = elements[i];
-    console.log("Element ID:", element.id, "Offset left:", element.offsetLeft);
-    if (element.offsetLeft < currentScroll) {
+    var elementRect = element.getBoundingClientRect();
+    
+    // Check if the element is to the left of the current scroll position
+    if (elementRect.left < containerRect.left + currentScroll) {
       previousElement = element;
       break;
     }
   }
 
   if (previousElement) {
-    console.log("Previous element ID:", previousElement.id);
     previousElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-  } else {
-    console.log("No previous element found");
   }
 }
 
