@@ -108,7 +108,7 @@ function scrollToPreviousId(event) {
   var previousElement = null;
   var elements = document.querySelectorAll('.container > *[id]');
 
-  for (var i = 0; i < elements.length; i--) {
+  for (var i = elements.length - 1; i >= 0; i--) {
     var element = elements[i];
     if (element.offsetLeft < currentScroll) {
       previousElement = element;
