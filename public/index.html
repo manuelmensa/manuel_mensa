@@ -151,12 +151,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
-
-    document.getElementById('myVideo').addEventListener('fullscreenchange', function() {
-        if (document.fullscreenElement) {
-            document.exitFullscreen();
-        }
-    });
 </script>
   
 </head>
@@ -2153,10 +2147,47 @@ Práctica de lo Irreductible (Archivos de Arquitectura, 2022) y Atlas de Arquite
 
 <script>
   window.history.replaceState('','','/');
-  window.onload = function () {
-    var element = document.getElementById('video');
-    element.muted = "muted";
-}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Check if the device is mobile
+    var isMobile = window.matchMedia("only screen and (max-width: 768px)").matches;
+    
+    if (isMobile) {
+        // Get all video elements
+        var videos = document.querySelectorAll('video');
+        
+        videos.forEach(function(video) {
+            // Remove autoplay attribute
+            video.removeAttribute('autoplay');
+            
+            // Add event listeners to prevent fullscreen mode
+            video.addEventListener('fullscreenchange', function() {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            });
+            
+            video.addEventListener('webkitfullscreenchange', function() {
+                if (document.webkitFullscreenElement) {
+                    document.webkitExitFullscreen();
+                }
+            });
+            
+            video.addEventListener('mozfullscreenchange', function() {
+                if (document.mozFullScreenElement) {
+                    document.mozCancelFullScreen();
+                }
+            });
+            
+            video.addEventListener('MSFullscreenChange', function() {
+                if (document.msFullscreenElement) {
+                    document.msExitFullscreen();
+                }
+            });
+        });
+    }
+});
+
   window.addEventListener("hashchange", () => window.history.pushState({}, "", '/'), {});
 
 function scrollToElement(targetElement, fast = false) {
