@@ -89,15 +89,24 @@ html {
   padding: 3px;
     }
 
-  #gap2B {
+  .gap {
+
+    margin-top: 0%; /* antes 8.4% */
+    flex: 0 0 auto;
     width: 0% !important; /* Antes 5% */
+    padding: 5px;
+    font-size: 15px; /* antes 14px */
+    line-height: 1.25; /* antes 1.5*/
+    font-family: PitagonSerif;
+    text-align: left;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    position: relative; /* Position relative for positioning the arrow */   
   }
 
-  #gapB {
-    width: 0% !important; /* Antes 1.5% */
-  }
-
-  #gapB:hover::after, #gap2B:hover::after {
+  .gap:hover::after {
   display: none;
   }
 
@@ -311,7 +320,7 @@ html {
   /*-webkit-overflow-scrolling: touch;*/
   }
 
-  #gapB, #gap2B {
+  .gap {
   display: none;
   }
 
