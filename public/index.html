@@ -151,6 +151,12 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+    document.getElementById('myVideo').addEventListener('fullscreenchange', function() {
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        }
+    });
 </script>
   
 </head>
