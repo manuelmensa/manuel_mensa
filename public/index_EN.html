@@ -12,40 +12,6 @@
   
 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
 
-<!--<script>
-  var scrollInterval;
-  var scrollSpeed = 0;
-  var acceleration = 0.2;
-  var maxScrollSpeed = 10;
-
-  function startScrollLeft() {
-    scrollSpeed = 0;
-    scrollInterval = setInterval(function() {
-      scrollSpeed = Math.min(scrollSpeed + acceleration, maxScrollSpeed);
-      document.querySelector(".container").scrollLeft -= scrollSpeed;
-    }, 10);
-  }
-
-  function stopScrollLeft() {
-    clearInterval(scrollInterval);
-    scrollSpeed = 0;
-  }
-
-  function startScrollRight() {
-    scrollSpeed = 0;
-    scrollInterval = setInterval(function() {
-      scrollSpeed = Math.min(scrollSpeed + acceleration, maxScrollSpeed);
-      document.querySelector(".container").scrollLeft += scrollSpeed;
-    }, 10);
-  }
-
-  function stopScrollRight() {
-    clearInterval(scrollInterval);
-    scrollSpeed = 0;
-  }
-
-</script> -->
-  
 <script>
 var scrollInterval;
 var scrollSpeed = 0;
@@ -132,25 +98,6 @@ document.getElementById('slideForwardBottom').addEventListener('mousedown', star
 document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
 document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
 
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Function to detect if the device is mobile
-    function isMobileDevice() {
-        return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
-
-    // Get all video elements
-    const videos = document.querySelectorAll('video');
-
-    // If it's a mobile device, remove the autoplay attribute
-    if (isMobileDevice()) {
-        videos.forEach(video => {
-            video.removeAttribute('autoplay');
-            // Optionally, pause the video if it started playing before removing the attribute
-            video.pause();
-        });
-    }
-});
 </script>
   
 </head>
@@ -2207,7 +2154,7 @@ Today the world's population lives in cities. All architecture must deal with th
         
         videos.forEach(function(video) {
             // Remove autoplay attribute
-            // video.removeAttribute('autoplay');
+            video.removeAttribute('autoplay');
             
             // Add event listeners to prevent fullscreen mode
             video.addEventListener('fullscreenchange', function() {
