@@ -293,6 +293,11 @@ html {
 
   img {
   image-resolution: 50dpi;
+    max-width: 100%; /* Make sure it scales with screen size */
+    height: auto;
+    /* Optionally reduce image quality if the device supports it */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimizeQuality; /* Apply high-quality scaling */
   }
     
   .container {
