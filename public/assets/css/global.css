@@ -65,6 +65,11 @@ html {
 
   img {
   image-resolution: 100dpi;
+    max-width: auto;
+    height: auto;
+    /* Optionally reduce image quality if the device supports it */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimizeQuality; /* Apply high-quality scaling */
   }
 
   hr {
