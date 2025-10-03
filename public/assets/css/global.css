@@ -13,6 +13,9 @@
 
 html {
   scroll-behavior: smooth !important; /* Smooth scrolling behavior for the entire page */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .container, html, body {
