@@ -369,29 +369,31 @@ html {
     }
 }
 
-/* Image click-to-zoom toggle */
-.column img {
-  transition: transform 0.2s ease;
-  cursor: zoom-in;
-  transform-origin: center center;
-}
+/* Image click-to-zoom toggle - Desktop only */
+@media (min-width: 769px) {
+  .column img {
+    transition: transform 0.2s ease;
+    cursor: zoom-in;
+    transform-origin: center center;
+  }
 
-.column img.zoomed {
-  /* transform: scale(1.2); */
-  cursor: zoom-out;
-}
+  .column img.zoomed {
+    /* transform: scale(1.2); */
+    cursor: zoom-out;
+  }
 
-/* In a zoomed column, keep non-zoomed images at original size */
-.column.has-zoomed img:not(.zoomed) {
-  width: 57.14%; /* 16.5% / 28.875% = 0.5714 to maintain original size */
-  margin: 0 auto 5% auto; /* Center and keep bottom margin */
-  display: block; /* Ensure proper centering */
-}
+  /* In a zoomed column, keep non-zoomed images at original size */
+  .column.has-zoomed img:not(.zoomed) {
+    width: 57.14%; /* 16.5% / 28.875% = 0.5714 to maintain original size */
+    margin: 0 auto 5% auto; /* Center and keep bottom margin */
+    display: block; /* Ensure proper centering */
+  }
 
-/* When column has zoomed image, make it wider to accommodate scaled image */
-.column.has-zoomed {
-  width: 28.875%; /* 16.5% * 1.75 = 28.875% for 75% increase */
-  overflow-y: scroll;
+  /* When column has zoomed image, make it wider to accommodate scaled image */
+  .column.has-zoomed {
+    width: 28.875%; /* 16.5% * 1.75 = 28.875% for 75% increase */
+    overflow-y: scroll;
+  }
 }
 
 /* (reverted) no special column state for zoomed images */

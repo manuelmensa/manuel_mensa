@@ -103,10 +103,11 @@ document.addEventListener('DOMContentLoaded', function() {
   var images = document.querySelectorAll('.column img');
 });
 
-// Toggle zoom on images inside columns
+// Toggle zoom on images inside columns - Desktop only
 document.addEventListener('click', function (e) {
   var target = e.target;
-  if (target && target.tagName === 'IMG') {
+  // Only enable zoom on desktop (screen width > 768px)
+  if (target && target.tagName === 'IMG' && window.innerWidth > 768) {
     var parent = target.closest('.column');
     if (parent) {
       e.stopPropagation();
