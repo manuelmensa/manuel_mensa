@@ -98,7 +98,7 @@ html {
     }
 
   .gap {
-
+    display: none;
     margin-top: 0%; /* antes 8.4% */
     flex: 0 0 auto;
     width: 0% !important; /* Antes 5% */
