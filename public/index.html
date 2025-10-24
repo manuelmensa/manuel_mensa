@@ -103,26 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var images = document.querySelectorAll('.column img');
 });
 
-// Toggle zoom on images inside columns - Desktop only
-document.addEventListener('click', function (e) {
-  var target = e.target;
-  // Only enable zoom on desktop (screen width > 768px)
-  if (target && target.tagName === 'IMG' && window.innerWidth > 768) {
-    var parent = target.closest('.column');
-    if (parent) {
-      e.stopPropagation();
-      target.classList.toggle('zoomed');
-      
-      // Check if any images in this column are zoomed
-      var hasZoomed = parent.querySelector('img.zoomed');
-      if (hasZoomed) {
-        parent.classList.add('has-zoomed');
-      } else {
-        parent.classList.remove('has-zoomed');
-      }
-    }
-  }
-});
+// Zoom functionality moved to zoom-images.js
 
 </script>
   
@@ -2916,5 +2897,8 @@ function stopScrolling() {
 
 <!-- Sistema de Filtros -->
 <script src="assets/js/filters.js"></script>
+
+<!-- Sistema de Zoom de Imágenes -->
+<script src="assets/js/zoom-images.js"></script>
 
 </html>
