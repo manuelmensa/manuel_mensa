@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
  * Configura los event listeners y el estado inicial
  */
 function initializeFilters() {
-    console.log('Inicializando sistema de filtros...');
+    // console.log('Inicializando sistema de filtros...');
     
     // Agregar estilos CSS para los filtros
     addFilterStyles();
@@ -62,7 +62,7 @@ function initializeFilters() {
 function createFilterButtons() {
     const indiceColumn = document.getElementById('indice');
     if (!indiceColumn) {
-        console.error('No se encontró la columna índice');
+        // console.error('No se encontró la columna índice');
         return;
     }
 
@@ -86,11 +86,11 @@ function createFilterButtons() {
     if (indiceTitle) {
         // Insertar los filtros justo antes del título "Índice"
         indiceColumn.insertBefore(filterContainer, indiceTitle);
-        console.log('Filtros insertados correctamente antes del título "Índice"');
+        // console.log('Filtros insertados correctamente antes del título "Índice"');
     } else {
         // Fallback: insertar al final de la columna
         indiceColumn.appendChild(filterContainer);
-        console.warn('No se encontró el título "Índice", filtros insertados al final');
+        // console.warn('No se encontró el título "Índice", filtros insertados al final');
     }
 
     // Agregar event listeners a los botones
@@ -124,8 +124,8 @@ function collectAllColumns() {
         projectGroups[projectId].push(column);
     });
     
-    console.log(`Se encontraron ${allColumns.length} columnas agrupadas en ${Object.keys(projectGroups).length} proyectos`);
-    console.log('Proyectos encontrados:', Object.keys(projectGroups));
+    // console.log(`Se encontraron ${allColumns.length} columnas agrupadas en ${Object.keys(projectGroups).length} proyectos`);
+    // console.log('Proyectos encontrados:', Object.keys(projectGroups));
 }
 
 /**
@@ -156,14 +156,14 @@ function toggleFilter(category) {
             activeFilters.delete(category);
             showAllColumns();
             updateFilterButtons('all');
-            console.log(`Filtro '${category}' desactivado - Mostrando todas las columnas`);
+            // console.log(`Filtro '${category}' desactivado - Mostrando todas las columnas`);
         } else {
             // Si no está activo, activarlo y aplicar el filtro
             activeFilters.clear(); // Limpiar otros filtros activos
             activeFilters.add(category);
             applyCategoryFilter(category);
             updateFilterButtons(category);
-            console.log(`Filtro '${category}' activado`);
+            // console.log(`Filtro '${category}' activado`);
         }
     }
 }
@@ -176,7 +176,7 @@ function showAllColumns() {
     allColumns.forEach(column => {
         column.style.display = 'block';
     });
-    console.log('Mostrando todas las columnas');
+    // console.log('Mostrando todas las columnas');
 }
 
 /**
@@ -186,7 +186,7 @@ function showAllColumns() {
 function applyCategoryFilter(category) {
     const categoryData = categories[category];
     if (!categoryData) {
-        console.error(`Categoría no encontrada: ${category}`);
+        // console.error(`Categoría no encontrada: ${category}`);
         return;
     }
 
@@ -200,7 +200,7 @@ function applyCategoryFilter(category) {
         });
     });
     
-    console.log(`Aplicando filtro: ${categoryData.name} - Mostrando ${categoryData.projects.length} proyectos`);
+    // console.log(`Aplicando filtro: ${categoryData.name} - Mostrando ${categoryData.projects.length} proyectos`);
 }
 
 /**
@@ -217,7 +217,7 @@ function updateFilterButtons(activeCategory) {
     });
     
     // Log para debug
-    console.log(`Botón activo: ${activeCategory}`);
+    // console.log(`Botón activo: ${activeCategory}`);
 }
 
 /**
@@ -291,8 +291,8 @@ function addFilterStyles() {
  * Permite verificar el estado actual de los filtros
  */
 function debugFilters() {
-    console.log('Estado actual de filtros:');
-    console.log('Categorías disponibles:', Object.keys(categories));
-    console.log('Columnas totales:', allColumns.length);
-    console.log('Filtros activos:', Array.from(activeFilters));
+    // console.log('Estado actual de filtros:');
+    // console.log('Categorías disponibles:', Object.keys(categories));
+    // console.log('Columnas totales:', allColumns.length);
+    // console.log('Filtros activos:', Array.from(activeFilters));
 }
