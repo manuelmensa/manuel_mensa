@@ -372,7 +372,7 @@ html {
 /* Image click-to-zoom toggle - Desktop only */
 @media (min-width: 769px) {
   .column img {
-    cursor: zoom-in;
+    cursor: pointer;
     transition: opacity 0.3s ease;
   }
 }

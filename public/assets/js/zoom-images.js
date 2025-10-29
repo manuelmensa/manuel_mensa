@@ -97,7 +97,7 @@ function createZoomedImage(originalImage) {
     zoomedImageClone.style.width = rect.width + 'px';
     zoomedImageClone.style.height = rect.height + 'px';
     zoomedImageClone.style.zIndex = '1000';
-    zoomedImageClone.style.cursor = 'zoom-out';
+    zoomedImageClone.style.cursor = 'pointer';
     zoomedImageClone.style.transition = 'all 0.3s ease';
     zoomedImageClone.style.pointerEvents = 'none'; // No bloquear eventos
     
@@ -168,7 +168,7 @@ function addZoomStyles() {
         /* Responsive para móviles */
         @media (max-width: 768px) {
             .column img {
-                cursor: default;
+                cursor: pointer;
             }
         }
     `;
