@@ -5,7 +5,7 @@
  * que se posiciona sobre la imagen original sin afectar el layout.
  */
 
-// Variable para almacenar la copia de la imagen
+// Variable para almacenar la copia del medio (imagen o video)
 let zoomedImageClone = null;
 
 /**
@@ -42,16 +42,16 @@ document.addEventListener('click', function (e) {
         e.stopPropagation();
         removeZoomedImage();
         // Remover clase de la imagen original
-        const originalImage = document.querySelector('.column img.zoomed');
-        if (originalImage) {
-            originalImage.classList.remove('zoomed');
+        const originalZoomed = document.querySelector('.column img.zoomed, .column video.zoomed');
+        if (originalZoomed) {
+            originalZoomed.classList.remove('zoomed');
         }
         return;
     }
     
-    // Solo procesar imágenes en columnas y en desktop
-    if (target && target.tagName === 'IMG' && 
-        target.closest('.column') && 
+    // Solo procesar imágenes o videos en columnas y en desktop
+    if (target && (target.tagName === 'IMG' || target.tagName === 'VIDEO') &&
+        target.closest('.column') &&
         window.innerWidth > 768) {
         
         // console.log('Imagen clickeada, procesando zoom...');
@@ -80,7 +80,7 @@ function createZoomedImage(originalImage) {
     removeZoomedImage();
     
     // Limpiar todas las clases zoomed de todas las imágenes
-    const allZoomedImages = document.querySelectorAll('.column img.zoomed');
+    const allZoomedImages = document.querySelectorAll('.column img.zoomed, .column video.zoomed');
     allZoomedImages.forEach(img => img.classList.remove('zoomed'));
     
     // Obtener las coordenadas de la imagen original
@@ -89,6 +89,25 @@ function createZoomedImage(originalImage) {
     // Crear copia de la imagen
     zoomedImageClone = originalImage.cloneNode(true);
     zoomedImageClone.classList.add('zoomed-clone');
+    
+    // Si es video, asegurarnos de que no reproduzca sonido ni interfiera
+    if (originalImage.tagName === 'VIDEO') {
+        try {
+            // Sin controles, muteado y pausado para mostrar el frame actual
+            zoomedImageClone.controls = false;
+            zoomedImageClone.muted = true;
+            // Intentar sincronizar el frame mostrado y mantener reproducción
+            zoomedImageClone.currentTime = originalImage.currentTime || 0;
+            const playPromise = zoomedImageClone.play();
+            if (playPromise && typeof playPromise.then === 'function') {
+                playPromise.catch(() => {
+                    // Algunos navegadores bloquean autoplay; si falla, al menos queda en el frame actual
+                });
+            }
+        } catch (e) {
+            // Silencioso si el navegador no permite ajustar currentTime inmediatamente
+        }
+    }
     
     // Configurar estilos de la copia
     zoomedImageClone.style.position = 'fixed';
@@ -145,6 +164,12 @@ function addZoomStyles() {
             transition: opacity 0.3s ease;
         }
         
+        /* Estilos para el video original cuando está zoomed */
+        .column video.zoomed {
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+        
         /* Estilos para la copia flotante */
         .zoomed-clone {
             pointer-events: none;
@@ -170,6 +195,9 @@ function addZoomStyles() {
             .column img {
                 cursor: pointer;
             }
+            .column video {
+                cursor: pointer;
+            }
         }
     `;
     document.head.appendChild(style);
@@ -182,9 +210,9 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && zoomedImageClone) {
         // console.log('Escape presionado, cerrando zoom...');
         removeZoomedImage();
-        const originalImage = document.querySelector('.column img.zoomed');
-        if (originalImage) {
-            originalImage.classList.remove('zoomed');
+        const originalZoomed = document.querySelector('.column img.zoomed, .column video.zoomed');
+        if (originalZoomed) {
+            originalZoomed.classList.remove('zoomed');
         }
     }
 });
