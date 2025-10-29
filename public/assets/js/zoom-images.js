@@ -83,8 +83,12 @@ function createZoomedImage(originalImage) {
     const allZoomedImages = document.querySelectorAll('.column img.zoomed, .column video.zoomed');
     allZoomedImages.forEach(img => img.classList.remove('zoomed'));
     
-    // Obtener las coordenadas de la imagen original
+    // Obtener contenedor columna y coordenadas relativas a la columna
+    const column = originalImage.closest('.column');
     const rect = originalImage.getBoundingClientRect();
+    const columnRect = column.getBoundingClientRect();
+    const relativeLeft = (rect.left - columnRect.left) + column.scrollLeft;
+    const relativeTop = (rect.top - columnRect.top) + column.scrollTop;
     
     // Crear copia de la imagen
     zoomedImageClone = originalImage.cloneNode(true);
@@ -109,10 +113,10 @@ function createZoomedImage(originalImage) {
         }
     }
     
-    // Configurar estilos de la copia
-    zoomedImageClone.style.position = 'fixed';
-    zoomedImageClone.style.left = rect.left + 'px';
-    zoomedImageClone.style.top = rect.top + 'px';
+    // Configurar estilos de la copia para que quede "atada" a la columna
+    zoomedImageClone.style.position = 'absolute';
+    zoomedImageClone.style.left = relativeLeft + 'px';
+    zoomedImageClone.style.top = relativeTop + 'px';
     zoomedImageClone.style.width = rect.width + 'px';
     zoomedImageClone.style.height = rect.height + 'px';
     zoomedImageClone.style.zIndex = '1000';
@@ -120,8 +124,8 @@ function createZoomedImage(originalImage) {
     zoomedImageClone.style.transition = 'all 0.3s ease';
     zoomedImageClone.style.pointerEvents = 'none'; // No bloquear eventos
     
-    // Agregar al DOM
-    document.body.appendChild(zoomedImageClone);
+    // Agregar dentro de la misma columna para que siga su scroll
+    column.appendChild(zoomedImageClone);
     
     // Animar el zoom después de un pequeño delay
     setTimeout(() => {
@@ -129,10 +133,10 @@ function createZoomedImage(originalImage) {
             const scale = 1.5;
             const newWidth = rect.width * scale;
             const newHeight = rect.height * scale;
-            
-            // Centrar la imagen expandida
-            zoomedImageClone.style.left = (rect.left + rect.width / 2 - newWidth / 2) + 'px';
-            zoomedImageClone.style.top = (rect.top + rect.height / 2 - newHeight / 2) + 'px';
+
+            // Centrar la copia expandida respecto a su posición relativa en la columna
+            zoomedImageClone.style.left = (relativeLeft + rect.width / 2 - newWidth / 2) + 'px';
+            zoomedImageClone.style.top = (relativeTop + rect.height / 2 - newHeight / 2) + 'px';
             zoomedImageClone.style.width = newWidth + 'px';
             zoomedImageClone.style.height = newHeight + 'px';
         }
