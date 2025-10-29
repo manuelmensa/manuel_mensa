@@ -7,6 +7,10 @@
 
 // Variable para almacenar la copia del medio (imagen o video)
 let zoomedImageClone = null;
+// Referencia al elemento original y bucle de seguimiento
+let zoomedOriginalEl = null;
+let zoomFollowRafId = null;
+let zoomFollowListenersAttached = false;
 
 /**
  * Inicializa el sistema de zoom
@@ -83,16 +87,14 @@ function createZoomedImage(originalImage) {
     const allZoomedImages = document.querySelectorAll('.column img.zoomed, .column video.zoomed');
     allZoomedImages.forEach(img => img.classList.remove('zoomed'));
     
-    // Obtener contenedor columna y coordenadas relativas a la columna
-    const column = originalImage.closest('.column');
+    // Obtener coordenadas del elemento respecto a la ventana
     const rect = originalImage.getBoundingClientRect();
-    const columnRect = column.getBoundingClientRect();
-    const relativeLeft = (rect.left - columnRect.left) + column.scrollLeft;
-    const relativeTop = (rect.top - columnRect.top) + column.scrollTop;
     
     // Crear copia de la imagen
     zoomedImageClone = originalImage.cloneNode(true);
     zoomedImageClone.classList.add('zoomed-clone');
+    // Guardar referencia al original para seguimiento
+    zoomedOriginalEl = originalImage;
     
     // Si es video, asegurarnos de que no reproduzca sonido ni interfiera
     if (originalImage.tagName === 'VIDEO') {
@@ -113,19 +115,19 @@ function createZoomedImage(originalImage) {
         }
     }
     
-    // Configurar estilos de la copia para que quede "atada" a la columna
-    zoomedImageClone.style.position = 'absolute';
-    zoomedImageClone.style.left = relativeLeft + 'px';
-    zoomedImageClone.style.top = relativeTop + 'px';
+    // Configurar estilos de la copia como fija a la ventana
+    zoomedImageClone.style.position = 'fixed';
+    zoomedImageClone.style.left = rect.left + 'px';
+    zoomedImageClone.style.top = rect.top + 'px';
     zoomedImageClone.style.width = rect.width + 'px';
     zoomedImageClone.style.height = rect.height + 'px';
     zoomedImageClone.style.zIndex = '1000';
     zoomedImageClone.style.cursor = 'pointer';
-    zoomedImageClone.style.transition = 'all 0.3s ease';
+    zoomedImageClone.style.transition = 'all 0.2s ease';
     zoomedImageClone.style.pointerEvents = 'none'; // No bloquear eventos
     
-    // Agregar dentro de la misma columna para que siga su scroll
-    column.appendChild(zoomedImageClone);
+    // Agregar al body para que quede fija y no dependa del scroll de la columna
+    document.body.appendChild(zoomedImageClone);
     
     // Animar el zoom después de un pequeño delay
     setTimeout(() => {
@@ -133,12 +135,19 @@ function createZoomedImage(originalImage) {
             const scale = 1.5;
             const newWidth = rect.width * scale;
             const newHeight = rect.height * scale;
-
-            // Centrar la copia expandida respecto a su posición relativa en la columna
-            zoomedImageClone.style.left = (relativeLeft + rect.width / 2 - newWidth / 2) + 'px';
-            zoomedImageClone.style.top = (relativeTop + rect.height / 2 - newHeight / 2) + 'px';
-            zoomedImageClone.style.width = newWidth + 'px';
-            zoomedImageClone.style.height = newHeight + 'px';
+            // Persistir tamaño objetivo para recalcular posición al scrollear
+            zoomedImageClone.dataset.zoomWidth = String(newWidth);
+            zoomedImageClone.dataset.zoomHeight = String(newHeight);
+            updateZoomedClonePosition();
+            startZoomFollowLoop();
+            // Quitar transición tras la animación inicial para que siga sin lag
+            setTimeout(() => {
+                if (zoomedImageClone) {
+                    zoomedImageClone.style.transition = 'none';
+                }
+            }, 220);
+            // Adjuntar listeners de scroll/resize para actualización inmediata
+            attachZoomFollowListeners();
         }
     }, 10);
     
@@ -154,6 +163,12 @@ function removeZoomedImage() {
         zoomedImageClone = null;
         // console.log('Imagen zoomed removida');
     }
+    zoomedOriginalEl = null;
+    if (zoomFollowRafId) {
+        cancelAnimationFrame(zoomFollowRafId);
+        zoomFollowRafId = null;
+    }
+    detachZoomFollowListeners();
 }
 
 /**
@@ -220,6 +235,53 @@ document.addEventListener('keydown', function(e) {
         }
     }
 });
+
+/**
+ * Actualiza la posición de la copia para que siga al elemento original
+ */
+function updateZoomedClonePosition() {
+    if (!zoomedImageClone || !zoomedOriginalEl) return;
+    const rectNow = zoomedOriginalEl.getBoundingClientRect();
+    const newWidth = parseFloat(zoomedImageClone.dataset.zoomWidth || '0') || rectNow.width * 1.5;
+    const newHeight = parseFloat(zoomedImageClone.dataset.zoomHeight || '0') || rectNow.height * 1.5;
+    zoomedImageClone.style.left = (rectNow.left + rectNow.width / 2 - newWidth / 2) + 'px';
+    zoomedImageClone.style.top = (rectNow.top + rectNow.height / 2 - newHeight / 2) + 'px';
+    zoomedImageClone.style.width = newWidth + 'px';
+    zoomedImageClone.style.height = newHeight + 'px';
+}
+
+/**
+ * Inicia un loop para seguir la posición del original mientras hay zoom
+ */
+function startZoomFollowLoop() {
+    const loop = () => {
+        if (!zoomedImageClone || !zoomedOriginalEl) return;
+        updateZoomedClonePosition();
+        zoomFollowRafId = requestAnimationFrame(loop);
+    };
+    zoomFollowRafId = requestAnimationFrame(loop);
+}
+
+/**
+ * Adjunta listeners para actualizar posición en eventos de scroll/resize
+ */
+function attachZoomFollowListeners() {
+    if (zoomFollowListenersAttached) return;
+    // Scroll global y de elementos (captura para atrapar scroll en columnas)
+    document.addEventListener('scroll', updateZoomedClonePosition, true);
+    window.addEventListener('resize', updateZoomedClonePosition);
+    zoomFollowListenersAttached = true;
+}
+
+/**
+ * Remueve listeners del seguimiento
+ */
+function detachZoomFollowListeners() {
+    if (!zoomFollowListenersAttached) return;
+    document.removeEventListener('scroll', updateZoomedClonePosition, true);
+    window.removeEventListener('resize', updateZoomedClonePosition);
+    zoomFollowListenersAttached = false;
+}
 
 
 /**
