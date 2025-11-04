@@ -132,7 +132,7 @@ function createZoomedImage(originalImage) {
     // Animar el zoom después de un pequeño delay
     setTimeout(() => {
         if (zoomedImageClone) {
-            const scale = 1.5;
+            const scale = 2.0;
             const newWidth = rect.width * scale;
             const newHeight = rect.height * scale;
             // Persistir tamaño objetivo para recalcular posición al scrollear
@@ -192,8 +192,6 @@ function addZoomStyles() {
         /* Estilos para la copia flotante */
         .zoomed-clone {
             pointer-events: none;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border-radius: 4px;
         }
         
         /* Fondo semi-transparente para la imagen zoomed */
@@ -242,8 +240,8 @@ document.addEventListener('keydown', function(e) {
 function updateZoomedClonePosition() {
     if (!zoomedImageClone || !zoomedOriginalEl) return;
     const rectNow = zoomedOriginalEl.getBoundingClientRect();
-    const newWidth = parseFloat(zoomedImageClone.dataset.zoomWidth || '0') || rectNow.width * 1.5;
-    const newHeight = parseFloat(zoomedImageClone.dataset.zoomHeight || '0') || rectNow.height * 1.5;
+    const newWidth = parseFloat(zoomedImageClone.dataset.zoomWidth || '0') || rectNow.width * 2.0;
+    const newHeight = parseFloat(zoomedImageClone.dataset.zoomHeight || '0') || rectNow.height * 2.0;
     zoomedImageClone.style.left = (rectNow.left + rectNow.width / 2 - newWidth / 2) + 'px';
     zoomedImageClone.style.top = (rectNow.top + rectNow.height / 2 - newHeight / 2) + 'px';
     zoomedImageClone.style.width = newWidth + 'px';
