@@ -23,7 +23,7 @@ html {
     display: flex;
     overflow-x: scroll;
     gap: 10px;
-    padding-left: 0px;
+    padding-left: 5px;
     margin: 0px;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
