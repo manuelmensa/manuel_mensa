@@ -236,14 +236,34 @@ document.addEventListener('keydown', function(e) {
 
 /**
  * Actualiza la posición de la copia para que siga al elemento original
+ * Ajusta solo la posición horizontal para evitar que se recorte en los bordes del viewport
  */
 function updateZoomedClonePosition() {
     if (!zoomedImageClone || !zoomedOriginalEl) return;
     const rectNow = zoomedOriginalEl.getBoundingClientRect();
     const newWidth = parseFloat(zoomedImageClone.dataset.zoomWidth || '0') || rectNow.width * 2.0;
     const newHeight = parseFloat(zoomedImageClone.dataset.zoomHeight || '0') || rectNow.height * 2.0;
-    zoomedImageClone.style.left = (rectNow.left + rectNow.width / 2 - newWidth / 2) + 'px';
-    zoomedImageClone.style.top = (rectNow.top + rectNow.height / 2 - newHeight / 2) + 'px';
+    
+    // Calcular posición ideal (centrada)
+    let left = rectNow.left + rectNow.width / 2 - newWidth / 2;
+    let top = rectNow.top + rectNow.height / 2 - newHeight / 2;
+    
+    // Obtener dimensiones del viewport
+    const viewportWidth = window.innerWidth;
+    
+    // Ajustar solo posición horizontal si se sale por la derecha
+    if (left + newWidth > viewportWidth) {
+        left = viewportWidth - newWidth;
+    }
+    
+    // Ajustar solo posición horizontal si se sale por la izquierda
+    if (left < 0) {
+        left = 0;
+    }
+    
+    // No ajustar posición vertical para no interferir con el scroll de las columnas
+    zoomedImageClone.style.left = left + 'px';
+    zoomedImageClone.style.top = top + 'px';
     zoomedImageClone.style.width = newWidth + 'px';
     zoomedImageClone.style.height = newHeight + 'px';
 }
