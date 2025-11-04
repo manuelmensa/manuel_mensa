@@ -70,12 +70,11 @@ function createFilterButtons() {
     const filterContainer = document.createElement('div');
     filterContainer.id = 'filter-container';
     filterContainer.innerHTML = `
-        <div class="filter-buttons">
-            <button class="filter-btn active" data-category="all">Todos</button>
-            ${Object.keys(categories).map(category => 
-                `<button class="filter-btn" data-category="${category}">${categories[category].name}</button>`
-            ).join('')}
-        </div>
+        <h3>Filtros</h3>
+        <p style="margin-bottom: -10px"><a class="filter-link active" href="#" data-category="all">Todos</a></p>
+        ${Object.keys(categories).map(category => 
+            `<p style="margin-bottom: -10px"><a class="filter-link" href="#" data-category="${category}">${categories[category].name}</a></p>`
+        ).join('')}
     `;
 
     // Buscar el h3 que dice exactamente "Índice"
@@ -93,10 +92,11 @@ function createFilterButtons() {
         // console.warn('No se encontró el título "Índice", filtros insertados al final');
     }
 
-    // Agregar event listeners a los botones
-    const filterButtons = filterContainer.querySelectorAll('.filter-btn');
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
+    // Agregar event listeners a los links de filtro
+    const filterLinks = filterContainer.querySelectorAll('.filter-link');
+    filterLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
             const category = this.getAttribute('data-category');
             toggleFilter(category);
         });
@@ -204,83 +204,46 @@ function applyCategoryFilter(category) {
 }
 
 /**
- * Actualiza el estado visual de los botones de filtro
+ * Actualiza el estado visual de los links de filtro
  * @param {string} activeCategory - Categoría activa
  */
 function updateFilterButtons(activeCategory) {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    filterButtons.forEach(button => {
-        button.classList.remove('active');
-        if (button.getAttribute('data-category') === activeCategory) {
-            button.classList.add('active');
+    const filterLinks = document.querySelectorAll('.filter-link');
+    filterLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-category') === activeCategory) {
+            link.classList.add('active');
         }
     });
-    
-    // Log para debug
-    // console.log(`Botón activo: ${activeCategory}`);
 }
 
 /**
  * Agrega estilos CSS para los filtros
- * Inyecta estilos necesarios para el funcionamiento de los filtros
+ * Usa el mismo estilo que los links del índice
  */
 function addFilterStyles() {
     const style = document.createElement('style');
     style.textContent = `
         #filter-container {
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 2rem;
         }
         
-        .filter-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 10px;
-        }
-        
-        .filter-btn {
-            padding: 6px 12px;
-            border: 1px solid black;
-            background-color: transparent;
+        .filter-link {
             color: black;
+            text-decoration: none;
             font-family: PitagonSerif;
-            font-size: 12px;
+            font-size: 15px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 2px;
-            white-space: nowrap;
         }
         
-        .filter-btn:hover {
-            background-color: black;
-            color: white;
-        }
-        
-        .filter-btn.active {
-            background-color: black;
-            color: white;
+        .filter-link:hover {
+            color: #191970;
             font-weight: bold;
         }
         
-        .filter-btn.active:hover {
-            background-color: #333;
-        }
-        
-        /* Responsive para móviles */
-        @media (max-width: 768px) {
-            .filter-buttons {
-                flex-direction: column;
-                gap: 4px;
-            }
-            
-            .filter-btn {
-                width: 100%;
-                text-align: center;
-                padding: 8px;
-                font-size: 11px;
-            }
+        .filter-link.active {
+            color: #191970;
+            font-weight: bold;
         }
     `;
     document.head.appendChild(style);
