@@ -47,6 +47,15 @@ html {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
     position: relative; /* Position relative for positioning the arrow */
+    outline: none; /* Remover outline cuando tiene focus */
+  }
+  
+  .column:focus {
+    outline: none;
+  }
+  
+  .column:focus-visible {
+    outline: none;
   }
 
  .column p {

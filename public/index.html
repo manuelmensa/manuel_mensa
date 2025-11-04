@@ -11,6 +11,9 @@
 <link href="/assets/css/global.css" rel="stylesheet">
   
 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
+<script src="/assets/js/url-slugs.js"></script>
+<script src="/assets/js/filters.js"></script>
+<script src="/assets/js/zoom-images.js"></script>
   
 <script>
 var scrollInterval;
@@ -2779,9 +2782,42 @@ Práctica de lo Irreductible (Archivos de Arquitectura, 2022) y Atlas de Arquite
 </body>
 
 <script>
-  window.history.replaceState('','','/');
+  // Guardar el hash antes de limpiarlo (si existe)
+  const initialHash = window.location.hash;
+  
+  // Solo limpiar la URL si no hay hash válido
+  if (!initialHash) {
+    window.history.replaceState('','','/');
+  }
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Generar el mapeo de slugs
+    if (typeof generateSlugMapping === 'function') {
+        generateSlugMapping();
+    }
+    
+    // Función simple para hacer scroll a un hash
+    function scrollToHash(hash) {
+        if (!hash || typeof hashToId !== 'function') return;
+        
+        const id = hashToId(hash);
+        if (id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+    }
+    
+    // Procesar hash inicial
+    if (initialHash) {
+        setTimeout(() => scrollToHash(initialHash), 300);
+    }
+    
+    // Escuchar cambios en el hash
+    window.addEventListener('hashchange', function() {
+        scrollToHash(window.location.hash);
+    });
     // Check if the device is mobile
     var isMobile = window.matchMedia("only screen and (max-width: 768px)").matches;
     
@@ -2821,17 +2857,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-  window.addEventListener("hashchange", () => window.history.pushState({}, "", '/'), {});
+  // Remover el listener que limpia el hash
+  // window.addEventListener("hashchange", () => window.history.pushState({}, "", '/'), {});
 
 function scrollToElement(targetElement, fast = false) {
   if (fast) {
-    const scrollContainer = targetElement.closest('.scroll-container') || document.documentElement;
+    const scrollContainer = document.querySelector('.container') || document.documentElement;
     const containerRect = scrollContainer.getBoundingClientRect();
     const targetRect = targetElement.getBoundingClientRect();
 
     const targetLeft = targetRect.left - containerRect.left + scrollContainer.scrollLeft;
 
-    const duration = 250; // Half the duration for double the speed
+    const duration = 250;
 
     let startTime = null;
 
@@ -2851,31 +2888,51 @@ function scrollToElement(targetElement, fast = false) {
   } else {
     targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
   }
+  
+  // Actualizar la URL con el slug si existe
+  if (targetElement.id && typeof getSlugFromId === 'function') {
+    const slug = getSlugFromId(targetElement.id);
+    if (slug) {
+      window.history.pushState({}, '', '#' + slug);
+    }
+  }
 }
 
-// Add smooth horizontal scrolling behavior to all links with href pointing to an ID
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent default behavior of anchor tag
-    const targetElement = document.querySelector(this.getAttribute('href')); // Get the target element
-    if (targetElement) {
-      scrollToElement(targetElement); // Scroll to the target element
+// Actualizar links y agregar listeners cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(() => {
+    // Actualizar links del índice para usar slugs
+    const indiceColumn = document.getElementById('indice');
+    if (indiceColumn && typeof getSlugFromId === 'function') {
+      indiceColumn.querySelectorAll('a[href^="#"]').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href !== '#indice') {
+          const id = href.replace(/^#/, '');
+          const slug = getSlugFromId(id);
+          if (slug) {
+            link.setAttribute('href', '#' + slug);
+          }
+        }
+      });
     }
-  });
-});
-
-// Add fast horizontal scrolling behavior to all elements with onclick pointing to a URL containing an ID
-document.querySelectorAll('[onclick^="window.location.href"]').forEach(element => {
-  element.addEventListener('click', function(e) {
-    const urlMatch = this.getAttribute('onclick').match(/window\.location\.href=['"]([^'"]+)['"]/);
-    if (urlMatch && urlMatch[1].startsWith('#')) {
-      e.preventDefault(); // Prevent default behavior
-      const targetElement = document.querySelector(urlMatch[1]); // Get the target element
-      if (targetElement) {
-        scrollToElement(targetElement, true); // Scroll to the target element twice as fast
-      }
-    }
-  });
+    
+    // Agregar listeners a todos los links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const hash = this.getAttribute('href');
+        if (typeof hashToId === 'function') {
+          const id = hashToId(hash);
+          if (id) {
+            const targetElement = document.getElementById(id);
+            if (targetElement) {
+              scrollToElement(targetElement);
+            }
+          }
+        }
+      });
+    });
+  }, 200);
 });
 
 let scrolling;
