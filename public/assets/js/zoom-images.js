@@ -5,11 +5,8 @@
  * que se posiciona sobre la imagen original sin afectar el layout.
  */
 
-// Variable para almacenar la copia del medio (imagen o video)
-let zoomedImageClone = null;
-// Referencia al elemento original y bucle de seguimiento
-let zoomedOriginalEl = null;
-let zoomFollowRafId = null;
+// Array para almacenar múltiples copias zoomed (imágenes o videos)
+let zoomedImages = []; // Cada elemento: { clone, original, rafId }
 let zoomFollowListenersAttached = false;
 
 /**
@@ -38,41 +35,30 @@ function initializeZoomSystem() {
 document.addEventListener('click', function (e) {
     var target = e.target;
     
-//     console.log('Click detectado en:', target.tagName);
-    
-    // Si hay una imagen zoomed activa, cerrarla al hacer click en cualquier lugar
-    if (zoomedImageClone) {
-        // console.log('Click con imagen zoomed activa, cerrando...');
-        e.stopPropagation();
-        removeZoomedImage();
-        // Remover clase de la imagen original
-        const originalZoomed = document.querySelector('.column img.zoomed, .column video.zoomed');
-        if (originalZoomed) {
-            originalZoomed.classList.remove('zoomed');
-        }
-        return;
-    }
-    
     // Solo procesar imágenes o videos en columnas y en desktop
     if (target && (target.tagName === 'IMG' || target.tagName === 'VIDEO') &&
         target.closest('.column') &&
         window.innerWidth > 768) {
         
-        // console.log('Imagen clickeada, procesando zoom...');
         e.stopPropagation();
         
-        if (target.classList.contains('zoomed')) {
-            // Remover zoom
-        //     console.log('Removiendo zoom...');
-            removeZoomedImage();
+        // Verificar si esta imagen ya está zoomed
+        const existingZoomed = zoomedImages.find(item => item.original === target);
+        
+        if (existingZoomed) {
+            // Si ya está zoomed, remover solo esta imagen
+            removeZoomedImage(target);
             target.classList.remove('zoomed');
         } else {
-            // Agregar zoom
-        //     console.log('Agregando zoom...');
+            // Agregar zoom a esta nueva imagen (sin cerrar las otras)
             createZoomedImage(target);
             target.classList.add('zoomed');
         }
+        return;
     }
+    
+    // Si hay imágenes zoomed activas y se hace click fuera de una imagen, no hacer nada
+    // (Permite mantener múltiples imágenes abiertas)
 });
 
 /**
@@ -80,21 +66,19 @@ document.addEventListener('click', function (e) {
  * @param {HTMLElement} originalImage - Imagen original
  */
 function createZoomedImage(originalImage) {
-    // Remover cualquier imagen zoomed existente
-    removeZoomedImage();
-    
-    // Limpiar todas las clases zoomed de todas las imágenes
-    const allZoomedImages = document.querySelectorAll('.column img.zoomed, .column video.zoomed');
-    allZoomedImages.forEach(img => img.classList.remove('zoomed'));
-    
     // Obtener coordenadas del elemento respecto a la ventana
     const rect = originalImage.getBoundingClientRect();
     
     // Crear copia de la imagen
-    zoomedImageClone = originalImage.cloneNode(true);
+    const zoomedImageClone = originalImage.cloneNode(true);
     zoomedImageClone.classList.add('zoomed-clone');
+    
     // Guardar referencia al original para seguimiento
-    zoomedOriginalEl = originalImage;
+    const zoomedItem = {
+        clone: zoomedImageClone,
+        original: originalImage,
+        rafId: null
+    };
     
     // Si es video, asegurarnos de que no reproduzca sonido ni interfiera
     if (originalImage.tagName === 'VIDEO') {
@@ -129,20 +113,23 @@ function createZoomedImage(originalImage) {
     // Agregar al body para que quede fija y no dependa del scroll de la columna
     document.body.appendChild(zoomedImageClone);
     
+    // Agregar al array de imágenes zoomed
+    zoomedImages.push(zoomedItem);
+    
     // Animar el zoom después de un pequeño delay
     setTimeout(() => {
-        if (zoomedImageClone) {
+        if (zoomedItem.clone && zoomedImages.includes(zoomedItem)) {
             const scale = 2.0;
             const newWidth = rect.width * scale;
             const newHeight = rect.height * scale;
             // Persistir tamaño objetivo para recalcular posición al scrollear
             zoomedImageClone.dataset.zoomWidth = String(newWidth);
             zoomedImageClone.dataset.zoomHeight = String(newHeight);
-            updateZoomedClonePosition();
-            startZoomFollowLoop();
+            updateZoomedClonePosition(zoomedItem);
+            startZoomFollowLoop(zoomedItem);
             // Quitar transición tras la animación inicial para que siga sin lag
             setTimeout(() => {
-                if (zoomedImageClone) {
+                if (zoomedItem.clone && zoomedImages.includes(zoomedItem)) {
                     zoomedImageClone.style.transition = 'none';
                 }
             }, 220);
@@ -150,25 +137,39 @@ function createZoomedImage(originalImage) {
             attachZoomFollowListeners();
         }
     }, 10);
-    
-//     console.log('Imagen zoomed creada');
 }
 
 /**
  * Remueve la copia flotante de la imagen
+ * @param {HTMLElement} originalImage - Imagen original a remover (opcional, si no se pasa remueve todas)
  */
-function removeZoomedImage() {
-    if (zoomedImageClone) {
-        zoomedImageClone.remove();
-        zoomedImageClone = null;
-        // console.log('Imagen zoomed removida');
+function removeZoomedImage(originalImage = null) {
+    if (originalImage) {
+        // Remover solo la imagen específica
+        const index = zoomedImages.findIndex(item => item.original === originalImage);
+        if (index !== -1) {
+            const zoomedItem = zoomedImages[index];
+            if (zoomedItem.clone) {
+                zoomedItem.clone.remove();
+            }
+            if (zoomedItem.rafId) {
+                cancelAnimationFrame(zoomedItem.rafId);
+            }
+            zoomedImages.splice(index, 1);
+        }
+    } else {
+        // Remover todas las imágenes
+        zoomedImages.forEach(zoomedItem => {
+            if (zoomedItem.clone) {
+                zoomedItem.clone.remove();
+            }
+            if (zoomedItem.rafId) {
+                cancelAnimationFrame(zoomedItem.rafId);
+            }
+        });
+        zoomedImages = [];
+        detachZoomFollowListeners();
     }
-    zoomedOriginalEl = null;
-    if (zoomFollowRafId) {
-        cancelAnimationFrame(zoomFollowRafId);
-        zoomFollowRafId = null;
-    }
-    detachZoomFollowListeners();
 }
 
 /**
@@ -224,25 +225,28 @@ function addZoomStyles() {
  * Cierra el zoom con la tecla Escape
  */
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && zoomedImageClone) {
-        // console.log('Escape presionado, cerrando zoom...');
+    if (e.key === 'Escape' && zoomedImages.length > 0) {
+        // Remover todas las imágenes zoomed
+        zoomedImages.forEach(item => {
+            if (item.original) {
+                item.original.classList.remove('zoomed');
+            }
+        });
         removeZoomedImage();
-        const originalZoomed = document.querySelector('.column img.zoomed, .column video.zoomed');
-        if (originalZoomed) {
-            originalZoomed.classList.remove('zoomed');
-        }
     }
 });
 
 /**
- * Actualiza la posición de la copia para que siga al elemento original
+ * Actualiza la posición de una imagen zoomed específica
  * Ajusta solo la posición horizontal para evitar que se recorte en los bordes del viewport
+ * @param {Object} zoomedItem - Item con clone y original
  */
-function updateZoomedClonePosition() {
-    if (!zoomedImageClone || !zoomedOriginalEl) return;
-    const rectNow = zoomedOriginalEl.getBoundingClientRect();
-    const newWidth = parseFloat(zoomedImageClone.dataset.zoomWidth || '0') || rectNow.width * 2.0;
-    const newHeight = parseFloat(zoomedImageClone.dataset.zoomHeight || '0') || rectNow.height * 2.0;
+function updateZoomedClonePosition(zoomedItem) {
+    if (!zoomedItem || !zoomedItem.clone || !zoomedItem.original) return;
+    
+    const rectNow = zoomedItem.original.getBoundingClientRect();
+    const newWidth = parseFloat(zoomedItem.clone.dataset.zoomWidth || '0') || rectNow.width * 2.0;
+    const newHeight = parseFloat(zoomedItem.clone.dataset.zoomHeight || '0') || rectNow.height * 2.0;
     
     // Calcular posición ideal (centrada)
     let left = rectNow.left + rectNow.width / 2 - newWidth / 2;
@@ -262,22 +266,36 @@ function updateZoomedClonePosition() {
     }
     
     // No ajustar posición vertical para no interferir con el scroll de las columnas
-    zoomedImageClone.style.left = left + 'px';
-    zoomedImageClone.style.top = top + 'px';
-    zoomedImageClone.style.width = newWidth + 'px';
-    zoomedImageClone.style.height = newHeight + 'px';
+    zoomedItem.clone.style.left = left + 'px';
+    zoomedItem.clone.style.top = top + 'px';
+    zoomedItem.clone.style.width = newWidth + 'px';
+    zoomedItem.clone.style.height = newHeight + 'px';
+}
+
+/**
+ * Actualiza la posición de todas las imágenes zoomed
+ */
+function updateAllZoomedPositions() {
+    zoomedImages.forEach(zoomedItem => {
+        updateZoomedClonePosition(zoomedItem);
+    });
 }
 
 /**
  * Inicia un loop para seguir la posición del original mientras hay zoom
+ * @param {Object} zoomedItem - Item con clone y original
  */
-function startZoomFollowLoop() {
+function startZoomFollowLoop(zoomedItem) {
     const loop = () => {
-        if (!zoomedImageClone || !zoomedOriginalEl) return;
-        updateZoomedClonePosition();
-        zoomFollowRafId = requestAnimationFrame(loop);
+        // Verificar que el item todavía existe en el array
+        if (!zoomedImages.includes(zoomedItem) || !zoomedItem.clone || !zoomedItem.original) {
+            return;
+        }
+        // Actualizar solo esta imagen específica
+        updateZoomedClonePosition(zoomedItem);
+        zoomedItem.rafId = requestAnimationFrame(loop);
     };
-    zoomFollowRafId = requestAnimationFrame(loop);
+    zoomedItem.rafId = requestAnimationFrame(loop);
 }
 
 /**
@@ -286,8 +304,8 @@ function startZoomFollowLoop() {
 function attachZoomFollowListeners() {
     if (zoomFollowListenersAttached) return;
     // Scroll global y de elementos (captura para atrapar scroll en columnas)
-    document.addEventListener('scroll', updateZoomedClonePosition, true);
-    window.addEventListener('resize', updateZoomedClonePosition);
+    document.addEventListener('scroll', updateAllZoomedPositions, true);
+    window.addEventListener('resize', updateAllZoomedPositions);
     zoomFollowListenersAttached = true;
 }
 
@@ -296,8 +314,8 @@ function attachZoomFollowListeners() {
  */
 function detachZoomFollowListeners() {
     if (!zoomFollowListenersAttached) return;
-    document.removeEventListener('scroll', updateZoomedClonePosition, true);
-    window.removeEventListener('resize', updateZoomedClonePosition);
+    document.removeEventListener('scroll', updateAllZoomedPositions, true);
+    window.removeEventListener('resize', updateAllZoomedPositions);
     zoomFollowListenersAttached = false;
 }
 
@@ -314,9 +332,10 @@ window.addEventListener('beforeunload', function() {
  */
 function debugZoomSystem() {
 //     console.log('Estado del sistema de zoom:');
-//     console.log('Imagen zoomed activa:', zoomedImageClone ? 'Sí' : 'No');
-    if (zoomedImageClone) {
-        // console.log('Posición:', zoomedImageClone.style.left, zoomedImageClone.style.top);
-        // console.log('Tamaño:', zoomedImageClone.style.width, zoomedImageClone.style.height);
-    }
+//     console.log('Imágenes zoomed activas:', zoomedImages.length);
+    zoomedImages.forEach((item, index) => {
+        if (item.clone) {
+            // console.log(`Imagen ${index + 1}:`, item.clone.style.left, item.clone.style.top);
+        }
+    });
 }
