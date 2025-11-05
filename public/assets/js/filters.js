@@ -8,26 +8,52 @@
 // Definición de categorías y sus PROYECTOS asociados (no columnas individuales)
 const categories = {
     'teoria': {
-        name: 'Teoría Arquitectónica',
+        nameES: 'Teoría Arquitectónica',
+        nameEN: 'Architectural Theory',
         projects: ['matters', 'sinEstado', 'estados', 'cuerpo', 'sinFin', 'revolucion', 'muro', 'invisibles', 'mundo', 'deleuze']
     },
     'residencial': {
-        name: 'Proyectos Residenciales', 
+        nameES: 'Proyectos Residenciales',
+        nameEN: 'Residential Projects',
         projects: ['casaERCP', 'casaJBRC', 'casaFG', 'casaFKL', 'casaFV']
     },
     'instalaciones': {
-        name: 'Instalaciones Artísticas',
+        nameES: 'Instalaciones Artísticas',
+        nameEN: 'Artistic Installations',
         projects: ['cute', 'amorosa', 'never', 'noche', 'militancia', 'postponed', 'web']
     },
     'publicos': {
-        name: 'Espacios Públicos',
+        nameES: 'Espacios Públicos',
+        nameEN: 'Public Spaces',
         projects: ['ciencias', 'laberinto', 'edificios', 'mothership', 'edificioSCW']
     },
     'investigacion': {
-        name: 'Investigación',
+        nameES: 'Investigación',
+        nameEN: 'Research',
         projects: ['creciendo', 'erewhon', 'personajismo', 'MPV', 'singular', 'vanguardia', 'omu', 'ultimate', 'ametralladora', 'vicios', 'imperio', 'masas', 'estudio']
     }
 };
+
+// Detectar idioma basado en el título del índice
+function detectLanguage() {
+    const indiceColumn = document.getElementById('indice');
+    if (!indiceColumn) return 'es';
+    
+    const indexTitle = Array.from(indiceColumn.querySelectorAll('h3')).find(h3 => {
+        const text = h3.textContent.trim();
+        return text === 'Índice' || text === 'Index';
+    });
+    
+    if (!indexTitle) return 'es';
+    return indexTitle.textContent.trim() === 'Index' ? 'en' : 'es';
+}
+
+// Obtener nombre de categoría según idioma
+function getCategoryName(categoryKey, lang) {
+    const category = categories[categoryKey];
+    if (!category) return '';
+    return lang === 'en' ? category.nameEN : category.nameES;
+}
 
 // Estado actual de los filtros
 let activeFilters = new Set();
@@ -57,7 +83,7 @@ function initializeFilters() {
 
 /**
  * Crea los botones de filtro en el HTML
- * Los botones se insertan entre la información de contacto y el título "Índice"
+ * Los botones se insertan entre la información de contacto y el título "Índice" o "Index"
  */
 function createFilterButtons() {
     const indiceColumn = document.getElementById('indice');
@@ -66,30 +92,38 @@ function createFilterButtons() {
         return;
     }
 
+    // Detectar idioma
+    const lang = detectLanguage();
+    const texts = {
+        es: { filters: 'Filtros', all: 'Todos' },
+        en: { filters: 'Filters', all: 'All' }
+    };
+
     // Crear contenedor de filtros
     const filterContainer = document.createElement('div');
     filterContainer.id = 'filter-container';
     filterContainer.innerHTML = `
-        <h3>Filtros</h3>
-        <p style="margin-bottom: -10px"><a class="filter-link active" href="#" data-category="all">Todos</a></p>
+        <h3>${texts[lang].filters}</h3>
+        <p style="margin-bottom: -10px"><a class="filter-link active" href="#" data-category="all">${texts[lang].all}</a></p>
         ${Object.keys(categories).map(category => 
-            `<p style="margin-bottom: -10px"><a class="filter-link" href="#" data-category="${category}">${categories[category].name}</a></p>`
+            `<p style="margin-bottom: -10px"><a class="filter-link" href="#" data-category="${category}">${getCategoryName(category, lang)}</a></p>`
         ).join('')}
     `;
 
-    // Buscar el h3 que dice exactamente "Índice"
-    const indiceTitle = Array.from(indiceColumn.querySelectorAll('h3')).find(h3 => 
-        h3.textContent.trim() === 'Índice'
-    );
+    // Buscar el h3 que dice "Índice" o "Index"
+    const indiceTitle = Array.from(indiceColumn.querySelectorAll('h3')).find(h3 => {
+        const text = h3.textContent.trim();
+        return text === 'Índice' || text === 'Index';
+    });
     
     if (indiceTitle) {
-        // Insertar los filtros justo antes del título "Índice"
+        // Insertar los filtros justo antes del título
         indiceColumn.insertBefore(filterContainer, indiceTitle);
-        // console.log('Filtros insertados correctamente antes del título "Índice"');
+        // console.log('Filtros insertados correctamente antes del título');
     } else {
         // Fallback: insertar al final de la columna
         indiceColumn.appendChild(filterContainer);
-        // console.warn('No se encontró el título "Índice", filtros insertados al final');
+        // console.warn('No se encontró el título, filtros insertados al final');
     }
 
     // Agregar event listeners a los links de filtro
@@ -200,7 +234,9 @@ function applyCategoryFilter(category) {
         });
     });
     
-    // console.log(`Aplicando filtro: ${categoryData.name} - Mostrando ${categoryData.projects.length} proyectos`);
+    const lang = detectLanguage();
+    const categoryName = getCategoryName(category, lang);
+    // console.log(`Aplicando filtro: ${categoryName} - Mostrando ${categoryData.projects.length} proyectos`);
 }
 
 /**
