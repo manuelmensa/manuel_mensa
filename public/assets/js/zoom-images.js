@@ -252,17 +252,20 @@ function updateZoomedClonePosition(zoomedItem) {
     let left = rectNow.left + rectNow.width / 2 - newWidth / 2;
     let top = rectNow.top + rectNow.height / 2 - newHeight / 2;
     
-    // Obtener dimensiones del viewport
-    const viewportWidth = window.innerWidth;
-    
-    // Ajustar solo posición horizontal si se sale por la derecha
-    if (left + newWidth > viewportWidth) {
-        left = viewportWidth - newWidth;
-    }
-    
-    // Ajustar solo posición horizontal si se sale por la izquierda
-    if (left < 0) {
-        left = 0;
+    // Solo aplicar ajuste de bordes si la imagen tiene la clase 'last-edge-image'
+    if (zoomedItem.original.classList.contains('last-edge-image')) {
+        // Obtener dimensiones del viewport
+        const viewportWidth = window.innerWidth;
+        
+        // Ajustar solo posición horizontal si se sale por la derecha
+        if (left + newWidth > viewportWidth) {
+            left = viewportWidth - newWidth;
+        }
+        
+        // Ajustar solo posición horizontal si se sale por la izquierda
+        if (left < 0) {
+            left = 0;
+        }
     }
     
     // No ajustar posición vertical para no interferir con el scroll de las columnas
