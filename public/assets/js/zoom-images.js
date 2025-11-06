@@ -119,7 +119,20 @@ function createZoomedImage(originalImage) {
     // Animar el zoom después de un pequeño delay
     setTimeout(() => {
         if (zoomedItem.clone && zoomedImages.includes(zoomedItem)) {
-            const scale = 2.0;
+            // Detectar orientación: horizontal (landscape), cuadrada o vertical (portrait)
+            // Horizontales: zoom 3x, cuadradas: zoom 2.5x, verticales: zoom 2x
+            const aspectRatio = rect.width / rect.height;
+            let scale;
+            if (aspectRatio > 1.1) {
+                // Horizontal (landscape): zoom 3x
+                scale = 3.0;
+            } else if (aspectRatio < 0.9) {
+                // Vertical (portrait): zoom 2x
+                scale = 2.0;
+            } else {
+                // Cuadrada (aspect ratio cercano a 1): zoom 2.5x
+                scale = 2.5;
+            }
             const newWidth = rect.width * scale;
             const newHeight = rect.height * scale;
             // Persistir tamaño objetivo para recalcular posición al scrollear
