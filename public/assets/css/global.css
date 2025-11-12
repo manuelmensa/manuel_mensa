@@ -62,6 +62,10 @@ html {
     margin-top: 0em !important;
  }
 
+.desktop-only {
+  display: block;
+}
+
   #indice {
     margin-top: 0%; /* antes nada */
   }
@@ -136,6 +140,17 @@ html {
     text-decoration:none;
     /*left: 20px; */
     position: relative;
+  }
+
+  .header {
+    font-family: PitagonSerif !important;
+    position: fixed;
+    top: 0;
+    left: 16px;
+    width: calc(100vw - 32px);
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
   }
 
   .column a:hover {
@@ -299,6 +314,23 @@ html {
 }
   /* Media query for mobile devices */
   @media (max-width: 768px) {
+
+    .header {
+      font-family: PitagonSerif !important;
+      position: relative;
+      width: 86%;
+      left: 0%;
+      top: 0%;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+    }
+
+  .desktop-only {
+  display: none !important;
+  }
 
   .guia {
   display: flex;
