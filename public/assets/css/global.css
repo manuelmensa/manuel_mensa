@@ -97,17 +97,7 @@ html {
   }
 
   .column:hover::after {
-  content: ''; 
-  position: sticky;
-  bottom: 7.5px; /* Adjust the distance from the bottom of the column */
-  left: 50%; /* Center the arrow horizontally */
-  transform: translateX(-50%) rotate(45deg); /* Center and rotate the arrow */
-  width: 0; 
-  height: 0; 
-  border: solid #191970;
-  border-width: 0 1px 1px 0;
-  display: inline-block;
-  padding: 3px;
+  display: none; /* Ocultar flechas al hacer hover */
     }
 
   .gap {
