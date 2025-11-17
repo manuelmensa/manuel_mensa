@@ -35,11 +35,13 @@ function initializeZoomSystem() {
 document.addEventListener('click', function (e) {
     var target = e.target;
     
-    // Verificar si el clic está dentro del área de alguna imagen zoomed
-    // Esto permite cerrar el zoom incluso si el clic pasa a través del clon
+    // PRIMERO: Verificar si el clic está dentro del área de alguna imagen zoomed
+    // Esto debe verificarse ANTES de procesar cualquier otra cosa
     const clickedZoomed = zoomedImages.find(item => {
-        if (!item.clone) return false;
-        const rect = item.clone.getBoundingClientRect();
+        // Usar el overlay si existe, sino usar el clone
+        const element = item.overlay || item.clone;
+        if (!element) return false;
+        const rect = element.getBoundingClientRect();
         const x = e.clientX;
         const y = e.clientY;
         return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
@@ -47,15 +49,19 @@ document.addEventListener('click', function (e) {
     
     if (clickedZoomed && clickedZoomed.original) {
         // Si el clic está en el área de una imagen zoomed, cerrarla
-        // Pero solo si el target NO es una imagen/video original de otra columna
-        // (para evitar cerrar cuando se quiere hacer zoom en otra imagen)
-        const isClickingOriginalImage = target && 
+        // Verificar si el target es la imagen original zoomed (para permitir cerrar haciendo clic en la original)
+        const isClickingOwnOriginal = target === clickedZoomed.original;
+        
+        // Si NO es una imagen/video de otra columna, cerrar el zoom
+        // (permitir cerrar si es clic en el área zoomed o en la propia imagen original)
+        const isClickingOtherImage = target && 
             (target.tagName === 'IMG' || target.tagName === 'VIDEO') &&
             target.closest('.column') &&
             target !== clickedZoomed.original;
         
-        if (!isClickingOriginalImage) {
+        if (isClickingOwnOriginal || !isClickingOtherImage) {
             e.stopPropagation();
+            e.preventDefault();
             removeZoomedImage(clickedZoomed.original);
             clickedZoomed.original.classList.remove('zoomed');
             return;
@@ -67,17 +73,17 @@ document.addEventListener('click', function (e) {
         target.closest('.column') &&
         window.innerWidth > 768) {
         
-        e.stopPropagation();
-        
         // Verificar si esta imagen ya está zoomed
         const existingZoomed = zoomedImages.find(item => item.original === target);
         
         if (existingZoomed) {
             // Si ya está zoomed, remover solo esta imagen
+            e.stopPropagation();
             removeZoomedImage(target);
             target.classList.remove('zoomed');
         } else {
             // Agregar zoom a esta nueva imagen (sin cerrar las otras)
+            e.stopPropagation();
             createZoomedImage(target);
             target.classList.add('zoomed');
         }
@@ -150,34 +156,56 @@ function createZoomedImage(originalImage) {
     clickOverlay.style.pointerEvents = 'auto'; // Capturar clics
     clickOverlay.style.backgroundColor = 'transparent'; // Invisible
     
-    // Agregar listener para cerrar el zoom al hacer clic
+    // Variables para detectar si es scroll o clic
+    let isScrolling = false;
+    let scrollTimeout = null;
+    let mouseDownTime = 0;
+    let mouseDownPos = { x: 0, y: 0 };
+    
+    // Detectar mousedown para distinguir entre clic y scroll
     clickOverlay.addEventListener('mousedown', function(e) {
-        // Solo cerrar si es un clic simple (no arrastre)
-        const startX = e.clientX;
-        const startY = e.clientY;
-        
-        const handleMouseUp = function(e2) {
-            const endX = e2.clientX;
-            const endY = e2.clientY;
-            const distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
-            
-            // Si el movimiento fue menor a 5px, considerarlo un clic
-            if (distance < 5) {
-                e2.stopPropagation();
-                e2.preventDefault();
-                removeZoomedImage(originalImage);
-                originalImage.classList.remove('zoomed');
-            }
-            
-            document.removeEventListener('mouseup', handleMouseUp);
-        };
-        
-        document.addEventListener('mouseup', handleMouseUp);
+        mouseDownTime = Date.now();
+        mouseDownPos = { x: e.clientX, y: e.clientY };
+        isScrolling = false;
     });
     
-    // Permitir que el scroll pase a través del overlay usando CSS
-    // El overlay capturará clics pero permitirá scroll mediante pointer-events condicional
-    clickOverlay.style.pointerEvents = 'auto';
+    // Detectar scroll y permitir que pase a través
+    clickOverlay.addEventListener('wheel', function(e) {
+        isScrolling = true;
+        // Encontrar la columna más cercana y hacer scroll en ella
+        const column = originalImage.closest('.column');
+        if (column) {
+            column.scrollTop += e.deltaY;
+        }
+        
+        // Resetear el flag después de un tiempo
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+        }, 100);
+    }, { passive: true });
+    
+    // Capturar clics para cerrar el zoom (solo si no es scroll)
+    clickOverlay.addEventListener('click', function(e) {
+        // Si acabamos de hacer scroll, no cerrar
+        if (isScrolling) {
+            return;
+        }
+        
+        // Verificar que fue un clic rápido (no arrastre)
+        const clickDuration = Date.now() - mouseDownTime;
+        const clickDistance = Math.sqrt(
+            Math.pow(e.clientX - mouseDownPos.x, 2) + 
+            Math.pow(e.clientY - mouseDownPos.y, 2)
+        );
+        
+        if (clickDuration < 300 && clickDistance < 5) {
+            e.stopPropagation();
+            e.preventDefault();
+            removeZoomedImage(originalImage);
+            originalImage.classList.remove('zoomed');
+        }
+    });
     
     // Guardar referencia al overlay en el zoomedItem
     zoomedItem.overlay = clickOverlay;
