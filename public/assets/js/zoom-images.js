@@ -35,6 +35,33 @@ function initializeZoomSystem() {
 document.addEventListener('click', function (e) {
     var target = e.target;
     
+    // Verificar si el clic está dentro del área de alguna imagen zoomed
+    // Esto permite cerrar el zoom incluso si el clic pasa a través del clon
+    const clickedZoomed = zoomedImages.find(item => {
+        if (!item.clone) return false;
+        const rect = item.clone.getBoundingClientRect();
+        const x = e.clientX;
+        const y = e.clientY;
+        return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+    });
+    
+    if (clickedZoomed && clickedZoomed.original) {
+        // Si el clic está en el área de una imagen zoomed, cerrarla
+        // Pero solo si el target NO es una imagen/video original de otra columna
+        // (para evitar cerrar cuando se quiere hacer zoom en otra imagen)
+        const isClickingOriginalImage = target && 
+            (target.tagName === 'IMG' || target.tagName === 'VIDEO') &&
+            target.closest('.column') &&
+            target !== clickedZoomed.original;
+        
+        if (!isClickingOriginalImage) {
+            e.stopPropagation();
+            removeZoomedImage(clickedZoomed.original);
+            clickedZoomed.original.classList.remove('zoomed');
+            return;
+        }
+    }
+    
     // Solo procesar imágenes o videos en columnas y en desktop
     if (target && (target.tagName === 'IMG' || target.tagName === 'VIDEO') &&
         target.closest('.column') &&
@@ -108,10 +135,56 @@ function createZoomedImage(originalImage) {
     zoomedImageClone.style.zIndex = '1000';
     zoomedImageClone.style.cursor = 'pointer';
     zoomedImageClone.style.transition = 'all 0.2s ease';
-    zoomedImageClone.style.pointerEvents = 'none'; // No bloquear eventos
+    zoomedImageClone.style.pointerEvents = 'none'; // No bloquear eventos para permitir scroll
     
-    // Agregar al body para que quede fija y no dependa del scroll de la columna
+    // Crear overlay invisible para capturar clics pero permitir scroll
+    const clickOverlay = document.createElement('div');
+    clickOverlay.classList.add('zoomed-click-overlay');
+    clickOverlay.style.position = 'fixed';
+    clickOverlay.style.left = rect.left + 'px';
+    clickOverlay.style.top = rect.top + 'px';
+    clickOverlay.style.width = rect.width + 'px';
+    clickOverlay.style.height = rect.height + 'px';
+    clickOverlay.style.zIndex = '1001'; // Por encima del clon
+    clickOverlay.style.cursor = 'pointer';
+    clickOverlay.style.pointerEvents = 'auto'; // Capturar clics
+    clickOverlay.style.backgroundColor = 'transparent'; // Invisible
+    
+    // Agregar listener para cerrar el zoom al hacer clic
+    clickOverlay.addEventListener('mousedown', function(e) {
+        // Solo cerrar si es un clic simple (no arrastre)
+        const startX = e.clientX;
+        const startY = e.clientY;
+        
+        const handleMouseUp = function(e2) {
+            const endX = e2.clientX;
+            const endY = e2.clientY;
+            const distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+            
+            // Si el movimiento fue menor a 5px, considerarlo un clic
+            if (distance < 5) {
+                e2.stopPropagation();
+                e2.preventDefault();
+                removeZoomedImage(originalImage);
+                originalImage.classList.remove('zoomed');
+            }
+            
+            document.removeEventListener('mouseup', handleMouseUp);
+        };
+        
+        document.addEventListener('mouseup', handleMouseUp);
+    });
+    
+    // Permitir que el scroll pase a través del overlay usando CSS
+    // El overlay capturará clics pero permitirá scroll mediante pointer-events condicional
+    clickOverlay.style.pointerEvents = 'auto';
+    
+    // Guardar referencia al overlay en el zoomedItem
+    zoomedItem.overlay = clickOverlay;
+    
+    // Agregar al body
     document.body.appendChild(zoomedImageClone);
+    document.body.appendChild(clickOverlay);
     
     // Agregar al array de imágenes zoomed
     zoomedImages.push(zoomedItem);
@@ -165,6 +238,9 @@ function removeZoomedImage(originalImage = null) {
             if (zoomedItem.clone) {
                 zoomedItem.clone.remove();
             }
+            if (zoomedItem.overlay) {
+                zoomedItem.overlay.remove();
+            }
             if (zoomedItem.rafId) {
                 cancelAnimationFrame(zoomedItem.rafId);
             }
@@ -175,6 +251,9 @@ function removeZoomedImage(originalImage = null) {
         zoomedImages.forEach(zoomedItem => {
             if (zoomedItem.clone) {
                 zoomedItem.clone.remove();
+            }
+            if (zoomedItem.overlay) {
+                zoomedItem.overlay.remove();
             }
             if (zoomedItem.rafId) {
                 cancelAnimationFrame(zoomedItem.rafId);
@@ -286,6 +365,14 @@ function updateZoomedClonePosition(zoomedItem) {
     zoomedItem.clone.style.top = top + 'px';
     zoomedItem.clone.style.width = newWidth + 'px';
     zoomedItem.clone.style.height = newHeight + 'px';
+    
+    // Actualizar también la posición del overlay
+    if (zoomedItem.overlay) {
+        zoomedItem.overlay.style.left = left + 'px';
+        zoomedItem.overlay.style.top = top + 'px';
+        zoomedItem.overlay.style.width = newWidth + 'px';
+        zoomedItem.overlay.style.height = newHeight + 'px';
+    }
 }
 
 /**
