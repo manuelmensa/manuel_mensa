@@ -173,10 +173,31 @@ function getProjectId(columnId) {
 }
 
 /**
+ * Elimina el zoom de todas las imágenes activas
+ * Se llama cuando se aplica un filtro para evitar que las imágenes queden atrapadas
+ */
+function removeAllZooms() {
+    // Verificar si la función removeZoomedImage existe (del archivo zoom-images.js)
+    if (typeof removeZoomedImage === 'function') {
+        // Remover todas las imágenes zoomed
+        removeZoomedImage();
+        
+        // También remover la clase 'zoomed' de todas las imágenes y videos originales
+        const zoomedElements = document.querySelectorAll('.column img.zoomed, .column video.zoomed');
+        zoomedElements.forEach(element => {
+            element.classList.remove('zoomed');
+        });
+    }
+}
+
+/**
  * Alterna el estado de un filtro
  * @param {string} category - Categoría a alternar
  */
 function toggleFilter(category) {
+    // Eliminar todos los zooms activos antes de aplicar el filtro
+    removeAllZooms();
+    
     if (category === 'all') {
         // Mostrar todas las columnas
         showAllColumns();
