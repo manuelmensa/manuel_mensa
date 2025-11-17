@@ -153,6 +153,15 @@ html {
     justify-content: space-between;
   }
 
+  .header h3 {
+    margin-bottom: 3px !important;
+  }
+
+  .header > div:first-child p {
+    margin-bottom: -12px !important;
+    line-height: 1.15;
+  }
+
   .column a:hover {
     color: #191970;
     font-weight: bold;
