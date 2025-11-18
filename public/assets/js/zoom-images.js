@@ -175,7 +175,20 @@ function createZoomedImage(originalImage) {
         // Encontrar la columna más cercana y hacer scroll en ella
         const column = originalImage.closest('.column');
         if (column) {
-            column.scrollTop += e.deltaY;
+            // Scroll vertical
+            if (e.deltaY !== 0) {
+                column.scrollTop += e.deltaY;
+            }
+            // Scroll horizontal
+            if (e.deltaX !== 0) {
+                column.scrollLeft += e.deltaX;
+            }
+        }
+        
+        // También permitir scroll horizontal en el contenedor principal
+        const container = document.querySelector('.container');
+        if (container && e.deltaX !== 0) {
+            container.scrollLeft += e.deltaX;
         }
         
         // Resetear el flag después de un tiempo
