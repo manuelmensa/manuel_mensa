@@ -7,30 +7,35 @@
 
 // Definición de categorías y sus PROYECTOS asociados (no columnas individuales)
 const categories = {
-    'teoria': {
-        nameES: 'Teoría Arquitectónica',
-        nameEN: 'Architectural Theory',
-        projects: ['matters', 'sinEstado', 'estados', 'cuerpo', 'sinFin', 'revolucion', 'muro', 'invisibles', 'mundo', 'deleuze']
+    'ensayos': {
+        nameES: 'Ensayos',
+        nameEN: 'Essays',
+        projects: ['matters', 'personajismo', 'MPV', 'cuerpo', 'postponed', 'never', 'sinFin', 'mundo']
     },
-    'residencial': {
-        nameES: 'Proyectos Residenciales',
-        nameEN: 'Residential Projects',
-        projects: ['casaERCP', 'casaJBRC', 'casaFG', 'casaFKL', 'casaFV']
+    'construido': {
+        nameES: 'Construido',
+        nameEN: 'Built Work',
+        projects: ['casaERCP', 'casaJBRC', 'casaFG']
     },
-    'instalaciones': {
-        nameES: 'Instalaciones Artísticas',
-        nameEN: 'Artistic Installations',
-        projects: ['cute', 'amorosa', 'never', 'noche', 'militancia', 'postponed', 'web']
-    },
-    'publicos': {
-        nameES: 'Espacios Públicos',
-        nameEN: 'Public Spaces',
-        projects: ['ciencias', 'laberinto', 'edificios', 'mothership', 'edificioSCW']
+    'estudios': {
+        nameES: 'Estudios',
+        nameEN: 'Studies',
+        projects: ['edificioSCW', 'casaFKL', 'erewhon', 'ultimate', 'revolucion', 'ciencias', 'laberinto']
     },
     'investigacion': {
         nameES: 'Investigación',
         nameEN: 'Research',
-        projects: ['creciendo', 'erewhon', 'personajismo', 'MPV', 'singular', 'vanguardia', 'omu', 'ultimate', 'ametralladora', 'vicios', 'imperio', 'masas', 'estudio']
+        projects: ['cute', 'edificios', 'sinEstado', 'vanguardia', 'omu', 'ametralladora', 'vicios', 'imperio', 'masas', 'deleuze', 'web']
+    },
+    'pabellones': {
+        nameES: 'Pabellones',
+        nameEN: 'Pavilions',
+        projects: ['mothership', 'muro', 'invisibles', 'estudio']
+    },
+    'publicaciones': {
+        nameES: 'Publicaciones',
+        nameEN: 'Publications',
+        projects: ['creciendo', 'singular', 'noche', 'estados', 'militancia', 'amorosa']
     }
 };
 
