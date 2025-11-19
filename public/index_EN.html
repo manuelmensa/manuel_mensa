@@ -49,6 +49,17 @@ function stopScrollRight() {
   scrollSpeed = 0;
 }
 
+function scrollToStart(event) {
+  if (event) {
+    event.preventDefault();
+  }
+  const container = document.querySelector('.container');
+  if (container) {
+    container.scrollTo({ left: 0, behavior: 'smooth' });
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // Function to scroll to the next element with a specific ID on mobile
 function scrollToNextId(event) {
   event.preventDefault();
@@ -133,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="indice" class="column">
       <div class="header">
         <div>
-          <h3 style="margin-bottom: -10px"><a href="/index_EN.html" style="color: black; text-decoration: none;">Manuel Mensa</a></h3>
+          <h3 style="margin-bottom: -10px"><a href="#" onclick="scrollToStart(event)" style="color: black; text-decoration: none;">Manuel Mensa</a></h3>
           <p style="margin-bottom: -10px"><a style="left: 0px !important;" target="_blank" href="mailto:contacto@manuelmensa.com">contacto@manuelmensa.com</a></b>
           <p style="margin-bottom: -10px">Amenábar 2046, Piso 30 </p>
           <p style="margin-bottom: -13px">Buenos Aires, Argentina</p>
