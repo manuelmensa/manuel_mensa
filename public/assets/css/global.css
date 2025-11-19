@@ -23,7 +23,7 @@ html {
     display: flex;
     overflow-x: scroll;
     gap: 10px;
-    padding-left: 5px;
+    /* padding-left: 5px; */
     margin: 0px;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -68,6 +68,7 @@ html {
 
   #indice {
     margin-top: 0%; /* antes nada */
+    margin-left: 8px;
   }
 
   #indice p {
@@ -136,20 +137,21 @@ html {
     font-family: PitagonSerif !important;
     position: fixed;
     top: 0;
-    left: 16px;
-    width: calc(100vw - 32px);
+    left: 12px;
+    width: calc(100vw - 24px);
     z-index: 5;
     display: flex;
     justify-content: space-between;
   }
 
   .header h3 {
+    margin-top: 12px !important;
     margin-bottom: 3px !important;
   }
 
   .header > div:first-child p {
     margin-bottom: -12px !important;
-    line-height: 1.15;
+    line-height: 1;
   }
 
   .column a:hover {
@@ -249,19 +251,25 @@ html {
   padding: 5.2px;
 }
 
-#slideBackBottom {
+/* Asegurar que ambos botones tengan la misma distancia del borde */
+#slideBackBottom,
+#slideForwardBottom {
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 30px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border: none;
+}
+
+#slideBackBottom {
+  left: 0;
   z-index: 99;
 }
 
 #slideForwardBottom {
-  position: fixed;
-  bottom: 0;
   right: 0;
-  width: 30px;
 }
 
 .arrow-button-l, .arrow-button-r {
@@ -277,8 +285,8 @@ html {
  /* content: "\02C2";*/
   content: ''; 
   bottom: 10px; /* Adjust the distance from the bottom of the column */
-  left: 50%; /* Center the arrow horizontally */
-  transform: translateX(-50%) rotate(135deg); /* Center and rotate the arrow */
+  right: 0; /* Alinear al borde derecho interno */
+  transform: rotate(135deg); /* Rotar la flecha */
   width: 0; 
   height: 0; 
   border: solid #191970;
@@ -291,8 +299,8 @@ html {
 /* content: "\02C3";  Unicode for left arrow */
   content: ''; 
   bottom: 10px; /* Adjust the distance from the bottom of the column */
-  left: 50%; /* Center the arrow horizontally */
-  transform: translateX(-50%) rotate(315deg); /* Center and rotate the arrow */
+  left: 0; /* Alinear al borde izquierdo interno */
+  transform: rotate(315deg); /* Rotar la flecha */
   width: 0; 
   height: 0; 
   border: solid #191970;
