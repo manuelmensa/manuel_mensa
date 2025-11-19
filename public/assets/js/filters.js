@@ -73,6 +73,18 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFilters();
     createFilterButtons();
     collectAllColumns();
+    
+    // Esperar a que el mapeo de slugs esté listo antes de actualizar los links
+    // Esto asegura que los links del índice se inicialicen correctamente
+    function waitForSlugMapping() {
+        if (window.slugMappingReady) {
+            // Inicializar los links del índice (mostrar todos por defecto)
+            updateIndexLinks(null);
+        } else {
+            setTimeout(waitForSlugMapping, 50);
+        }
+    }
+    waitForSlugMapping();
 });
 
 /**
@@ -108,7 +120,6 @@ function createFilterButtons() {
     const filterContainer = document.createElement('div');
     filterContainer.id = 'filter-container';
     filterContainer.innerHTML = `
-        <h3>${texts[lang].filters}</h3>
         <p style="margin-bottom: -10px"><a class="filter-link active" href="#" data-category="all">${texts[lang].all}</a></p>
         ${Object.keys(categories).map(category => 
             `<p style="margin-bottom: -10px"><a class="filter-link" href="#" data-category="${category}">${getCategoryName(category, lang)}</a></p>`
@@ -236,6 +247,8 @@ function showAllColumns() {
     allColumns.forEach(column => {
         column.style.display = 'block';
     });
+    // Habilitar todos los links del índice
+    updateIndexLinks(null);
     // console.log('Mostrando todas las columnas');
 }
 
@@ -260,6 +273,9 @@ function applyCategoryFilter(category) {
         });
     });
     
+    // Actualizar links del índice según el filtro
+    updateIndexLinks(categoryData.projects);
+    
     const lang = detectLanguage();
     const categoryName = getCategoryName(category, lang);
     // console.log(`Aplicando filtro: ${categoryName} - Mostrando ${categoryData.projects.length} proyectos`);
@@ -275,6 +291,51 @@ function updateFilterButtons(activeCategory) {
         link.classList.remove('active');
         if (link.getAttribute('data-category') === activeCategory) {
             link.classList.add('active');
+        }
+    });
+}
+
+/**
+ * Actualiza los links del índice según el filtro activo
+ * @param {Array<string>|null} visibleProjects - Array de IDs de proyectos visibles, o null para mostrar todos
+ */
+function updateIndexLinks(visibleProjects) {
+    const indiceColumn = document.getElementById('indice');
+    if (!indiceColumn) return;
+    
+    // Obtener todos los links del índice que apuntan a proyectos
+    const indexLinks = indiceColumn.querySelectorAll('a[href^="#"]');
+    
+    indexLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href || href === '#indice') return;
+        
+        // Convertir el href (puede ser slug o ID) al ID del proyecto
+        let projectId = null;
+        
+        // Si existe la función hashToId, usarla para convertir slug a ID
+        if (typeof hashToId === 'function') {
+            projectId = hashToId(href);
+        } else {
+            // Fallback: asumir que el href es directamente el ID
+            projectId = href.replace(/^#/, '');
+        }
+        
+        // Si no encontramos un ID válido, saltar este link
+        if (!projectId) return;
+        
+        // Obtener el ID base del proyecto (sin números de subcolumna)
+        const baseProjectId = getProjectId(projectId);
+        
+        // Verificar si el proyecto está visible
+        const isVisible = visibleProjects === null || visibleProjects.includes(baseProjectId);
+        
+        if (isVisible) {
+            // Habilitar el link
+            link.classList.remove('index-link-disabled');
+        } else {
+            // Deshabilitar el link
+            link.classList.add('index-link-disabled');
         }
     });
 }
@@ -306,6 +367,18 @@ function addFilterStyles() {
         .filter-link.active {
             color: #191970;
             font-weight: bold;
+        }
+        
+        /* Estilos para links del índice deshabilitados */
+        .index-link-disabled {
+            color: #d3d3d3 !important;
+            pointer-events: none !important;
+            cursor: default !important;
+        }
+        
+        .index-link-disabled:hover {
+            color: #d3d3d3 !important;
+            font-weight: normal !important;
         }
     `;
     document.head.appendChild(style);
