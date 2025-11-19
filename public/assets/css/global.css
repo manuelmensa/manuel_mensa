@@ -68,7 +68,7 @@ html {
 
   #indice {
     margin-top: 0%; /* antes nada */
-    margin-left: 8px;
+    margin-left: 18px;
   }
 
   #indice p {
@@ -136,16 +136,16 @@ html {
   .header {
     font-family: PitagonSerif !important;
     position: fixed;
-    top: 0;
-    left: 12px;
-    width: calc(100vw - 24px);
+    top: 21px;
+    left: 20px;
+    width: calc(100vw - 40px);
     z-index: 5;
     display: flex;
     justify-content: space-between;
   }
 
   .header h3 {
-    margin-top: 12px !important;
+    margin-top: 0px !important;
     margin-bottom: 3px !important;
   }
 
@@ -185,7 +185,8 @@ html {
 .button-container-l {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 20px;
+  margin-top: 0;
   /* width: 100%; */
   display: flex;
   flex-direction: column;
@@ -195,7 +196,8 @@ html {
 .button-container-r {
   position: fixed;
   top: 0;
-  right: 0;
+  right: 20px;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   z-index: 99;
@@ -207,6 +209,7 @@ html {
 
 #slideBackTop {
   content: ''; 
+  margin-top: 0;
   margin-bottom: 10px;
   bottom: 10px; /* Adjust the distance from the bottom of the column */
   left: 50%; /* Center the arrow horizontally */
@@ -221,6 +224,7 @@ html {
 
 #slideForwardTop {
   content: ''; 
+  margin-top: 0;
   margin-bottom: 10px;
   bottom: 10px; /* Adjust the distance from the bottom of the column */
   left: 50%; /* Center the arrow horizontally */
@@ -264,12 +268,12 @@ html {
 }
 
 #slideBackBottom {
-  left: 0;
+  left: 18px;
   z-index: 99;
 }
 
 #slideForwardBottom {
-  right: 0;
+  right: 18px;
 }
 
 .arrow-button-l, .arrow-button-r {
@@ -279,6 +283,7 @@ html {
   background-color: transparent;
   border: none;
   font-size: 16px;
+  margin-top: 0;
 }
 
 #slideBackBottom::before {
