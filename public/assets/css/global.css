@@ -137,8 +137,8 @@ html {
     font-family: PitagonSerif !important;
     position: fixed;
     top: 21px;
-    left: 20px;
-    width: calc(100vw - 40px);
+    left: 22px;
+    width: calc(100vw - 44px);
     z-index: 5;
     display: flex;
     justify-content: space-between;
@@ -146,7 +146,7 @@ html {
 
   .header h3 {
     margin-top: 0px !important;
-    margin-bottom: 3px !important;
+    margin-bottom: 3px;
   }
 
   .header > div:first-child p {
