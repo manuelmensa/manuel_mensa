@@ -4,6 +4,7 @@
   
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Manuel Mensa is a UBA-trained architect, director of Manuel Mensa Arquitectos and Full Professor at UTDT, where he has coordinated academic areas and thesis studios. He mentors artists through project clinics, formerly headed the Center for Contemporary Architecture Studies and publishes the erratic newsletter Growing in Public.">
   
 <title>Manuel Mensa</title>
 <link rel="icon" type="image/x-icon" href="assets/img/00_logo/manuelmensa-logo.jpeg">
@@ -11,7 +12,10 @@
 <link href="/assets/css/global.css" rel="stylesheet">
   
 <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
-
+<script src="/assets/js/url-slugs.js"></script>
+<script src="/assets/js/filters.js"></script>
+<script src="/assets/js/zoom-images.js"></script>
+  
 <script>
 var scrollInterval;
 var scrollSpeed = 0;
@@ -43,6 +47,17 @@ function startScrollRight() {
 function stopScrollRight() {
   clearInterval(scrollInterval);
   scrollSpeed = 0;
+}
+
+function scrollToStart(event) {
+  if (event) {
+    event.preventDefault();
+  }
+  const container = document.querySelector('.container');
+  if (container) {
+    container.scrollTo({ left: 0, behavior: 'smooth' });
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Function to scroll to the next element with a specific ID on mobile
@@ -88,15 +103,22 @@ function scrollToPreviousId(event) {
 }
 
 // Event listeners for touch events to support mobile devices
-document.getElementById('slideBackBottom').addEventListener('touchstart', scrollToPreviousId);
-document.getElementById('slideBackBottom').addEventListener('mousedown', startScrollLeft);
-document.getElementById('slideBackBottom').addEventListener('mouseup', stopScrollLeft);
-document.getElementById('slideBackBottom').addEventListener('mouseleave', stopScrollLeft);
+// document.getElementById('slideBackBottom').addEventListener('touchstart', scrollToPreviousId);
+// document.getElementById('slideBackBottom').addEventListener('mousedown', startScrollLeft);
+// document.getElementById('slideBackBottom').addEventListener('mouseup', stopScrollLeft);
+// document.getElementById('slideBackBottom').addEventListener('mouseleave', stopScrollLeft);
 
 //document.getElementById('slideForwardBottom').addEventListener('touchstart', scrollToNextId);
-document.getElementById('slideForwardBottom').addEventListener('mousedown', startScrollRight);
-document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
-document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
+// document.getElementById('slideForwardBottom').addEventListener('mousedown', startScrollRight);
+// document.getElementById('slideForwardBottom').addEventListener('mouseup', stopScrollRight);
+// document.getElementById('slideForwardBottom').addEventListener('mouseleave', stopScrollRight);
+
+// Wrap all images in columns with wrappers and add zoom functionality
+document.addEventListener('DOMContentLoaded', function() {
+  var images = document.querySelectorAll('.column img');
+});
+
+// Zoom functionality moved to zoom-images.js
 
 </script>
   
@@ -104,7 +126,7 @@ document.getElementById('slideForwardBottom').addEventListener('mouseleave', sto
 <body>
   
 <div class="button-container-l">
-  <a href="#indice"><button id="slideBackTop" type="button" class="arrow-button-l" ></button> <!--&#x226A;&#xFE0E; onclick="window.location.href = '#indice';"--></a>
+  <!-- <a href="#indice"><button id="slideBackTop" type="button" class="arrow-button-l" ></button> -->
 </div>
 <!--<button id="slideBackBottom" type="button" class="arrow-button-l" onmousedown="startScrollLeft()" onmouseup="stopScrollLeft()" onmouseleave="stopScrollLeft()"></button>-->
   <button id="slideBackBottom" type="button" class="arrow-button-l"
@@ -119,13 +141,36 @@ document.getElementById('slideForwardBottom').addEventListener('mouseleave', sto
       <p style="color:white;">.</p>
     </div>
 
-    <div id="indice" class="column" ontouchstart="handleTouchStart(this, event)" ontouchmove="handleTouchMove(this, event)">
-      <h3 style="margin-bottom: -10px">Manuel Mensa</h3>
-      <p style="margin-bottom: -10px"><a style="left: 0px !important;" href="contacto@manuelmensa.com">contacto@manuelmensa.com</a></b>
-      <p style="margin-bottom: -10px">Amenábar 2046, Piso 30 </p>
-      <p style="margin-bottom: -13px">Buenos Aires, Argentina</p>
-      <p style="margin-bottom: 110px"><a href="/">ES  </a><a style="font-weight: bold !important;" href="/index_EN.html">  EN</a></p>
-      <!--<br>-->
+    <div id="indice" class="column">
+      <div class="header">
+        <div>
+          <h3 style="margin-bottom: -10px"><a href="#" onclick="scrollToStart(event)" style="color: black; text-decoration: none;">Manuel Mensa</a></h3>
+          <p style="margin-bottom: -10px"><a style="left: 0px !important;" target="_blank" href="mailto:contacto@manuelmensa.com">contacto@manuelmensa.com</a></b>
+          <p style="margin-bottom: -10px">Amenábar 2046, Piso 30 </p>
+          <p style="margin-bottom: -13px">Buenos Aires, Argentina</p>
+        </div>
+        <div>
+          <span style="margin-bottom: 110px"><a href="/">ES  </span><span><a style="font-weight: bold !important;" href="/index_EN.html">  EN</a></span>
+        </div>
+      </div>
+
+      <div class="desktop-only">
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+      </div>
+      <br>
       <h3>Index</h3>
       <p style="margin-bottom: -10px"><a href="#matters">Matters of Fact </a></p><!--<br> <a href="#matters"> El Inevitable Sufrimiento de la Arquitectura</a>-->
       <p style="margin-bottom: -10px"><a href="#casaERCP">Drapes</a></p><!-- <br> <a href="#casaERCP"> Texto </a><br><a href="#casaERCP2"> Dibujos </a> <br><a href="#casaERCP3"> Fotografías x F.S. </a>-->
@@ -175,7 +220,7 @@ document.getElementById('slideForwardBottom').addEventListener('mouseleave', sto
       <p style="color:white;">.</p>
     </div>
     
-    <div id="matters" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="matters" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Matters of Fact</h3>
@@ -233,7 +278,7 @@ Published in: <i>Plot 69 (Buenos Aires, 2023)</i> and in <i>Universidad Torcuato
       <p style="color:white;">.</p>
     </div>
     
-    <div id="casaERCP" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="casaERCP" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Drapes</h3>
@@ -245,7 +290,7 @@ Published in: <i>Plot 69 (Buenos Aires, 2023)</i> and in <i>Universidad Torcuato
       <br>
       <p>Team: Manuel Mensa, Lucas Torres Aguero</p><!-- Add more content here if needed -->
     </div>
-    <div id="casaERCP2" class="column" id="ensanche" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="casaERCP2" class="column" id="ensanche">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -258,7 +303,7 @@ Published in: <i>Plot 69 (Buenos Aires, 2023)</i> and in <i>Universidad Torcuato
       <!-- Add more content here if needed -->
     </div>
     
-    <div id="casaERCP3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="casaERCP3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -333,7 +378,7 @@ Maecenas nec lobortis nunc.
     </div>
     -->
     
-  <div id="casaJBRC" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+  <div id="casaJBRC" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Tanker</h3>
@@ -346,7 +391,7 @@ Maecenas nec lobortis nunc.
 </p>
       <!-- Add more content here if needed -->
     </div>
-    <div id="casaJBRC2" class="column" id="ensanche" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="casaJBRC2" class="column" id="ensanche">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3 style="color:white;">.</h3>
@@ -359,7 +404,7 @@ Maecenas nec lobortis nunc.
       <img loading="lazy" src="assets/img/05_casa freesbee plantas de arquitectura/08.jpg" alt="Image 1">
       <!-- Add more content here if needed -->
     </div>
-    <div id="casaJBRC3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="casaJBRC3" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3 style="color:white;">.</h3>
@@ -377,7 +422,7 @@ Maecenas nec lobortis nunc.
       <p>Photography: Santiago Giusto, Buenos Aires, Argentina, 2023 </p>
       <!-- Add more content here if needed -->
      </div>
-     <div id="casaJBRC4" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="casaJBRC4" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -423,7 +468,7 @@ Sequence: Catalina Sfer Salas</p>
       <p style="color:white;">.</p>
     </div>
     
-    <div id="casaFG" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="casaFG" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Stall</h3>
@@ -435,7 +480,7 @@ Sequence: Catalina Sfer Salas</p>
       <br>
       <p>Team: Manuel Mensa, Lucas Torres Agüero, Matías Etchart </p>
     </div>
-    <div  id="casaFG2" class="column" id="ensanche" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div  id="casaFG2" class="column" id="ensanche">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -446,7 +491,7 @@ Sequence: Catalina Sfer Salas</p>
        <video autoplay muted="muted" loop src="assets/img/09_casa gully_planos de arquitectura/05.mp4" alt="Video 1"></video> 
       <!-- Add more content here if needed -->
     </div>
-    <div id="casaFG3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="casaFG3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -468,7 +513,7 @@ Sequence: Catalina Sfer Salas</p>
       <p style="color:white;">.</p>
     </div>
     
-       <div id="cute" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+       <div id="cute" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Cute-chitecture</h3>
@@ -478,7 +523,7 @@ Sequence: Catalina Sfer Salas</p>
       <!--<hr>-->
       <p>A sensual architecture but not in the hedonistic sense; sensory but not in the sense of touch, taste, smell...; atmospheric but not in the sense of air or temperature….; materially heterogeneous but not eclectic or disaggregated; useful and functional but not utilitarian or instrumentalized; programmatically specific but not hyper determined; open but not indeterminate or flexible; an architecture of sensation in which the space-time dichotomy overcomes to create a world in itself, without resolution, without reconciliation, without sublimation: a disruption of all the senses confused with each other. Tender, sensitive architecture, without falling into the violence of snobbery or normalization only possible through detachment and evasion of any tragic sense of architectural practice. Cute-chitecture: a loving architecture without fear of death. <!-- Add more content here if needed -->
     </div>
-    <div id="cute2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="cute2" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3 style="color:white;">.</h3>
@@ -513,7 +558,7 @@ Sequence: Catalina Sfer Salas</p>
 </p>
       <!-- Add more content here if needed -->
   </div>
-       <div id="cute3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+       <div id="cute3" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3 style="color:white;">.</h3>
@@ -552,7 +597,7 @@ Sequence: Catalina Sfer Salas</p>
       <p style="color:white;">.</p>
     </div>
     
-    <div id="edificioSCW" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="edificioSCW" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Code Masochism</h3>
@@ -564,7 +609,7 @@ Sequence: Catalina Sfer Salas</p>
       <br>
       <p>Team: Manuel Mensa, Nicolás Boscoboinik</p><!-- Add more content here if needed -->
     </div>
-     <div id="edificioSCW2" class="column" id="ensanche" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="edificioSCW2" class="column" id="ensanche">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3 style="color:white;">.</h3>
@@ -577,7 +622,7 @@ Sequence: Catalina Sfer Salas</p>
       <img loading="lazy" src="assets/img/32_edificio/06.jpg" alt="Image 1">
       <!-- Add more content here if needed -->
     </div>
- <div id="edificioSCW3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+ <div id="edificioSCW3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -630,7 +675,7 @@ Maecenas nec lobortis nunc. </p>
     </div>
 -->
     
-    <div id="casaFKL" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="casaFKL" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Belle</h3>
@@ -642,7 +687,7 @@ Maecenas nec lobortis nunc. </p>
       <br>
       <p>Team: Manuel Mensa, Nicolás Boscoboinik, Catalina Sfer Salas </p><!-- Add more content here if needed -->
     </div>
-<div id="casaFKL2" class="column" id="ensanche" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+<div id="casaFKL2" class="column" id="ensanche">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -653,7 +698,7 @@ Maecenas nec lobortis nunc. </p>
   <img loading="lazy" src="assets/img/34_avenida de mayo/02.jpg" alt="Image 1">
       <!-- Add more content here if needed -->
     </div>
-    <div id="casaFKL3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="casaFKL3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -669,7 +714,7 @@ Maecenas nec lobortis nunc. </p>
       <!-- Add more content here if needed -->
     </div>
     
-    <div id="casaFKL4" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="casaFKL4" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -686,7 +731,7 @@ Maecenas nec lobortis nunc. </p>
       <p style="color:white;">.</p>
     </div>
     
-    <div id="creciendo" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="creciendo" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Growing Up in Public</h3>
@@ -813,7 +858,7 @@ In Front of a Nightclub<br>
       <p style="color:white;">.</p>
     </div>
     
-     <div id="erewhon" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="erewhon" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Erewhon</h3>
@@ -827,7 +872,7 @@ In Front of a Nightclub<br>
       <!-- Add more content here if needed -->
     </div>
       
-    <div id="erewhon2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="erewhon2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -856,7 +901,7 @@ shaping spatial <u>profusion</u>.</p>
       <br>
       <!-- Add more content here if needed -->
     </div>
-     <div id="erewhon3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="erewhon3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -878,7 +923,7 @@ shaping spatial <u>profusion</u>.</p>
      
       <!-- Add more content here if needed -->
     </div>
-    <div id="erewhon4" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="erewhon4" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -911,7 +956,7 @@ shaping spatial <u>profusion</u>.</p>
       <p style="color:white;">.</p>
     </div>
     
-     <div id="personajismo" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="personajismo" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Personaeism</h3>
@@ -945,7 +990,7 @@ shaping spatial <u>profusion</u>.</p>
     </div>
 
      
-    <div id="MPV" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="MPV" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Walls, Holes, and Doors</h3>
@@ -973,7 +1018,7 @@ shaping spatial <u>profusion</u>.</p>
       <p style="color:white;">.</p>
     </div>
 
-      <div id="edificios" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+      <div id="edificios" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>World Structures</h3>
@@ -988,7 +1033,7 @@ shaping spatial <u>profusion</u>.</p>
       
       <!-- Add more content here if needed -->
     </div>
-     <div id="edificios2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="edificios2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1007,7 +1052,7 @@ shaping spatial <u>profusion</u>.</p>
      
       <!-- Add more content here if needed -->
     </div>
-    <div id="edificios3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="edificios3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1034,7 +1079,7 @@ shaping spatial <u>profusion</u>.</p>
       <p style="color:white;">.</p>
     </div>
     
-    <div id="mothership" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="mothership" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>MothershipTheatre</h3>
@@ -1075,7 +1120,7 @@ In Miesian clearspan floor and ceiling are two hovering, apparently uninterrupte
      
       <!-- Add more content here if needed -->
     </div>
-     <div id="mothership2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="mothership2" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3 style="color:white;">.</h3>
@@ -1093,7 +1138,7 @@ In Miesian clearspan floor and ceiling are two hovering, apparently uninterrupte
      
       <!-- Add more content here if needed -->
     </div>
-    <div id="mothership3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="mothership3" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3 style="color:white;">.</h3>
@@ -1113,7 +1158,7 @@ In Miesian clearspan floor and ceiling are two hovering, apparently uninterrupte
       <p style="color:white;">.</p>
     </div>
     
-    <div  id="never" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div  id="never" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Never Even</h3>
@@ -1134,7 +1179,7 @@ In Miesian clearspan floor and ceiling are two hovering, apparently uninterrupte
       <p style="color:white;">.</p>
     </div>
     
-     <div id="sinEstado" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="sinEstado" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Stateless Architecture</h3>
@@ -1155,7 +1200,7 @@ The course investigates and uses the tools and conceptual findings that modern a
 <br>Students: Macarena Sánchez and Camila Sueyro, Martina Cingolani Rey and Manuel Maquirrain, Santiago Cornejo and Manuela Toto, Sol Sánchez Cimarelli and Sol Zamalloa, Camila Ambroggi and Felipe Ginevra, María Eugenia Cosentino and Agustina Mesa, Clara Sosa D'Este and Catalina Stok , María Eugenia Massa and Agustina Monopoli, Delfina Herrera and Magdalena Jenik.
 
     </div>
-    <div id="sinEstado2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="sinEstado2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1192,7 +1237,7 @@ Empujamos todos juntos para abrir una puerta y, como estaba trabada desde afuera
       <br>
       <!-- Add more content here if needed -->
   </div>
-     <div id="sinEstado3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="sinEstado3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1220,7 +1265,7 @@ Empujamos todos juntos para abrir una puerta y, como estaba trabada desde afuera
       <!-- Add more content here if needed -->
   </div>
     
-    <div id="sinEstado4" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="sinEstado4" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1254,7 +1299,7 @@ Empujamos todos juntos para abrir una puerta y, como estaba trabada desde afuera
       <p style="color:white;">.</p>
     </div>
     
-  <div id="singular" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+  <div id="singular" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Singular 00</h3>
@@ -1278,7 +1323,7 @@ Empujamos todos juntos para abrir una puerta y, como estaba trabada desde afuera
       <p style="color:white;">.</p>
     </div>
 
-     <div id="vanguardia" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="vanguardia" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Avant-Gardes or Nothing</h3>
@@ -1296,7 +1341,7 @@ In today's architectural culture, where any affirmative position quickly crystal
 <br>2016, 2017, 2018, 2019, 2020, 2021
 </p>
     </div>
-    <div id="vanguardia2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="vanguardia2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1340,7 +1385,7 @@ In today's architectural culture, where any affirmative position quickly crystal
       <p style="color:white;">.</p>
     </div>
 
-    <div id="omu" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="omu" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Oswald Mathias Ungers Equals One</h3>
@@ -1362,7 +1407,7 @@ In today's architectural culture, where any affirmative position quickly crystal
       
       <!-- Add more content here if needed -->
     </div>
-     <div id="omu2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="omu2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1381,7 +1426,7 @@ In today's architectural culture, where any affirmative position quickly crystal
      
       <!-- Add more content here if needed -->
     </div>
-    <div id="omu3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="omu3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1409,7 +1454,7 @@ In today's architectural culture, where any affirmative position quickly crystal
       <h3 style="color:white;">.</h3>
       <p style="color:white;">.</p>
     </div>
-     <div id="ultimate" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="ultimate" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>The House of the Ultimate Archetype</h3>
@@ -1425,7 +1470,7 @@ In today's architectural culture, where any affirmative position quickly crystal
       
       <!-- Add more content here if needed -->
     </div>
-     <div id="ultimate2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="ultimate2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1447,7 +1492,7 @@ In today's architectural culture, where any affirmative position quickly crystal
       <p style="color:white;">.</p>
     </div>
     
- <div id="ametralladora" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+ <div id="ametralladora" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Utopia Machine Gun</h3>
@@ -1460,7 +1505,7 @@ In today's architectural culture, where any affirmative position quickly crystal
 <br>2016, 2017, 2018, 2019, 2020, 2021
 </p>
  </div>
-    <div id="ametralladora2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="ametralladora2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1502,7 +1547,7 @@ In today's architectural culture, where any affirmative position quickly crystal
       <h3 style="color:white;">.</h3>
       <p style="color:white;">.</p>
     </div>
-      <div id="vicios" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+      <div id="vicios" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Vicious Functionalisms</h3>
@@ -1523,7 +1568,7 @@ All machines with their sizes, their operating protocols, their technical requir
       
       <!-- Add more content here if needed -->
     </div>
-     <div id="vicios2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="vicios2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1556,7 +1601,7 @@ All machines with their sizes, their operating protocols, their technical requir
       <p style="color:white;">.</p>
     </div>
     
-    <div id="imperio" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="imperio" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>The Empire of Architectural Values</h3>
@@ -1578,7 +1623,7 @@ Gilles Deleuze, Difference and Repetition, p.246</i>
       
       <!-- Add more content here if needed -->
     </div>
-     <div id="imperio2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="imperio2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1596,7 +1641,7 @@ Gilles Deleuze, Difference and Repetition, p.246</i>
      
       <!-- Add more content here if needed -->
     </div>
-    <div id="imperio3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="imperio3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1619,7 +1664,7 @@ Gilles Deleuze, Difference and Repetition, p.246</i>
       <h3 style="color:white;">.</h3>
       <p style="color:white;">.</p>
     </div>
-     <div id="masas" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="masas" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Refined Masses</h3>
@@ -1648,7 +1693,7 @@ Gilles Deleuze, Difference and Repetition, p.246</i>
       
       <!-- Add more content here if needed -->
     </div>
-     <div id="masas2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="masas2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1670,7 +1715,7 @@ Gilles Deleuze, Difference and Repetition, p.246</i>
      
       <!-- Add more content here if needed -->
     </div>
-       <div id="masas3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+       <div id="masas3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1693,7 +1738,7 @@ Gilles Deleuze, Difference and Repetition, p.246</i>
       <p style="color:white;">.</p>
     </div>
     
-    <div id="noche" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="noche" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Spending the Night Together</h3>
@@ -1711,7 +1756,7 @@ Art Direction: Magdalena Molinari, Miguel Marino
 Octubre 2023
 </p><!-- Add more content here if needed -->
     </div>
-     <div id="noche2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="noche2" class="column">
       <span class="anchor" ></span>
        <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1749,7 +1794,7 @@ Octubre 2023
     </div>
     
    
-    <div id="estados" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="estados" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>States of Architecture</h3>
@@ -1787,7 +1832,7 @@ Like the ripple of a stone falling into a lake, architecture makes the earth tre
       <p>Team: Manuel Mensa, Lucas Torres Agüero, Matías Etchart</p>
       <!-- Add more content here if needed -->
     </div>
-    <div id="estados2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="estados2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1834,7 +1879,7 @@ Like the ripple of a stone falling into a lake, architecture makes the earth tre
       <p style="color:white;">.</p>
     </div>
     
-     <div id="militancia" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="militancia" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Agrupación Militancia Arquitectura</h3>
@@ -1856,7 +1901,7 @@ Like the ripple of a stone falling into a lake, architecture makes the earth tre
     </div>
     
    
-<div id="cuerpo" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+<div id="cuerpo" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>The Hollow Body of Architecture </h3>
@@ -1898,7 +1943,7 @@ Like the ripple of a stone falling into a lake, architecture makes the earth tre
       <p style="color:white;">.</p>
     </div>
     
-     <div id="postponed" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="postponed" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Architecture Postponed</h3>
@@ -1921,7 +1966,7 @@ Like the ripple of a stone falling into a lake, architecture makes the earth tre
       <p style="color:white;">.</p>
     </div>
     
-     <div id="postponed2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="postponed2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -1944,7 +1989,7 @@ Like the ripple of a stone falling into a lake, architecture makes the earth tre
       <p style="color:white;">.</p>
     </div>
     
-     <div id="amorosa" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="amorosa" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Tu Amorosa</h3>
@@ -1958,7 +2003,7 @@ Like the ripple of a stone falling into a lake, architecture makes the earth tre
 The first time I heard about Ferdydurke, someone told me that it had been written by a Pole who, while living in Buenos Aires, translated it into Spanish with a group of admirers. Allegedly the experience of reading such a translation was like reading someone who does not know how to speak Spanish well enough: has little vocabulary, conjugates verbs poorly. Gombrowicz's book is much more than that, but then also much less... The following text arises from the disillusionment resulting from imagining literally and exaggeratedly, it is dictated, that is, performed and constructed, and then written, as if spoken by someone who, in the strictest sense, does not know the language in which he narrates. Its content follows all the detours that arise from following the previous word as if it had been imposed, or rather, as if they were planted there at random like the wind that brings grains.
     </p>
      </div>
- <div id="amorosa2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+ <div id="amorosa2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -2042,7 +2087,7 @@ The first time I heard about Ferdydurke, someone told me that it had been writte
       <p style="color:white;">.</p>
     </div>
   
-     <div id="sinFin" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="sinFin" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Towards an Endless Architecture</h3>
@@ -2103,7 +2148,7 @@ The first time I heard about Ferdydurke, someone told me that it had been writte
       <p style="color:white;">.</p>
     </div>
     
-    <div id="revolucion" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="revolucion" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>A Memorial for the Revolution</h3>
@@ -2128,7 +2173,7 @@ The first time I heard about Ferdydurke, someone told me that it had been writte
       <!-- Add more content here if needed -->
     </div>
     
-     <div id="revolucion2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="revolucion2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -2149,7 +2194,7 @@ The first time I heard about Ferdydurke, someone told me that it had been writte
       <p style="color:white;">.</p>
     </div>
     
-    <div id="muro" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="muro" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>In the Wall</h3></h3>
@@ -2172,7 +2217,7 @@ Buenos Aires, Argentina,
  <br>
 </p>
     </div>
-    <div id="muro2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="muro2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -2181,7 +2226,7 @@ Buenos Aires, Argentina,
       <!--<hr>-->
       <img class="lazyload" src="assets/img/11_en el muro/04.jpg" alt="Image 1">
     </div>
-    <div  id="muro3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div  id="muro3" class="column">
       <span class="anchor"></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -2209,7 +2254,7 @@ Buenos Aires, Argentina,
       <p style="color:white;">.</p>
     </div>
     
-    <div id="ciencias" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="ciencias" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Parque de Las Ciencias</h3>
@@ -2228,7 +2273,7 @@ Buenos Aires, Argentina,
         </p>
       <!-- Add more content here if needed -->
     </div>
-    <div id="ciencias2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="ciencias2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -2242,7 +2287,7 @@ Buenos Aires, Argentina,
        
       <!-- Add more content here if needed -->
     </div>
-     <div id="ciencias3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="ciencias3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -2264,7 +2309,7 @@ Buenos Aires, Argentina,
       <p style="color:white;">.</p>
     </div>
     
-    <div id="laberinto" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="laberinto" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Laberinto</h3>
@@ -2288,7 +2333,7 @@ Buenos Aires, Argentina,
 
     </div>
     
-     <div id="laberinto2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="laberinto2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -2301,7 +2346,7 @@ Buenos Aires, Argentina,
       <img loading="lazy" src="assets/img/17_Laberinto/09.jpg" alt="Image 1">
     </div>
     
-    <div id="laberinto3" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="laberinto3" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -2319,7 +2364,7 @@ Buenos Aires, Argentina,
       <p style="color:white;">.</p>
     </div>
     
-    <div id="invisibles" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="invisibles" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Invisible Geometries</h3>
@@ -2340,7 +2385,7 @@ Recognizing with the conceptual tools of architecture what the invisible geometr
       <p>Equipo: Manuel Mensa, Lucas Torres Agüero, Matías Etchart</p>
       <!-- Add more content here if needed -->
     </div>
- <div id="invisibles2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+ <div id="invisibles2" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -2363,7 +2408,7 @@ Recognizing with the conceptual tools of architecture what the invisible geometr
       <p style="color:white;">.</p>
     </div>
     
-    <div id="mundo" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="mundo" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Today the World</h3>
@@ -2456,7 +2501,7 @@ Today the world's population lives in cities. All architecture must deal with th
     </div>
     
     
-   <div  id="deleuze" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+   <div  id="deleuze" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Logic Of Sensation <br>
@@ -2683,7 +2728,7 @@ allotropic variations.
       <p>Project: Manuel Mensa, Catalina Sfer Salas </p>
       <!-- Add more content here if needed -->
     </div>
-<div  id="deleuze2" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+<div  id="deleuze2" class="column">
       <span class="anchor" ></span>
      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       <div class="guia"><a href="#deleuze"><p>Textos</p></a><p style="text-decoration: underline !important;">Diagramas</p></div>
@@ -2742,7 +2787,7 @@ allotropic variations.
       <h3 style="color:white;">.</h3>
       <p style="color:white;">.</p>
     </div>
-    <div id="estudio" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+    <div id="estudio" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Office</h3>
@@ -2761,7 +2806,7 @@ allotropic variations.
       <!-- Add more content here if needed -->
     </div>
     
-     <div id="oficina" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+     <div id="oficina" class="column">
       <span class="anchor" ></span>
       <h3 style="color:white;">.</h3>
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -2780,14 +2825,14 @@ allotropic variations.
       <p style="color:white;">.</p>
     </div>
     
-      <div id="web" class="column" onmousedown="startScrolling(this)" onmouseup="stopScrolling()" onmouseleave="stopScrolling()">
+      <div id="web" class="column">
       <span class="anchor" ></span>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <h3>Website</h3>
       <!--<p>Tapestry</p>-->
       <!--<br>-->
       <!--<hr>-->
-      <img loading="lazy" src="assets/img/37_website multicolumna/01.jpg" alt="Image 1">
+      <img loading="lazy" src="assets/img/37_website multicolumna/01.jpg" alt="Image 1" class="last-edge-image">
           <br>
           <br>
       <p>Project, curation y execution: Manuel Mensa, Catalina Sfer Salas, Nicolás Boscoboinik </p>
@@ -2799,7 +2844,7 @@ allotropic variations.
   </div>
   
   <div class="button-container-r">
-  <a href="#web"><button id="slideForwardTop" type="button" class="arrow-button-r"></button></a> <!--&#x226B;&#xFE0E; onclick="window.location.href = '#web';"-->
+  <!-- <a href="#web"><button id="slideForwardTop" type="button" class="arrow-button-r"></button></a> -->
 </div>
  <!-- <button id="slideForwardBottom" type="button" class="arrow-button-r" onmousedown="startScrollRight()" onmouseup="stopScrollRight()" onmouseleave="stopScrollRight()"></button>-->
 <button id="slideForwardBottom" type="button" class="arrow-button-r" 
@@ -2925,5 +2970,11 @@ function stopScrolling() {
 }
 
 </script>
+
+<!-- Sistema de Filtros -->
+<script src="assets/js/filters.js"></script>
+
+<!-- Sistema de Zoom de Imágenes -->
+<script src="assets/js/zoom-images.js"></script>
 
 </html>

@@ -13,6 +13,9 @@
 
 html {
   scroll-behavior: smooth !important; /* Smooth scrolling behavior for the entire page */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .container, html, body {
@@ -20,7 +23,7 @@ html {
     display: flex;
     overflow-x: scroll;
     gap: 10px;
-    padding-left: 0px;
+    /* padding-left: 5px; */
     margin: 0px;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -40,18 +43,32 @@ html {
     font-family: PitagonSerif;
     text-align: left;
     overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-x: visible;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
-    position: relative; /* Position relative for positioning the arrow */    
+    position: relative; /* Position relative for positioning the arrow */
+    outline: none; /* Remover outline cuando tiene focus */
+  }
+  
+  .column:focus {
+    outline: none;
+  }
+  
+  .column:focus-visible {
+    outline: none;
   }
 
  .column p {
     margin-top: 0em !important;
  }
 
+.desktop-only {
+  display: block;
+}
+
   #indice {
     margin-top: 0%; /* antes nada */
+    margin-left: 18px;
   }
 
   #indice p {
@@ -81,21 +98,11 @@ html {
   }
 
   .column:hover::after {
-  content: ''; 
-  position: sticky;
-  bottom: 7.5px; /* Adjust the distance from the bottom of the column */
-  left: 50%; /* Center the arrow horizontally */
-  transform: translateX(-50%) rotate(45deg); /* Center and rotate the arrow */
-  width: 0; 
-  height: 0; 
-  border: solid #191970;
-  border-width: 0 1px 1px 0;
-  display: inline-block;
-  padding: 3px;
+  display: none; /* Ocultar flechas al hacer hover */
     }
 
   .gap {
-
+    display: none;
     margin-top: 0%; /* antes 8.4% */
     flex: 0 0 auto;
     width: 0% !important; /* Antes 5% */
@@ -124,6 +131,27 @@ html {
     text-decoration:none;
     /*left: 20px; */
     position: relative;
+  }
+
+  .header {
+    font-family: PitagonSerif !important;
+    position: fixed;
+    top: 21px;
+    left: 22px;
+    width: calc(100vw - 44px);
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .header h3 {
+    margin-top: 0px !important;
+    margin-bottom: 3px;
+  }
+
+  .header > div:first-child p {
+    margin-bottom: -12px !important;
+    line-height: 1;
   }
 
   .column a:hover {
@@ -157,7 +185,8 @@ html {
 .button-container-l {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 20px;
+  margin-top: 0;
   /* width: 100%; */
   display: flex;
   flex-direction: column;
@@ -167,7 +196,8 @@ html {
 .button-container-r {
   position: fixed;
   top: 0;
-  right: 0;
+  right: 20px;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   z-index: 99;
@@ -179,6 +209,7 @@ html {
 
 #slideBackTop {
   content: ''; 
+  margin-top: 0;
   margin-bottom: 10px;
   bottom: 10px; /* Adjust the distance from the bottom of the column */
   left: 50%; /* Center the arrow horizontally */
@@ -193,6 +224,7 @@ html {
 
 #slideForwardTop {
   content: ''; 
+  margin-top: 0;
   margin-bottom: 10px;
   bottom: 10px; /* Adjust the distance from the bottom of the column */
   left: 50%; /* Center the arrow horizontally */
@@ -223,19 +255,25 @@ html {
   padding: 5.2px;
 }
 
-#slideBackBottom {
+/* Asegurar que ambos botones tengan la misma distancia del borde */
+#slideBackBottom,
+#slideForwardBottom {
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 30px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border: none;
+}
+
+#slideBackBottom {
+  left: 18px;
   z-index: 99;
 }
 
 #slideForwardBottom {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 30px;
+  right: 18px;
 }
 
 .arrow-button-l, .arrow-button-r {
@@ -245,14 +283,15 @@ html {
   background-color: transparent;
   border: none;
   font-size: 16px;
+  margin-top: 0;
 }
 
 #slideBackBottom::before {
  /* content: "\02C2";*/
   content: ''; 
   bottom: 10px; /* Adjust the distance from the bottom of the column */
-  left: 50%; /* Center the arrow horizontally */
-  transform: translateX(-50%) rotate(135deg); /* Center and rotate the arrow */
+  right: 0; /* Alinear al borde derecho interno */
+  transform: rotate(135deg); /* Rotar la flecha */
   width: 0; 
   height: 0; 
   border: solid #191970;
@@ -265,8 +304,8 @@ html {
 /* content: "\02C3";  Unicode for left arrow */
   content: ''; 
   bottom: 10px; /* Adjust the distance from the bottom of the column */
-  left: 50%; /* Center the arrow horizontally */
-  transform: translateX(-50%) rotate(315deg); /* Center and rotate the arrow */
+  left: 0; /* Alinear al borde izquierdo interno */
+  transform: rotate(315deg); /* Rotar la flecha */
   width: 0; 
   height: 0; 
   border: solid #191970;
@@ -288,6 +327,23 @@ html {
   /* Media query for mobile devices */
   @media (max-width: 768px) {
 
+    .header {
+      font-family: PitagonSerif !important;
+      position: relative;
+      width: 86%;
+      left: 0%;
+      top: 0%;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+    }
+
+  .desktop-only {
+  display: none !important;
+  }
+
   .guia {
   display: flex;
   }
@@ -307,15 +363,16 @@ html {
     
   .container {
   display: flex;
-  /*overflow-x: scroll;*/
-  /*-webkit-overflow-scrolling: touch;*/
-  /*scroll-snap-type: x mandatory;*/
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
   }
 
   .column {
   flex: 0 0 auto;
   width: 86%; 
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   overflow-wrap: break-word !important;
   padding: 30px;
   }
@@ -332,6 +389,7 @@ html {
 
   .gap {
   display: none;
+  scroll-snap-align: none;
   }
 
 #slideBackTop {
@@ -363,4 +421,16 @@ html {
   border-width: 0 0px 0px 0;
     }
 }
+
+/* Image click-to-zoom toggle - Desktop only */
+@media (min-width: 769px) {
+  .column img {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+}
+
+
+
+/* (reverted) no special column state for zoomed images */
 
