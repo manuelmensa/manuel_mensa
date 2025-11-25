@@ -97,7 +97,8 @@ function createZoomedImage(originalImage) {
     const zoomedItem = {
         clone: zoomedImageClone,
         original: originalImage,
-        rafId: null
+        rafId: null,
+        initialPositionAdjusted: false // Flag para aplicar ajuste de bordes en la primera actualización
     };
     
     // Si es video, asegurarnos de que no reproduzca sonido ni interfiera
@@ -139,9 +140,12 @@ function createZoomedImage(originalImage) {
     // Animar el zoom después de un pequeño delay
     setTimeout(() => {
         if (zoomedItem.clone && zoomedImages.includes(zoomedItem)) {
+            // Obtener rect actualizado justo antes de calcular posición
+            const currentRect = originalImage.getBoundingClientRect();
+            
             // Detectar orientación: horizontal (landscape), cuadrada o vertical (portrait)
             // Horizontales: zoom 3x, cuadradas: zoom 2.5x, verticales: zoom 2x
-            const aspectRatio = rect.width / rect.height;
+            const aspectRatio = currentRect.width / currentRect.height;
             let scale;
             if (aspectRatio > 1.1) {
                 // Horizontal (landscape): zoom 3x
@@ -153,12 +157,17 @@ function createZoomedImage(originalImage) {
                 // Cuadrada (aspect ratio cercano a 1): zoom 2.5x
                 scale = 2.5;
             }
-            const newWidth = rect.width * scale;
-            const newHeight = rect.height * scale;
+            const newWidth = currentRect.width * scale;
+            const newHeight = currentRect.height * scale;
             // Persistir tamaño objetivo para recalcular posición al scrollear
             zoomedImageClone.dataset.zoomWidth = String(newWidth);
             zoomedImageClone.dataset.zoomHeight = String(newHeight);
-            updateZoomedClonePosition(zoomedItem);
+            
+            // Aplicar tamaño inicial (la posición la establecerá el loop con el ajuste de bordes en la primera actualización)
+            zoomedImageClone.style.width = newWidth + 'px';
+            zoomedImageClone.style.height = newHeight + 'px';
+            
+            // Iniciar el loop que establecerá la posición (con ajuste de bordes aplicado en la primera actualización)
             startZoomFollowLoop(zoomedItem);
             // Quitar transición tras la animación inicial para que siga sin lag
             setTimeout(() => {
@@ -281,27 +290,33 @@ function updateZoomedClonePosition(zoomedItem) {
     const newWidth = parseFloat(zoomedItem.clone.dataset.zoomWidth || '0') || rectNow.width * 2.0;
     const newHeight = parseFloat(zoomedItem.clone.dataset.zoomHeight || '0') || rectNow.height * 2.0;
     
-    // Calcular posición ideal (centrada)
+    // Calcular posición inicial (centrada por defecto)
     let left = rectNow.left + rectNow.width / 2 - newWidth / 2;
     let top = rectNow.top + rectNow.height / 2 - newHeight / 2;
     
-    // Solo aplicar ajuste de bordes si la imagen tiene la clase 'last-edge-image'
+    // Aplicar ajustes de justificación siempre (no solo en la primera actualización)
+    // Para last-edge-image, alinear a la derecha y centrar verticalmente
     if (zoomedItem.original.classList.contains('last-edge-image')) {
-        // Obtener dimensiones del viewport
-        const viewportWidth = window.innerWidth;
-        
-        // Ajustar solo posición horizontal si se sale por la derecha
-        if (left + newWidth > viewportWidth) {
-            left = viewportWidth - newWidth;
-        }
-        
-        // Ajustar solo posición horizontal si se sale por la izquierda
-        if (left < 0) {
-            left = 0;
+        // Alinear a la derecha: alinear el borde derecho de la imagen ampliada con el borde derecho de la original
+        left = rectNow.right - newWidth;
+        // Mantener centrado verticalmente (ya calculado arriba)
+        // top ya está centrado: rectNow.top + rectNow.height / 2 - newHeight / 2
+    } else {
+        // Detectar si la imagen es la última de su columna y ajustar posición vertical
+        // (solo si NO es last-edge-image)
+        const column = zoomedItem.original.closest('.column');
+        if (column) {
+            // Obtener todas las imágenes/videos de la columna
+            const columnImages = Array.from(column.querySelectorAll('img, video'));
+            const isLastInColumn = columnImages.length > 0 && 
+                                   columnImages[columnImages.length - 1] === zoomedItem.original;
+            
+            if (isLastInColumn) {
+                // Justificar hacia abajo: alinear el borde inferior de la imagen ampliada con el borde inferior de la original
+                top = rectNow.bottom - newHeight;
+            }
         }
     }
-    
-    // No ajustar posición vertical para no interferir con el scroll de las columnas
     zoomedItem.clone.style.left = left + 'px';
     zoomedItem.clone.style.top = top + 'px';
     zoomedItem.clone.style.width = newWidth + 'px';
