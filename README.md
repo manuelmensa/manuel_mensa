@@ -1,5 +1,42 @@
 # Manuel Mensa Portfolio
 
+## Cómo agregar nuevas categorías/filtros
+
+Sigue estos pasos cuando necesites sumar una categoría nueva a los filtros del índice (por ejemplo, para un nuevo grupo de proyectos):
+
+1. **Identifica los IDs de los proyectos**  
+   - Cada columna principal en `public/index.html` tiene un `id` (ej. `casaERCP`, `mothership`).  
+   - Si un proyecto tiene sub-columnas numeradas (`casaERCP2`, `casaERCP3`), usa siempre el ID base sin números (`casaERCP`).
+
+2. **Edita `public/assets/js/filters.js`**  
+   - Dentro del objeto `categories`, agrega una nueva entrada con una clave única (solo minúsculas y sin espacios).  
+   - Incluye `nameES`, `nameEN` y el arreglo `projects` con los IDs base del paso anterior, por ejemplo:
+
+     ```js
+     'nuevaCategoria': {
+         nameES: 'Nombre en español',
+         nameEN: 'Name in English',
+         projects: ['idProyecto1', 'idProyecto2']
+     }
+     ```
+
+3. **Guarda y prueba**  
+   - Recarga el sitio; el botón aparece automáticamente antes del título “Índice/Index”.  
+   - Activa el filtro y verifica que solo se muestren las columnas listadas y que los links del índice se deshabiliten correctamente para el resto.
+
+4. **(Opcional) Reordena los filtros**  
+   - Los botones se muestran en el mismo orden que las claves dentro del objeto `categories`. Cambia ese orden si necesitas que la nueva categoría aparezca antes o después de las existentes.
+
+## Cómo comprimir imágenes
+
+Para mantener el sitio liviano, usá una herramienta online (TinyJPG/TinyPNG o similar) y reemplazá los archivos existentes.
+
+1. **Duplicá la imagen original** que querés optimizar para tener un respaldo manual.
+2. **Subila a la herramienta de compresión** (por ejemplo [TinyJPG](https://tinyjpg.com/) o [TinyPNG](https://tinypng.com/)) y descargá la versión optimizada.
+3. **Verificá que el nombre del archivo coincida** exactamente con el original dentro de `public/assets/img/...` para evitar romper referencias.
+4. **Reemplazá el archivo** en `public/assets/img/...` por la versión optimizada.
+5. **Recargá el sitio** para confirmar que se sigue viendo correctamente (especialmente si es un PNG con transparencias).
+
 ## Links Directos a Proyectos
 
 Puedes compartir links directos a proyectos específicos usando slugs URL-friendly basados en los nombres del índice.
@@ -58,7 +95,7 @@ Los slugs se generan automáticamente desde los nombres del índice. Ejemplos:
 ### Ejemplo de uso:
 
 ```
-https://tudominio.com/#telones
-https://tudominio.com/#arquitectura-sin-estado
-https://tudominio.com/#matters-of-fact
+https://manuelmensa.com/#telones
+https://manuelmensa.com/#arquitectura-sin-estado
+https://manuelmensa.com/#matters-of-fact
 ```
