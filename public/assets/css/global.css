@@ -421,6 +421,16 @@ html {
 #slideForwardBottom::before {
   padding: 6px;
 }
+
+  /* Acercar flechas inferiores al borde en mobile */
+  #slideBackBottom {
+    left: 5px;
+  }
+
+  #slideForwardBottom {
+    right: 5px;
+  }
+
   .column:hover::after {
   border-width: 0 0px 0px 0;
     }
