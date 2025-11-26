@@ -76,6 +76,10 @@ html {
     text-indent: 0%;
   }
 
+  #indice h3 {
+    margin-top: 3em !important;
+  }
+
   #ensanche {
   width: 18%;
   }
@@ -329,15 +333,15 @@ html {
 
     .header {
       font-family: PitagonSerif !important;
-      position: relative;
-      width: 86%;
-      left: 0%;
-      top: 0%;
-      z-index: 5;
+      position: fixed;
+      top: 21px;
+      left: 28px;
+      width: calc(100vw - 56px);
+      z-index: 100;
+      color: black;
+      text-decoration: none;
       display: flex;
-      flex-direction: column;
       justify-content: space-between;
-
     }
 
   .desktop-only {
@@ -371,7 +375,7 @@ html {
   .column {
   flex: 0 0 auto;
   width: 86%; 
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   scroll-snap-stop: always;
   overflow-wrap: break-word !important;
   padding: 30px;
@@ -417,6 +421,16 @@ html {
 #slideForwardBottom::before {
   padding: 6px;
 }
+
+  /* Acercar flechas inferiores al borde en mobile */
+  #slideBackBottom {
+    left: 5px;
+  }
+
+  #slideForwardBottom {
+    right: 5px;
+  }
+
   .column:hover::after {
   border-width: 0 0px 0px 0;
     }

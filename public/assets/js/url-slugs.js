@@ -90,20 +90,21 @@ function hashToId(hash) {
     // Remover el # si existe
     const cleanHash = hash.replace(/^#/, '');
     
-    // Si el hash termina en número, es una sub-columna - usar directamente como ID
-    if (/\d+$/.test(cleanHash)) {
-        const element = document.getElementById(cleanHash);
-        if (element) return cleanHash;
-        return null;
-    }
-    
     // Primero intentar como slug (para proyectos principales)
+    // Esto debe ir antes de verificar si termina en número, porque slugs pueden contener números
     const idFromSlug = getIdFromSlug(cleanHash);
     if (idFromSlug) return idFromSlug;
     
-    // Si no funciona, verificar si es un ID existente (backward compatibility)
+    // Si no funciona como slug, verificar si es un ID existente (backward compatibility)
     const element = document.getElementById(cleanHash);
     if (element) return cleanHash;
+    
+    // Si el hash termina en número y no se encontró como slug ni como ID directo,
+    // podría ser una sub-columna - intentar como ID directamente
+    if (/\d+$/.test(cleanHash)) {
+        // Ya verificamos arriba con getElementById, así que si llegamos aquí no existe
+        return null;
+    }
     
     return null;
 }
